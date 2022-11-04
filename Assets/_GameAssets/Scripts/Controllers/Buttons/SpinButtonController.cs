@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpinWheelButtonController : MonoBehaviour
+public class SpinButtonController : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
