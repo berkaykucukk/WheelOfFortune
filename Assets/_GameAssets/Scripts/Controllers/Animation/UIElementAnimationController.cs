@@ -7,7 +7,10 @@ using UnityEngine;
 
 public class UIElementAnimationController : MonoBehaviour
 {
-    #region INSPECTOR PROPERTIES
+    
+    #region PRIVATE PROPERTIES
+
+    private float spinWheelAngle = 360f;
 
     #endregion
 }
