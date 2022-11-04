@@ -24,7 +24,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
     #region PRIVATE PROPERTIES
 
     private WheelOfFortuneStateManager stateManager;
-    private WheelOfFortuneEventsListener EventsListener => GetComponent<WheelOfFortuneEventsListener>();
+    private WheelOfFortuneEventsListener eventsListener;
 
     #endregion
 
@@ -32,21 +32,26 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private void Awake()
     {
+        eventsListener = GetComponent<WheelOfFortuneEventsListener>();
         stateManager = WheelOfFortuneStateManager.instance;
     }
 
     private void OnEnable()
     {
-        EventsListener.onSpinButtonClicked += TriggerSpinReady;
+        eventsListener.onSpinButtonClicked += TriggerSpinReady;
     }
 
     private void OnDisable()
     {
-        EventsListener.onSpinButtonClicked -= TriggerSpinReady;
+        eventsListener.onSpinButtonClicked -= TriggerSpinReady;
+    }
+
+    private void Start()
+    {
+        stateManager.TriggerCreateItemsEvent(numberOfSpinWheelItems);
     }
 
     #endregion
-
 
     private void TriggerSpinReady()
     {

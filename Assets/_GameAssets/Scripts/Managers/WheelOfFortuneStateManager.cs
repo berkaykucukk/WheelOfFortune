@@ -13,12 +13,17 @@ public class WheelOfFortuneStateManager : Singleton<WheelOfFortuneStateManager>
 
     public void TriggerSpinButtonClickEvent()
     {
-        wheelOfFortuneEvents.OnSpinButtonClicked?.Invoke();
+        wheelOfFortuneEvents.TriggerOnSpinButtonClickedEvent();
     }
 
     public void TriggerSpinReadyEvent(int numberOfItems, float duration, int numberRotate,
         AnimationCurve curveSpin)
     {
-        wheelOfFortuneEvents.OnSpinReady?.Invoke(numberOfItems, duration, numberRotate, curveSpin);
+        wheelOfFortuneEvents.TriggerSpinReadyEvent(numberOfItems, duration, numberRotate, curveSpin);
+    }
+
+    public void TriggerCreateItemsEvent(int numberOfItems)
+    {
+        wheelOfFortuneEvents.TriggerOnCreateWheelItemsEvent(numberOfItems);
     }
 }

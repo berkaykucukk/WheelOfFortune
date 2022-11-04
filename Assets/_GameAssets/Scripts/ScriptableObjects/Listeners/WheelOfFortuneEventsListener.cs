@@ -11,6 +11,7 @@ public class WheelOfFortuneEventsListener : MonoBehaviour
 
     public Action onSpinButtonClicked;
     public Action<int, float, int, AnimationCurve> onSpinReady;
+    public Action<int> onCreateItems;
 
     #endregion
 
@@ -26,12 +27,14 @@ public class WheelOfFortuneEventsListener : MonoBehaviour
     {
         wheelOfFortuneEvents.OnSpinButtonClicked += OnSpinButtonClicked;
         wheelOfFortuneEvents.OnSpinReady += OnSpinReady;
+        wheelOfFortuneEvents.OnCreateWheelItems += OnCreateItems;
     }
 
     private void OnDisable()
     {
         wheelOfFortuneEvents.OnSpinButtonClicked -= OnSpinButtonClicked;
         wheelOfFortuneEvents.OnSpinReady -= OnSpinReady;
+        wheelOfFortuneEvents.OnCreateWheelItems -= OnCreateItems;
     }
 
     #endregion
@@ -47,6 +50,11 @@ public class WheelOfFortuneEventsListener : MonoBehaviour
         AnimationCurve curveSpin)
     {
         onSpinReady?.Invoke(numberOfItems, duration, numberRotate, curveSpin);
+    }
+
+    private void OnCreateItems(int numberOfItems)
+    {
+        onCreateItems?.Invoke(numberOfItems);
     }
 
     #endregion
