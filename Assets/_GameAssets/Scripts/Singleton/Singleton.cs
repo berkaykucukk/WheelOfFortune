@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Dreamteck
+namespace SystemPersonel
 {
     public class Singleton<T> : MonoBehaviour where T : Component
     {
