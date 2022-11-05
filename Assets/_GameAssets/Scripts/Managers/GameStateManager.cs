@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using SystemPersonel;
 using UnityEngine;
 
-public class WheelOfFortuneStateManager : Singleton<WheelOfFortuneStateManager>
+public class GameStateManager : Singleton<GameStateManager>
 {
     #region PRIVATE PROPERITES
-
-
 
     private WheelZoneStates stateCurrent;
 
@@ -17,7 +15,7 @@ public class WheelOfFortuneStateManager : Singleton<WheelOfFortuneStateManager>
     #region INSPECTOR PROPERTIES
 
     [SerializeField] private WheelZoneStates stateBeginning;
-    [SerializeField] private WheelOfFortuneEvents wheelOfFortuneEvents;
+    [SerializeField] private GameStateEvents gameStateEvents;
 
     #endregion
 
@@ -35,17 +33,27 @@ public class WheelOfFortuneStateManager : Singleton<WheelOfFortuneStateManager>
 
     public void TriggerSpinButtonClickEvent()
     {
-        wheelOfFortuneEvents.TriggerOnSpinButtonClickedEvent();
+        gameStateEvents.TriggerOnSpinButtonClickedEvent();
     }
 
     public void TriggerSpinReadyEvent(int numberOfItems, float duration, int numberRotate,
         AnimationCurve curveSpin)
     {
-        wheelOfFortuneEvents.TriggerSpinReadyEvent(numberOfItems, duration, numberRotate, curveSpin);
+        gameStateEvents.TriggerSpinReadyEvent(numberOfItems, duration, numberRotate, curveSpin);
     }
 
     public void TriggerCreateItemsEvent(WheelItemsContentData contentDataCurrent)
     {
-        wheelOfFortuneEvents.TriggerOnCreateWheelItemsEvent(contentDataCurrent);
+        gameStateEvents.TriggerOnCreateWheelItemsEvent(contentDataCurrent);
+    }
+
+    public void TriggerOnWheelRotateDone(int itemIndex)
+    {
+        gameStateEvents.TriggerOnWheelRotateDoneEvent(itemIndex);
+    }
+
+    public void TriggerOnWheelItemsSpawned(List<WheelItemData> itemsCurrentlySpawned)
+    {
+        gameStateEvents.TriggerOnWheelItemsSpawnedEvent(itemsCurrentlySpawned);
     }
 }

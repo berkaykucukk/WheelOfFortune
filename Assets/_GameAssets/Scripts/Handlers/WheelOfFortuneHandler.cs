@@ -6,7 +6,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(WheelOfFortuneEventsListener))]
+[RequireComponent(typeof(GameEventsListener))]
 public class WheelOfFortuneHandler : MonoBehaviour
 {
     #region SPIN VALUES
@@ -52,8 +52,8 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     #region PRIVATE PROPERTIES
 
-    private WheelOfFortuneStateManager stateManager;
-    private WheelOfFortuneEventsListener eventsListener;
+    private GameStateManager stateManager;
+    private GameEventsListener eventsListener;
     private WheelItemsContentData contentDataCurrent;
 
     #endregion
@@ -62,8 +62,8 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private void Awake()
     {
-        eventsListener = GetComponent<WheelOfFortuneEventsListener>();
-        stateManager = WheelOfFortuneStateManager.instance;
+        eventsListener = GetComponent<GameEventsListener>();
+        stateManager = GameStateManager.instance;
     }
 
     private void Start()
@@ -83,6 +83,8 @@ public class WheelOfFortuneHandler : MonoBehaviour
     }
 
     #endregion
+
+    #region PRIVATE METHODS
 
     private void SetCurrentWheelItemContentData()
     {
@@ -114,4 +116,6 @@ public class WheelOfFortuneHandler : MonoBehaviour
     {
         stateManager.TriggerSpinReadyEvent(numberOfSpinWheelItems, durationSpin, numberRotate, curveSpin);
     }
+
+    #endregion
 }

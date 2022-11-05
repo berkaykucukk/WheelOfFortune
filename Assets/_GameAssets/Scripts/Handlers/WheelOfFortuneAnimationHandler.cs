@@ -23,15 +23,15 @@ public class WheelOfFortuneAnimationHandler : MonoBehaviour
 
     #region PRIVATE PROPERTIES
 
-    private WheelOfFortuneStateManager stateManager;
-    private WheelOfFortuneEventsListener eventsListener;
+    private GameStateManager stateManager;
+    private GameEventsListener eventsListener;
 
     #endregion
 
     private void Awake()
     {
-        eventsListener = GetComponent<WheelOfFortuneEventsListener>();
-        stateManager = WheelOfFortuneStateManager.instance;
+        eventsListener = GetComponent<GameEventsListener>();
+        stateManager = GameStateManager.instance;
     }
 
     private void OnEnable()

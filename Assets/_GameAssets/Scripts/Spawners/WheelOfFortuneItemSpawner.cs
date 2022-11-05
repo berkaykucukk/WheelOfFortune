@@ -26,9 +26,8 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     #region PRIVATE PROPERTIES
 
-    private List<WheelItemData> itemsListWheelCurrentlySpawned;
-    private WheelOfFortuneStateManager stateManager;
-    private WheelOfFortuneEventsListener wheelOfFortuneEventsListener;
+    private GameStateManager stateManager;
+    private GameEventsListener gameEventsListener;
 
     #endregion
 
@@ -36,18 +35,18 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     private void Awake()
     {
-        stateManager = WheelOfFortuneStateManager.instance;
-        wheelOfFortuneEventsListener = GetComponent<WheelOfFortuneEventsListener>();
+        stateManager = GameStateManager.instance;
+        gameEventsListener = GetComponent<GameEventsListener>();
     }
 
     private void OnEnable()
     {
-        wheelOfFortuneEventsListener.onCreateItems += InstantiateItems;
+        gameEventsListener.onCreateItems += InstantiateItems;
     }
 
     private void OnDisable()
     {
-        wheelOfFortuneEventsListener.onCreateItems -= InstantiateItems;
+        gameEventsListener.onCreateItems -= InstantiateItems;
     }
 
     #endregion
@@ -55,26 +54,27 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     private void InstantiateItems(WheelItemsContentData contentDataCurrent)
     {
-        itemsListWheelCurrentlySpawned = new List<WheelItemData>();
-        itemsListWheelCurrentlySpawned.AddRange(contentDataCurrent.ItemsOnWheel);
+        var itemsWillSpawn = new List<WheelItemData>();
+        itemsWillSpawn.AddRange(contentDataCurrent.ItemsOnWheel);
 
         var haveBomb = stateManager.StateCurrent == WheelZoneStates.bronze;
         //print("HAve Bomb = " + haveBomb);
 
         if (haveBomb)
-            itemsListWheelCurrentlySpawned.Add(itemBombPrefab);
+            itemsWillSpawn.Add(itemBombPrefab);
 
 
-        var numberOfItems = itemsListWheelCurrentlySpawned.Count;
+        var numberOfItems = itemsWillSpawn.Count;
         //print("number of items = " + numberOfItems);
         var angle = 360f / numberOfItems;
 
         var radius = Vector3.Distance(referenceCalculateRadiusWheelImage.position, transform.position);
 
+        var itemsCurrentlySpawned = new List<WheelItemData>();
         for (int i = 0; i < numberOfItems; i++)
         {
-            var itemNextSpawn = itemsListWheelCurrentlySpawned[i].PrefabImageOnWheel;
-
+            var itemNextSpawn = itemsWillSpawn[i].PrefabImageOnWheel;
+            itemsCurrentlySpawned.Add(itemsWillSpawn[i]);
             var rotation = Quaternion.AngleAxis(i * angle, Vector3.forward);
             var direction = rotation * Vector3.up;
 
@@ -84,5 +84,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             go.transform.SetParent(panelItemsAreaBronze);
             go.transform.localScale = Vector3.one;
         }
+
+        stateManager.TriggerOnWheelItemsSpawned(itemsCurrentlySpawned);
     }
 }

@@ -5,20 +5,26 @@ using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(WheelOfFortuneEventsListener))]
+[RequireComponent(typeof(GameEventsListener))]
 public class WheelAnimationController : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
     private float SpinWheelAngle = 360f;
-    private WheelOfFortuneEventsListener EventsListener => GetComponent<WheelOfFortuneEventsListener>();
+    private GameEventsListener EventsListener => GetComponent<GameEventsListener>();
     private float spinTimer = 0;
     private float angleSection;
+    private GameStateManager gameStateManager;
 
     #endregion
 
 
     #region UNITY METHODS
+
+    private void Awake()
+    {
+        gameStateManager = GameStateManager.instance;
+    }
 
     private void OnEnable()
     {
@@ -46,15 +52,18 @@ public class WheelAnimationController : MonoBehaviour
         var startAngle = transform.eulerAngles.z;
 
         angleSection = SpinWheelAngle / numberOfItems;
-        var randomItem = Random.Range(1, numberOfItems);
+        var randomItem = Random.Range(0, numberOfItems);
         var targetAngle = (numberRotate * SpinWheelAngle) + angleSection * randomItem - startAngle;
+        var angleCurrent = 0f;
         while (spinTimer < durationRotate)
         {
             yield return null;
             spinTimer += Time.deltaTime;
-            var angleCurrent = (targetAngle) * curveSpin.Evaluate(spinTimer / durationRotate);
+            angleCurrent = (targetAngle) * curveSpin.Evaluate(spinTimer / durationRotate);
             transform.eulerAngles = new Vector3(0, 0, angleCurrent + startAngle);
         }
-        
+
+        print("Random item index = " + angleCurrent);
+        gameStateManager.TriggerOnWheelRotateDone(randomItem);
     }
 }

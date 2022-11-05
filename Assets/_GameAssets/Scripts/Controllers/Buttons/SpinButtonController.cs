@@ -9,13 +9,13 @@ public class SpinButtonController : MonoBehaviour
     #region PRIVATE PROPERTIES
 
     private Button SpinButton => GetComponent<Button>();
-    private WheelOfFortuneStateManager stateManager;
+    private GameStateManager stateManager;
 
     #endregion
 
     private void Awake()
     {
-        stateManager = WheelOfFortuneStateManager.instance;
+        stateManager = GameStateManager.instance;
     }
 
     private void OnValidate()

@@ -217,7 +217,7 @@ RectTransform:
   m_Children:
   - {fileID: 1532127896}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -634,7 +634,7 @@ MonoBehaviour:
   _dontDestryOnLoad: 1
   _overrideInstance: 0
   stateBeginning: 0
-  wheelOfFortuneEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
+  gameStateEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
 --- !u!1 &556209157
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,7 +769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724be6a1fa3ffbc44b215c7915af3ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelOfFortuneEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
+  gameStateEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
 --- !u!114 &651582161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724be6a1fa3ffbc44b215c7915af3ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelOfFortuneEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
+  gameStateEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
 --- !u!1 &1107157084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,7 +1548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724be6a1fa3ffbc44b215c7915af3ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelOfFortuneEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
+  gameStateEvents: {fileID: 0}
 --- !u!114 &1727595473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,6 +1599,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727595470}
   m_CullTransparentMesh: 1
+--- !u!1 &1757055500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1757055503}
+  - component: {fileID: 1757055501}
+  - component: {fileID: 1757055502}
+  m_Layer: 0
+  m_Name: SpinResultController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1757055501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757055500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d081fe41cf9302747935dbd4f5e74134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1757055502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757055500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724be6a1fa3ffbc44b215c7915af3ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStateEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
+--- !u!4 &1757055503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757055500}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1958956535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1842,7 +1900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724be6a1fa3ffbc44b215c7915af3ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelOfFortuneEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
+  gameStateEvents: {fileID: 0}
 --- !u!114 &2134246837
 MonoBehaviour:
   m_ObjectHideFlags: 0
