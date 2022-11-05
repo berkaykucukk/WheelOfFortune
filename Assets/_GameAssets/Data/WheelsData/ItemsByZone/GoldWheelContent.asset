@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2b7b566886ccb469d1a18bb4fb5c2a, type: 3}
   m_Name: GoldWheelContent
   m_EditorClassIdentifier: 
+  statementType: 2
   itemsOnWheel:
   - {fileID: 11400000, guid: e6c2d88bebb3bfc4a93bce261ed275d0, type: 2}
   - {fileID: 11400000, guid: b8509099b819b1c4bac3686387405724, type: 2}
@@ -19,4 +20,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be8f5f631b62b9240aa35597ec3d1ad3, type: 2}
   - {fileID: 11400000, guid: b8509099b819b1c4bac3686387405724, type: 2}
   - {fileID: 11400000, guid: be8f5f631b62b9240aa35597ec3d1ad3, type: 2}
+  - {fileID: 11400000, guid: 71df553f86b74b5418eb097e104ce61e, type: 2}
   - {fileID: 11400000, guid: 71df553f86b74b5418eb097e104ce61e, type: 2}

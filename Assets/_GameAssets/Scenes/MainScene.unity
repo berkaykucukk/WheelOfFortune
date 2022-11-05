@@ -725,6 +725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9918100dc90e2498e74e1eed4fd6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfSpinWheelItems: 8
   durationSpin: 2
   numberRotate: 3
   curveSpin:
@@ -751,7 +752,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  useDifferentContentsAtZones: 0
+  useDifferentContentsAtZones: 1
   contentDefault: {fileID: 11400000, guid: 464737d5381345d4eb976001c6ae8bcf, type: 2}
   contentsBronze: {fileID: 11400000, guid: 5939f04f37196994593539d5de1981ef, type: 2}
   contentsSilver: {fileID: 11400000, guid: 46c4998185dc1fc4bb0ba84a44af491a, type: 2}
@@ -781,12 +782,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4483ed4f392d6484ea58dcb36fef2745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemBombPrefab: {fileID: 0}
-  itemPrefab: {fileID: 5041432397559281211, guid: 0b7509aed965f9d4dad769d5aa2f6b23, type: 3}
+  itemBombPrefab: {fileID: 11400000, guid: f88df7a597967ca4eaa0a26c2c5ad96d, type: 2}
   panelItemsAreaBronze: {fileID: 139402882}
   panelItemsAreaSilver: {fileID: 245378356}
   panelItemsAreaGold: {fileID: 886170679}
-  referenceCalculateRadius: {fileID: 336151884}
+  referenceCalculateRadiusWheelImage: {fileID: 336151884}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

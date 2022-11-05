@@ -9,8 +9,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 {
     #region INSPECTOR PROPERTIES
 
-    [SerializeField] private GameObject itemBombPrefab;
-    [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private WheelItemData itemBombPrefab;
 
     [BoxGroup("Panels by Zones")] [SerializeField]
     private Transform panelItemsAreaBronze;
@@ -21,12 +20,14 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     [BoxGroup("Panels by Zones")] [SerializeField]
     private Transform panelItemsAreaGold;
 
-    [SerializeField] private Transform referenceCalculateRadius;
+    [SerializeField] private Transform referenceCalculateRadiusWheelImage;
 
     #endregion
 
     #region PRIVATE PROPERTIES
 
+    private List<WheelItemData> itemsListWheelCurrentlySpawned;
+    private WheelOfFortuneStateManager stateManager;
     private WheelOfFortuneEventsListener wheelOfFortuneEventsListener;
 
     #endregion
@@ -35,6 +36,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     private void Awake()
     {
+        stateManager = WheelOfFortuneStateManager.instance;
         wheelOfFortuneEventsListener = GetComponent<WheelOfFortuneEventsListener>();
     }
 
@@ -51,19 +53,33 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     #endregion
 
 
-    private void InstantiateItems(int numberOfItems, WheelItemsContentData contentDataCurrent)
+    private void InstantiateItems(WheelItemsContentData contentDataCurrent)
     {
+        itemsListWheelCurrentlySpawned = new List<WheelItemData>();
+        itemsListWheelCurrentlySpawned.AddRange(contentDataCurrent.ItemsOnWheel);
+
+        var haveBomb = stateManager.StateCurrent == WheelZoneStates.bronze;
+        //print("HAve Bomb = " + haveBomb);
+
+        if (haveBomb)
+            itemsListWheelCurrentlySpawned.Add(itemBombPrefab);
+
+
+        var numberOfItems = itemsListWheelCurrentlySpawned.Count;
+        //print("number of items = " + numberOfItems);
         var angle = 360f / numberOfItems;
-        
-        var radius = Vector3.Distance(referenceCalculateRadius.position, transform.position);
+
+        var radius = Vector3.Distance(referenceCalculateRadiusWheelImage.position, transform.position);
 
         for (int i = 0; i < numberOfItems; i++)
         {
+            var itemNextSpawn = itemsListWheelCurrentlySpawned[i].PrefabImageOnWheel;
+
             var rotation = Quaternion.AngleAxis(i * angle, Vector3.forward);
             var direction = rotation * Vector3.up;
 
             var position = transform.position + (direction * radius);
-            var go = Instantiate(itemPrefab, position, Quaternion.Euler(Vector3.zero));
+            var go = Instantiate(itemNextSpawn, position, Quaternion.Euler(Vector3.zero));
 
             go.transform.SetParent(panelItemsAreaBronze);
             go.transform.localScale = Vector3.one;

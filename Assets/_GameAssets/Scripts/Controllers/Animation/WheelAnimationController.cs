@@ -6,7 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(WheelOfFortuneEventsListener))]
-public class UIElementAnimationController : MonoBehaviour
+public class WheelAnimationController : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
@@ -55,5 +55,6 @@ public class UIElementAnimationController : MonoBehaviour
             var angleCurrent = (targetAngle) * curveSpin.Evaluate(spinTimer / durationRotate);
             transform.eulerAngles = new Vector3(0, 0, angleCurrent + startAngle);
         }
+        
     }
 }

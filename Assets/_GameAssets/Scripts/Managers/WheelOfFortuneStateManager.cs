@@ -7,28 +7,23 @@ public class WheelOfFortuneStateManager : Singleton<WheelOfFortuneStateManager>
 {
     #region PRIVATE PROPERITES
 
-    public enum StatesWheel
-    {
-        bronze,
-        silver,
-        gold
-    }
 
-    private StatesWheel stateCurrent;
+
+    private WheelZoneStates stateCurrent;
 
     #endregion
 
 
     #region INSPECTOR PROPERTIES
 
-    [SerializeField] private StatesWheel stateBeginning;
+    [SerializeField] private WheelZoneStates stateBeginning;
     [SerializeField] private WheelOfFortuneEvents wheelOfFortuneEvents;
 
     #endregion
 
     #region PUBLIC PROPERTIES
 
-    public StatesWheel StateCurrent => stateCurrent;
+    public WheelZoneStates StateCurrent => stateCurrent;
 
     #endregion
 
@@ -49,8 +44,8 @@ public class WheelOfFortuneStateManager : Singleton<WheelOfFortuneStateManager>
         wheelOfFortuneEvents.TriggerSpinReadyEvent(numberOfItems, duration, numberRotate, curveSpin);
     }
 
-    public void TriggerCreateItemsEvent(int numberOfItems, WheelItemsContentData contentDataCurrent)
+    public void TriggerCreateItemsEvent(WheelItemsContentData contentDataCurrent)
     {
-        wheelOfFortuneEvents.TriggerOnCreateWheelItemsEvent(numberOfItems, contentDataCurrent);
+        wheelOfFortuneEvents.TriggerOnCreateWheelItemsEvent(contentDataCurrent);
     }
 }

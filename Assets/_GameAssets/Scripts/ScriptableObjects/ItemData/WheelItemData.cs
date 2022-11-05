@@ -7,22 +7,22 @@ public class WheelItemData : ScriptableObject
 {
     #region INSPECTOR PROPERTIES
 
-    [SerializeField] private RewardTypes.TypesReward typeOfReward;
+    [SerializeField] private RewardTypes typeOfReward;
     [Range(0, 100)] [SerializeField] private float rateDrop;
     [SerializeField] private int id;
     [SerializeField] private GameObject prefabImageOnWheel;
-
-    [SerializeField] private Sprite spriteItem;
+    [SerializeField] private Sprite spriteItemAtCollectArea;
     [SerializeField] private float amountOfIncrease = 1;
 
     #endregion
 
     #region PUBLIC PROPERTIES
 
+    public Sprite SpriteItemAtCollectArea => spriteItemAtCollectArea;
     public int ID => id;
     public float DropRate => rateDrop;
     public GameObject PrefabImageOnWheel => prefabImageOnWheel;
-    public RewardTypes.TypesReward TypeOfReward => typeOfReward;
+    public RewardTypes TypeOfReward => typeOfReward;
 
     #endregion
 }

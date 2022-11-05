@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
 {
     #region SPIN VALUES
 
-    //[BoxGroup("Spin Values")] [SerializeField]
+    [BoxGroup("Spin Values")] [SerializeField]
     private int numberOfSpinWheelItems = 8;
 
     [BoxGroup("Spin Values")] [SerializeField]
@@ -68,7 +69,6 @@ public class WheelOfFortuneHandler : MonoBehaviour
     private void Start()
     {
         SetCurrentWheelItemContentData();
-        numberOfSpinWheelItems = contentDataCurrent.ItemsOnWheel.Count;
         TriggerCreateItemsEvent();
     }
 
@@ -91,11 +91,23 @@ public class WheelOfFortuneHandler : MonoBehaviour
             contentDataCurrent = contentDefault;
             return;
         }
+
+        var contentsListLocal = new List<WheelItemsContentData>
+        {
+            contentsBronze,
+            contentsSilver,
+            contentsGold
+        };
+
+        var stateCurrent = stateManager.StateCurrent;
+
+        foreach (var content in contentsListLocal.Where(content => content.StatementType == stateCurrent))
+            contentDataCurrent = content;
     }
 
     private void TriggerCreateItemsEvent()
     {
-        stateManager.TriggerCreateItemsEvent(numberOfSpinWheelItems, contentDataCurrent);
+        stateManager.TriggerCreateItemsEvent(contentDataCurrent);
     }
 
     private void TriggerSpinReady()

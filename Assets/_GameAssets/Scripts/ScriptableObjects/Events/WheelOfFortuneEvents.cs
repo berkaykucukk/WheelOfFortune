@@ -11,7 +11,7 @@ public class WheelOfFortuneEvents : ScriptableObject
 
     public Action OnSpinButtonClicked;
     public Action<int, float, int, AnimationCurve> OnSpinReady;
-    public Action<int, WheelItemsContentData> OnCreateWheelItems;
+    public Action< WheelItemsContentData> OnCreateWheelItems;
 
     #endregion
 
@@ -23,8 +23,8 @@ public class WheelOfFortuneEvents : ScriptableObject
 
     public void TriggerOnSpinButtonClickedEvent() => OnSpinButtonClicked?.Invoke();
 
-    public void TriggerOnCreateWheelItemsEvent(int numberOfItems, WheelItemsContentData contentDataCurrent) =>
-        OnCreateWheelItems?.Invoke(numberOfItems, contentDataCurrent);
+    public void TriggerOnCreateWheelItemsEvent( WheelItemsContentData contentDataCurrent) =>
+        OnCreateWheelItems?.Invoke( contentDataCurrent);
 
     #endregion
 }
