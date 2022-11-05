@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,16 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     #region INSPECTOR PROPERTIES
 
     [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private Transform panelItemsArea;
+
+    [BoxGroup("Panels by Zones")] [SerializeField]
+    private Transform panelItemsAreaBronze;
+
+    [BoxGroup("Panels by Zones")] [SerializeField]
+    private Transform panelItemsAreaSilver;
+
+    [BoxGroup("Panels by Zones")] [SerializeField]
+    private Transform panelItemsAreaGold;
+
     [SerializeField] private Transform referenceCalculateRadius;
 
     #endregion
@@ -39,7 +49,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     #endregion
 
-    
+
     private void InstantiateItems(int numberOfItems)
     {
         var angle = 360f / numberOfItems;
@@ -53,7 +63,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             var position = transform.position + (direction * radius);
             var go = Instantiate(itemPrefab, position, Quaternion.Euler(Vector3.zero));
 
-            go.transform.SetParent(panelItemsArea);
+            go.transform.SetParent(panelItemsAreaBronze);
             go.transform.localScale = Vector3.one;
         }
     }

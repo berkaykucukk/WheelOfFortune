@@ -782,7 +782,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 5041432397559281211, guid: 0b7509aed965f9d4dad769d5aa2f6b23, type: 3}
-  panelItemsArea: {fileID: 139402882}
+  panelItemsAreaBronze: {fileID: 139402882}
+  panelItemsAreaSilver: {fileID: 245378356}
+  panelItemsAreaGold: {fileID: 886170679}
   referenceCalculateRadius: {fileID: 336151884}
 --- !u!1 &705507993
 GameObject:
