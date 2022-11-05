@@ -1,17 +1,33 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(WheelOfFortuneEventsListener))]
 public class WheelOfFortuneHandler : MonoBehaviour
 {
     #region INSPECTOR PROPERTIES
 
-    [SerializeField] private int numberOfSpinWheelItems = 8;
-    [SerializeField] private float durationSpin = 2f;
-    [SerializeField] private int numberRotate = 3;
-    [SerializeField] private AnimationCurve curveSpin;
+    #region SPIN VALUES
+
+    [BoxGroup("Spin Values")] [SerializeField]
+    private int numberOfSpinWheelItems = 8;
+
+    [BoxGroup("Spin Values")] [SerializeField]
+    private float durationSpin = 2f;
+
+    [BoxGroup("Spin Values")] [SerializeField]
+    private int numberRotate = 3;
+
+    [BoxGroup("Spin Values")] [SerializeField]
+    private AnimationCurve curveSpin;
+
+    #endregion
+
+    [SerializeField] private Image imageIndicator;
+    [SerializeField] private Image imageSpinWheel;
 
     #endregion
 

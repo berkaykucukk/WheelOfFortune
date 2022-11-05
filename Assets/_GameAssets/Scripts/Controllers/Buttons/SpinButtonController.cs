@@ -16,6 +16,10 @@ public class SpinButtonController : MonoBehaviour
     private void Awake()
     {
         stateManager = WheelOfFortuneStateManager.instance;
+    }
+
+    private void OnValidate()
+    {
         SpinButton.onClick.AddListener(OnClickedSpinButton);
     }
 

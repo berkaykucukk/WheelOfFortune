@@ -39,7 +39,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     #endregion
 
-
+    
     private void InstantiateItems(int numberOfItems)
     {
         var angle = 360f / numberOfItems;
