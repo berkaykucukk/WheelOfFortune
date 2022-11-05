@@ -30,16 +30,16 @@ public class WheelOfFortuneHandler : MonoBehaviour
     private bool useDifferentContentsAtZones;
 
     [HideIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private WheelItemsContentsByZone contentDefault;
+    private WheelItemsContentData contentDefault;
 
     [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private WheelItemsContentsByZone contentsBronze;
+    private WheelItemsContentData contentsBronze;
 
     [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private WheelItemsContentsByZone contentsSilver;
+    private WheelItemsContentData contentsSilver;
 
     [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private WheelItemsContentsByZone contentsGold;
+    private WheelItemsContentData contentsGold;
 
     #endregion
 

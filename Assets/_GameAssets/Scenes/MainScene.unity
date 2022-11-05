@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 336151886}
   - component: {fileID: 336151885}
   m_Layer: 5
-  m_Name: reference_calculate_radius_wheel
+  m_Name: ReferenceCalculateWheelRadius
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -890,7 +890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 776342383}
   m_Layer: 5
-  m_Name: ui_panel_gold
+  m_Name: ui_panel_wheel_gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1372,7 +1372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1150894442}
   m_Layer: 5
-  m_Name: ui_panel_silver
+  m_Name: ui_panel_wheel_silver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
