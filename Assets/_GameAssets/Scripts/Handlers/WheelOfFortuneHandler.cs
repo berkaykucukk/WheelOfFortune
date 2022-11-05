@@ -8,8 +8,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(WheelOfFortuneEventsListener))]
 public class WheelOfFortuneHandler : MonoBehaviour
 {
-    #region INSPECTOR PROPERTIES
-
     #region SPIN VALUES
 
     [BoxGroup("Spin Values")] [SerializeField]
@@ -26,8 +24,22 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private Image imageIndicator;
-    [SerializeField] private Image imageSpinWheel;
+    #region INSPECTOR PROPERTIES
+
+    [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
+    private bool useDifferentContentsAtZones;
+
+    [HideIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
+    private WheelItemsContentsByZone contentDefault;
+
+    [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
+    private WheelItemsContentsByZone contentsBronze;
+
+    [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
+    private WheelItemsContentsByZone contentsSilver;
+
+    [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
+    private WheelItemsContentsByZone contentsGold;
 
     #endregion
 

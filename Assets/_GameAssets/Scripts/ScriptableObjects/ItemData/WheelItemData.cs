@@ -9,15 +9,17 @@ public class WheelItemData : ScriptableObject
 
     [Range(0, 100)] [SerializeField] private float rateDrop;
     [SerializeField] private GameObject prefabImageOnWheel;
-    [SerializeField] private GameObject prefabItemCard;
+    //[SerializeField] private GameObject prefabItemCard;
     [SerializeField] private Sprite spriteItem;
+    [SerializeField] private float amountOfIncrease = 1;
+
     #endregion
 
     #region PUBLIC PROPERTIES
 
     public float DropRate => rateDrop;
     public GameObject PrefabImageOnWheel => prefabImageOnWheel;
-    public GameObject PrefabItemCard => prefabItemCard;
+    //public GameObject PrefabItemCard => prefabItemCard;
 
     #endregion
 }
