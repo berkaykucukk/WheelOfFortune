@@ -5,11 +5,38 @@ using UnityEngine;
 
 public class WheelOfFortuneStateManager : Singleton<WheelOfFortuneStateManager>
 {
+    #region PRIVATE PROPERITES
+
+    public enum StatesWheel
+    {
+        bronze,
+        silver,
+        gold
+    }
+
+    private StatesWheel stateCurrent;
+
+    #endregion
+
+
     #region INSPECTOR PROPERTIES
 
+    [SerializeField] private StatesWheel stateBeginning;
     [SerializeField] private WheelOfFortuneEvents wheelOfFortuneEvents;
 
     #endregion
+
+    #region PUBLIC PROPERTIES
+
+    public StatesWheel StateCurrent => stateCurrent;
+
+    #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+        stateCurrent = stateBeginning;
+    }
 
     public void TriggerSpinButtonClickEvent()
     {
@@ -22,8 +49,8 @@ public class WheelOfFortuneStateManager : Singleton<WheelOfFortuneStateManager>
         wheelOfFortuneEvents.TriggerSpinReadyEvent(numberOfItems, duration, numberRotate, curveSpin);
     }
 
-    public void TriggerCreateItemsEvent(int numberOfItems)
+    public void TriggerCreateItemsEvent(int numberOfItems, WheelItemsContentData contentDataCurrent)
     {
-        wheelOfFortuneEvents.TriggerOnCreateWheelItemsEvent(numberOfItems);
+        wheelOfFortuneEvents.TriggerOnCreateWheelItemsEvent(numberOfItems, contentDataCurrent);
     }
 }

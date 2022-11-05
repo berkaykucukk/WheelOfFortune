@@ -10,7 +10,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
 {
     #region SPIN VALUES
 
-    [BoxGroup("Spin Values")] [SerializeField]
+    //[BoxGroup("Spin Values")] [SerializeField]
     private int numberOfSpinWheelItems = 8;
 
     [BoxGroup("Spin Values")] [SerializeField]
@@ -53,6 +53,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private WheelOfFortuneStateManager stateManager;
     private WheelOfFortuneEventsListener eventsListener;
+    private WheelItemsContentData contentDataCurrent;
 
     #endregion
 
@@ -62,6 +63,13 @@ public class WheelOfFortuneHandler : MonoBehaviour
     {
         eventsListener = GetComponent<WheelOfFortuneEventsListener>();
         stateManager = WheelOfFortuneStateManager.instance;
+    }
+
+    private void Start()
+    {
+        SetCurrentWheelItemContentData();
+        numberOfSpinWheelItems = contentDataCurrent.ItemsOnWheel.Count;
+        TriggerCreateItemsEvent();
     }
 
     private void OnEnable()
@@ -74,12 +82,21 @@ public class WheelOfFortuneHandler : MonoBehaviour
         eventsListener.onSpinButtonClicked -= TriggerSpinReady;
     }
 
-    private void Start()
+    #endregion
+
+    private void SetCurrentWheelItemContentData()
     {
-        stateManager.TriggerCreateItemsEvent(numberOfSpinWheelItems);
+        if (!useDifferentContentsAtZones)
+        {
+            contentDataCurrent = contentDefault;
+            return;
+        }
     }
 
-    #endregion
+    private void TriggerCreateItemsEvent()
+    {
+        stateManager.TriggerCreateItemsEvent(numberOfSpinWheelItems, contentDataCurrent);
+    }
 
     private void TriggerSpinReady()
     {

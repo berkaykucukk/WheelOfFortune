@@ -9,6 +9,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 {
     #region INSPECTOR PROPERTIES
 
+    [SerializeField] private GameObject itemBombPrefab;
     [SerializeField] private GameObject itemPrefab;
 
     [BoxGroup("Panels by Zones")] [SerializeField]
@@ -50,9 +51,10 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     #endregion
 
 
-    private void InstantiateItems(int numberOfItems)
+    private void InstantiateItems(int numberOfItems, WheelItemsContentData contentDataCurrent)
     {
         var angle = 360f / numberOfItems;
+        
         var radius = Vector3.Distance(referenceCalculateRadius.position, transform.position);
 
         for (int i = 0; i < numberOfItems; i++)

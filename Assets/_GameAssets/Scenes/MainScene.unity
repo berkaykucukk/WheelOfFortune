@@ -633,6 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestryOnLoad: 1
   _overrideInstance: 0
+  stateBeginning: 0
   wheelOfFortuneEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
 --- !u!1 &556209157
 GameObject:
@@ -724,7 +725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9918100dc90e2498e74e1eed4fd6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfSpinWheelItems: 8
   durationSpin: 2
   numberRotate: 3
   curveSpin:
@@ -781,6 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4483ed4f392d6484ea58dcb36fef2745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemBombPrefab: {fileID: 0}
   itemPrefab: {fileID: 5041432397559281211, guid: 0b7509aed965f9d4dad769d5aa2f6b23, type: 3}
   panelItemsAreaBronze: {fileID: 139402882}
   panelItemsAreaSilver: {fileID: 245378356}

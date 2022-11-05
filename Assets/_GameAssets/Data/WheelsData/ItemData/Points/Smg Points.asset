@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89eb7e9a7f9e324da1262d976990246, type: 3}
+  m_Name: Smg Points
+  m_EditorClassIdentifier: 
+  typeOfReward: 3
+  rateDrop: 28.6
+  id: 14
+  prefabImageOnWheel: {fileID: 372352185460449156, guid: 4a07c980ebae56947a3d722f45e73e4d, type: 3}
+  spriteItem: {fileID: 21300000, guid: 0e9c95d305199c243ad1adcd22760b07, type: 3}
+  amountOfIncrease: 1
