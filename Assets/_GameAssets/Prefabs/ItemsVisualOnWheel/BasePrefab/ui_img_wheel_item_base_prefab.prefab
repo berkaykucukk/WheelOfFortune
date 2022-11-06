@@ -262,4 +262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f29c73a81b0424db70e7be923fc8c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  punchPower: 0.5
+  durationAnimation: 0.15
+  easeAnimation: 0
+  numberOfSpawnIcon: 4
+  radiusEffectExplode: 150
   valueText: {fileID: 3622920051609440308}
+  icon: {fileID: 4752491635855111254}

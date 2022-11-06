@@ -9,21 +9,26 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 {
     #region INSPECTOR PROPERTIES
 
-    [BoxGroup("Panels by Zones")] [SerializeField]
-    private Transform panelItemsAreaBronze;
+    
+    [Header("Wheels")]
+    [SerializeField] private GameObject wheelBronze;
+    [SerializeField] private GameObject wheelSilver;
+    [SerializeField] private GameObject wheelGold;
 
-    [BoxGroup("Panels by Zones")] [SerializeField]
-    private Transform panelItemsAreaSilver;
+    [Space] 
+    [Header("Item Areas")]
+    [SerializeField] private Transform panelItemsAreaBronze;
 
-    [BoxGroup("Panels by Zones")] [SerializeField]
-    private Transform panelItemsAreaGold;
+    [SerializeField] private Transform panelItemsAreaSilver;
 
-    [SerializeField] private Transform referenceCalculateRadiusWheelImage;
+    [SerializeField] private Transform panelItemsAreaGold;
+    [Space] [SerializeField] private Transform referenceCalculateRadiusWheelImage;
 
     #endregion
 
     #region PRIVATE PROPERTIES
 
+    private GameObject goWheelCurrent;
     private GameDataManager gameDataManager;
     private Transform panelItemsCurrent;
     private GameStateManager stateManager;

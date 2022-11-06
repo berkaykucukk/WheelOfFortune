@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class GameDataManager : Singleton<GameDataManager>
 {
+    #region INSPECTOR PROPERTIES
+
+   
+
+    #endregion
     #region PRIVATE PROPERTIES
 
     private List<WheelItemData> _itemDatasCurrentlySpawned;
     private List<GameObject> _itemsGameObjectsCurrentlySpawned;
     private int _itemIndexEarned;
-
+ 
+    
     #endregion
 
     #region PUBLIC PROPERTIES
@@ -21,7 +27,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     #endregion
 
-
+    
     public void SetItemIndexEarned(int itemIndexEarned)
     {
         _itemIndexEarned = itemIndexEarned;
@@ -38,4 +44,6 @@ public class GameDataManager : Singleton<GameDataManager>
         _itemsGameObjectsCurrentlySpawned = new List<GameObject>();
         _itemsGameObjectsCurrentlySpawned.AddRange(itemsGameObjectsCurrentlySpawned);
     }
+    
+    
 }
