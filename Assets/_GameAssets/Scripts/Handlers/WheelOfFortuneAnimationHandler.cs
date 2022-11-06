@@ -16,9 +16,7 @@ public class WheelOfFortuneAnimationHandler : MonoBehaviour
     [BoxGroup("Spin Values")] [SerializeField]
     private int numberRotate = 3;
 
-    [BoxGroup("Spin Values")] [SerializeField]
-    private AnimationCurve curveSpin;
-
+   
     #endregion
 
     #region PRIVATE PROPERTIES
@@ -47,6 +45,6 @@ public class WheelOfFortuneAnimationHandler : MonoBehaviour
 
     private void TriggerSpinReady()
     {
-        stateManager.TriggerSpinReadyEvent(numberOfSpinWheelItems, durationSpin, numberRotate, curveSpin);
+        //stateManager.TriggerSpinReadyEvent(numberOfSpinWheelItems, durationSpin, numberRotate, easeSpin);
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,10 +11,10 @@ public class GameEventsListener : MonoBehaviour
     #region EVENTS
 
     public Action onSpinButtonClicked;
-    public Action<int, float, int, AnimationCurve> onSpinReady;
+    public Action<WheelItemsContentData, float, int, Ease> onSpinReady;
     public Action<WheelItemsContentData> onCreateItems;
-    public Action<int> onWheelRotateDone;
-    public Action<List<WheelItemData>> onWheelItemsSpawned;
+    public Action<WheelItemData> onWheelRotateDone;
+    public Action<List<WheelItemData>, List<GameObject>> onWheelItemsSpawned;
 
     #endregion
 
@@ -52,10 +53,10 @@ public class GameEventsListener : MonoBehaviour
         onSpinButtonClicked?.Invoke();
     }
 
-    private void OnSpinReady(int numberOfItems, float duration, int numberRotate,
-        AnimationCurve curveSpin)
+    private void OnSpinReady(WheelItemsContentData contentWheelItems, float duration, int numberRotate,
+        Ease easeSpin)
     {
-        onSpinReady?.Invoke(numberOfItems, duration, numberRotate, curveSpin);
+        onSpinReady?.Invoke(contentWheelItems, duration, numberRotate, easeSpin);
     }
 
     private void OnCreateItems(WheelItemsContentData contentDataCurrent)
@@ -63,14 +64,15 @@ public class GameEventsListener : MonoBehaviour
         onCreateItems?.Invoke(contentDataCurrent);
     }
 
-    private void OnWheelRotateDone(int itemIndex)
+    private void OnWheelRotateDone(WheelItemData item)
     {
-        onWheelRotateDone?.Invoke(itemIndex);
+        onWheelRotateDone?.Invoke(item);
     }
 
-    private void OnWheelItemsSpawned(List<WheelItemData> itemsCurrentlySpawned)
+    private void OnWheelItemsSpawned(List<WheelItemData> itemDatasCurrentlySpawned,
+        List<GameObject> itemsGameObjectsCurrentlySpawned)
     {
-        onWheelItemsSpawned?.Invoke(itemsCurrentlySpawned);
+        onWheelItemsSpawned?.Invoke(itemDatasCurrentlySpawned, itemsGameObjectsCurrentlySpawned);
     }
 
     #endregion

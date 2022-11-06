@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(GameEventsListener))]
@@ -8,7 +9,8 @@ public class SpinResultController : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
-    private List<WheelItemData> _itemsCurrentlySpawned;
+    private List<WheelItemData> _itemsDataCurrentlySpawned;
+    private List<GameObject> _itemsGameObjectsCurrentlySpawned;
     private GameEventsListener gameEventsListener;
 
     #endregion
@@ -23,26 +25,30 @@ public class SpinResultController : MonoBehaviour
 
     private void OnEnable()
     {
-        gameEventsListener.onWheelItemsSpawned += ReadItemsCurrentlySpawned;
+        gameEventsListener.onWheelItemsSpawned += ReadItemsDataCurrentlySpawned;
         gameEventsListener.onWheelRotateDone += CheckResult;
     }
 
     private void OnDisable()
     {
-        gameEventsListener.onWheelItemsSpawned -= ReadItemsCurrentlySpawned;
+        gameEventsListener.onWheelItemsSpawned -= ReadItemsDataCurrentlySpawned;
         gameEventsListener.onWheelRotateDone -= CheckResult;
     }
 
     #endregion
 
-    private void ReadItemsCurrentlySpawned(List<WheelItemData> itemsCurrentlySpawned)
+    private void ReadItemsDataCurrentlySpawned(List<WheelItemData> itemDatasCurrentlySpawned,
+        List<GameObject> itemsGameObjectsCurrentlySpawned)
     {
-        _itemsCurrentlySpawned = new List<WheelItemData>();
-        _itemsCurrentlySpawned.AddRange(itemsCurrentlySpawned);
+        _itemsDataCurrentlySpawned = new List<WheelItemData>();
+        _itemsDataCurrentlySpawned.AddRange(itemDatasCurrentlySpawned);
+
+        _itemsGameObjectsCurrentlySpawned = new List<GameObject>();
+        _itemsGameObjectsCurrentlySpawned.AddRange(itemsGameObjectsCurrentlySpawned);
     }
 
-    private void CheckResult(int itemIndex)
+    private void CheckResult(WheelItemData item)
     {
-        print("id ver = " + _itemsCurrentlySpawned[itemIndex].ID);
+        _itemsGameObjectsCurrentlySpawned[0].transform.DOPunchScale(Vector3.one * 2, 1f);
     }
 }

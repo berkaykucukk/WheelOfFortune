@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
     private int numberRotate = 3;
 
     [BoxGroup("Spin Values")] [SerializeField]
-    private AnimationCurve curveSpin;
+    private Ease easeSpin;
 
     #endregion
 
@@ -114,7 +115,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private void TriggerSpinReady()
     {
-        stateManager.TriggerSpinReadyEvent(numberOfSpinWheelItems, durationSpin, numberRotate, curveSpin);
+        stateManager.TriggerSpinReadyEvent(contentDataCurrent, durationSpin, numberRotate, easeSpin);
     }
 
     #endregion

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,11 +11,13 @@ public class WheelAnimationController : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
+    private Tween tweenWheelSpin;
     private float SpinWheelAngle = 360f;
     private GameEventsListener EventsListener => GetComponent<GameEventsListener>();
     private float spinTimer = 0;
-    private float angleSection;
+    private float anglePerSection;
     private GameStateManager gameStateManager;
+    private float halfPieceAngle;
 
     #endregion
 
@@ -38,32 +41,22 @@ public class WheelAnimationController : MonoBehaviour
 
     #endregion
 
-    private void RunSpinWheel(int numberOfItems, float durationRotate, int numberRotate,
-        AnimationCurve curveSpin)
+
+    private void RunSpinWheel(WheelItemsContentData contentWheelItems, float durationRotate, int numberRotate,
+        Ease easeSpin)
     {
-        var spinWheel = SpinWheel(numberOfItems, durationRotate, numberRotate, curveSpin);
-        StartCoroutine(spinWheel);
+        var startAngle = transform.eulerAngles.z;
+        anglePerSection = (SpinWheelAngle / contentWheelItems.ItemsOnWheel.Count);
+        var randomItem = Random.Range(0, contentWheelItems.ItemsOnWheel.Count);
+        var targetAngle = (numberRotate * SpinWheelAngle) + anglePerSection * randomItem - startAngle;
+        var targetAngleVector = Vector3.forward * targetAngle;
+
+        tweenWheelSpin = transform.DORotate(targetAngleVector, durationRotate, RotateMode.LocalAxisAdd);
+        tweenWheelSpin.OnComplete(() => { TriggerOnWheelRotateDone(contentWheelItems.ItemsOnWheel[randomItem]); });
     }
 
-    private IEnumerator SpinWheel(int numberOfItems, float durationRotate, int numberRotate,
-        AnimationCurve curveSpin)
+    private void TriggerOnWheelRotateDone(WheelItemData prize)
     {
-        spinTimer = 0;
-        var startAngle = transform.eulerAngles.z;
-
-        angleSection = SpinWheelAngle / numberOfItems;
-        var randomItem = Random.Range(0, numberOfItems);
-        var targetAngle = (numberRotate * SpinWheelAngle) + angleSection * randomItem - startAngle;
-        var angleCurrent = 0f;
-        while (spinTimer < durationRotate)
-        {
-            yield return null;
-            spinTimer += Time.deltaTime;
-            angleCurrent = (targetAngle) * curveSpin.Evaluate(spinTimer / durationRotate);
-            transform.eulerAngles = new Vector3(0, 0, angleCurrent + startAngle);
-        }
-
-        print("Random item index = " + angleCurrent);
-        gameStateManager.TriggerOnWheelRotateDone(randomItem);
+        gameStateManager.TriggerOnWheelRotateDone(prize);
     }
 }

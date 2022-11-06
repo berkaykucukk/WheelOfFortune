@@ -217,7 +217,7 @@ RectTransform:
   m_Children:
   - {fileID: 1532127896}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -678,7 +678,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 651582158}
-  - component: {fileID: 651582159}
   - component: {fileID: 651582161}
   - component: {fileID: 651582160}
   m_Layer: 5
@@ -713,50 +712,6 @@ RectTransform:
   m_AnchoredPosition: {x: 206, y: -58}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &651582159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651582157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a9918100dc90e2498e74e1eed4fd6c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberOfSpinWheelItems: 8
-  durationSpin: 2
-  numberRotate: 3
-  curveSpin:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  useDifferentContentsAtZones: 1
-  contentDefault: {fileID: 11400000, guid: 464737d5381345d4eb976001c6ae8bcf, type: 2}
-  contentsBronze: {fileID: 11400000, guid: 5939f04f37196994593539d5de1981ef, type: 2}
-  contentsSilver: {fileID: 11400000, guid: 46c4998185dc1fc4bb0ba84a44af491a, type: 2}
-  contentsGold: {fileID: 11400000, guid: 45486fe2fe45ba643acf7acd517c37ed, type: 2}
 --- !u!114 &651582160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,7 +737,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4483ed4f392d6484ea58dcb36fef2745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemBombPrefab: {fileID: 11400000, guid: f88df7a597967ca4eaa0a26c2c5ad96d, type: 2}
   panelItemsAreaBronze: {fileID: 139402882}
   panelItemsAreaSilver: {fileID: 245378356}
   panelItemsAreaGold: {fileID: 886170679}
@@ -1655,8 +1609,75 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1857621371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1857621372}
+  - component: {fileID: 1857621373}
+  - component: {fileID: 1857621374}
+  m_Layer: 0
+  m_Name: WheelOfFortuneHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1857621372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857621371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 326.60263, y: 310.716, z: 0.4277915}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1857621373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857621371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9918100dc90e2498e74e1eed4fd6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfSpinWheelItems: 8
+  durationSpin: 2
+  numberRotate: 2
+  easeSpin: 13
+  useDifferentContentsAtZones: 1
+  contentDefault: {fileID: 11400000, guid: 464737d5381345d4eb976001c6ae8bcf, type: 2}
+  contentsBronze: {fileID: 11400000, guid: 5939f04f37196994593539d5de1981ef, type: 2}
+  contentsSilver: {fileID: 11400000, guid: 46c4998185dc1fc4bb0ba84a44af491a, type: 2}
+  contentsGold: {fileID: 11400000, guid: 45486fe2fe45ba643acf7acd517c37ed, type: 2}
+--- !u!114 &1857621374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857621371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724be6a1fa3ffbc44b215c7915af3ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStateEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}
 --- !u!1 &1958956535
 GameObject:
   m_ObjectHideFlags: 0

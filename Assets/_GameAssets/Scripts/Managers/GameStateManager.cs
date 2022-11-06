@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using SystemPersonel;
 using UnityEngine;
 
@@ -36,10 +37,10 @@ public class GameStateManager : Singleton<GameStateManager>
         gameStateEvents.TriggerOnSpinButtonClickedEvent();
     }
 
-    public void TriggerSpinReadyEvent(int numberOfItems, float duration, int numberRotate,
-        AnimationCurve curveSpin)
+    public void TriggerSpinReadyEvent(WheelItemsContentData contentWheelItems, float duration, int numberRotate,
+        Ease easeSpin)
     {
-        gameStateEvents.TriggerSpinReadyEvent(numberOfItems, duration, numberRotate, curveSpin);
+        gameStateEvents.TriggerSpinReadyEvent(contentWheelItems, duration, numberRotate, easeSpin);
     }
 
     public void TriggerCreateItemsEvent(WheelItemsContentData contentDataCurrent)
@@ -47,13 +48,14 @@ public class GameStateManager : Singleton<GameStateManager>
         gameStateEvents.TriggerOnCreateWheelItemsEvent(contentDataCurrent);
     }
 
-    public void TriggerOnWheelRotateDone(int itemIndex)
+    public void TriggerOnWheelRotateDone(WheelItemData item)
     {
-        gameStateEvents.TriggerOnWheelRotateDoneEvent(itemIndex);
+        gameStateEvents.TriggerOnWheelRotateDoneEvent(item);
     }
 
-    public void TriggerOnWheelItemsSpawned(List<WheelItemData> itemsCurrentlySpawned)
+    public void TriggerOnWheelItemsSpawned(List<WheelItemData> itemDatasCurrentlySpawned,
+        List<GameObject> itemsGameObjectsCurrentlySpawned)
     {
-        gameStateEvents.TriggerOnWheelItemsSpawnedEvent(itemsCurrentlySpawned);
+        gameStateEvents.TriggerOnWheelItemsSpawnedEvent(itemDatasCurrentlySpawned, itemsGameObjectsCurrentlySpawned);
     }
 }
