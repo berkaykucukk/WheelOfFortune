@@ -7,8 +7,11 @@ using UnityEngine;
 [RequireComponent(typeof(GameEventsListener))]
 public class SpinResultController : MonoBehaviour
 {
+
+
     #region PRIVATE PROPERTIES
 
+    private GameDataManager gameDataManager;
     private List<WheelItemData> _itemsDataCurrentlySpawned;
     private List<GameObject> _itemsGameObjectsCurrentlySpawned;
     private GameEventsListener gameEventsListener;
@@ -20,6 +23,7 @@ public class SpinResultController : MonoBehaviour
 
     private void Awake()
     {
+        gameDataManager = GameDataManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
     }
 
@@ -37,18 +41,21 @@ public class SpinResultController : MonoBehaviour
 
     #endregion
 
-    private void ReadItemsDataCurrentlySpawned(List<WheelItemData> itemDatasCurrentlySpawned,
-        List<GameObject> itemsGameObjectsCurrentlySpawned)
+    private void ReadItemsDataCurrentlySpawned()
     {
         _itemsDataCurrentlySpawned = new List<WheelItemData>();
-        _itemsDataCurrentlySpawned.AddRange(itemDatasCurrentlySpawned);
+        _itemsDataCurrentlySpawned.AddRange(gameDataManager.ItemDatasCurrentlySpawned);
 
         _itemsGameObjectsCurrentlySpawned = new List<GameObject>();
-        _itemsGameObjectsCurrentlySpawned.AddRange(itemsGameObjectsCurrentlySpawned);
+        _itemsGameObjectsCurrentlySpawned.AddRange(gameDataManager.ItemsGameObjectsCurrentlySpawned);
     }
 
-    private void CheckResult(WheelItemData item)
+    private void CheckResult()
     {
-        _itemsGameObjectsCurrentlySpawned[0].transform.DOPunchScale(Vector3.one * 2, 1f);
+        var itemIndex = gameDataManager.ItemIndexEarned;
+        var selectedItem = _itemsDataCurrentlySpawned[itemIndex];
+        print("Item = " + selectedItem.ID);
+        _itemsGameObjectsCurrentlySpawned[itemIndex].transform.DOPunchScale(Vector3.one * 2, .12f);
+        //print();
     }
 }

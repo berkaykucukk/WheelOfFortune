@@ -48,14 +48,13 @@ public class GameStateManager : Singleton<GameStateManager>
         gameStateEvents.TriggerOnCreateWheelItemsEvent(contentDataCurrent);
     }
 
-    public void TriggerOnWheelRotateDone(WheelItemData item)
+    public void TriggerOnWheelRotateDone()
     {
-        gameStateEvents.TriggerOnWheelRotateDoneEvent(item);
+        gameStateEvents.TriggerOnWheelRotateDoneEvent();
     }
 
-    public void TriggerOnWheelItemsSpawned(List<WheelItemData> itemDatasCurrentlySpawned,
-        List<GameObject> itemsGameObjectsCurrentlySpawned)
+    public void TriggerOnWheelItemsSpawned()
     {
-        gameStateEvents.TriggerOnWheelItemsSpawnedEvent(itemDatasCurrentlySpawned, itemsGameObjectsCurrentlySpawned);
+        gameStateEvents.TriggerOnWheelItemsSpawnedEvent();
     }
 }

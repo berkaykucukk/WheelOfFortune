@@ -24,6 +24,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     #region PRIVATE PROPERTIES
 
+    private GameDataManager gameDataManager;
     private Transform panelItemsCurrent;
     private GameStateManager stateManager;
     private GameEventsListener gameEventsListener;
@@ -34,6 +35,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     private void Awake()
     {
+        gameDataManager = GameDataManager.instance;
         stateManager = GameStateManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
     }
@@ -50,7 +52,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     #endregion
 
-    
+
     private void InstantiateWheelItems(WheelItemsContentData contentDataCurrent)
     {
         var itemsWillSpawn = new List<WheelItemData>();
@@ -87,6 +89,9 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             itemGameObject.transform.localScale = Vector3.one;
         }
 
-        stateManager.TriggerOnWheelItemsSpawned(itemsDataCurrentlySpawned, itemsGameObjectsCurrentlySpawned);
+        gameDataManager.SetItemDatasCurrentlySpawned(itemsDataCurrentlySpawned);
+        gameDataManager.SetItemsGameObjectsCurrentlySpawned(itemsGameObjectsCurrentlySpawned);
+
+        stateManager.TriggerOnWheelItemsSpawned();
     }
 }

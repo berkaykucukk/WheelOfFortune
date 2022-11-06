@@ -13,8 +13,8 @@ public class GameStateEvents : ScriptableObject
     public Action OnSpinButtonClicked;
     public Action<WheelItemsContentData, float, int, Ease> OnSpinReady;
     public Action<WheelItemsContentData> OnCreateWheelItems;
-    public Action<WheelItemData> OnWheelRotateDone;
-    public Action<List<WheelItemData>, List<GameObject>> OnWheelItemsSpawned;
+    public Action OnWheelRotateDone;
+    public Action OnWheelItemsSpawned;
 
     #endregion
 
@@ -29,11 +29,10 @@ public class GameStateEvents : ScriptableObject
     public void TriggerOnCreateWheelItemsEvent(WheelItemsContentData contentDataCurrent) =>
         OnCreateWheelItems?.Invoke(contentDataCurrent);
 
-    public void TriggerOnWheelRotateDoneEvent(WheelItemData item) => OnWheelRotateDone?.Invoke(item);
+    public void TriggerOnWheelRotateDoneEvent() => OnWheelRotateDone?.Invoke();
 
-    public void TriggerOnWheelItemsSpawnedEvent(List<WheelItemData> itemDatasCurrentlySpawned,
-        List<GameObject> itemsGameObjectsCurrentlySpawned) =>
-        OnWheelItemsSpawned?.Invoke(itemDatasCurrentlySpawned, itemsGameObjectsCurrentlySpawned);
+    public void TriggerOnWheelItemsSpawnedEvent() =>
+        OnWheelItemsSpawned?.Invoke();
 
     #endregion
 }

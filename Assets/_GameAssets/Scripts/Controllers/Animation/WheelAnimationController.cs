@@ -13,11 +13,12 @@ public class WheelAnimationController : MonoBehaviour
 
     private Tween tweenWheelSpin;
     private float SpinWheelAngle = 360f;
-    private GameEventsListener EventsListener => GetComponent<GameEventsListener>();
+    private GameEventsListener eventsListener;
     private float spinTimer = 0;
     private float anglePerSection;
     private GameStateManager gameStateManager;
     private float halfPieceAngle;
+    private GameDataManager gameDataManager;
 
     #endregion
 
@@ -26,17 +27,19 @@ public class WheelAnimationController : MonoBehaviour
 
     private void Awake()
     {
+        gameDataManager = GameDataManager.instance;
+        eventsListener = GetComponent<GameEventsListener>();
         gameStateManager = GameStateManager.instance;
     }
 
     private void OnEnable()
     {
-        EventsListener.onSpinReady += RunSpinWheel;
+        eventsListener.onSpinReady += RunSpinWheel;
     }
 
     private void OnDisable()
     {
-        EventsListener.onSpinReady -= RunSpinWheel;
+        eventsListener.onSpinReady -= RunSpinWheel;
     }
 
     #endregion
@@ -51,12 +54,13 @@ public class WheelAnimationController : MonoBehaviour
         var targetAngle = (numberRotate * SpinWheelAngle) + anglePerSection * randomItem - startAngle;
         var targetAngleVector = Vector3.forward * targetAngle;
 
+        gameDataManager.SetItemIndexEarned(randomItem);
         tweenWheelSpin = transform.DORotate(targetAngleVector, durationRotate, RotateMode.LocalAxisAdd);
-        tweenWheelSpin.OnComplete(() => { TriggerOnWheelRotateDone(contentWheelItems.ItemsOnWheel[randomItem]); });
+        tweenWheelSpin.OnComplete(TriggerOnWheelRotateDone);
     }
 
-    private void TriggerOnWheelRotateDone(WheelItemData prize)
+    private void TriggerOnWheelRotateDone()
     {
-        gameStateManager.TriggerOnWheelRotateDone(prize);
+        gameStateManager.TriggerOnWheelRotateDone();
     }
 }
