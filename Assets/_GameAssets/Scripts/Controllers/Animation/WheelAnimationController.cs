@@ -56,6 +56,7 @@ public class WheelAnimationController : MonoBehaviour
 
         gameDataManager.SetItemIndexEarned(randomItem);
         tweenWheelSpin = transform.DORotate(targetAngleVector, durationRotate, RotateMode.LocalAxisAdd);
+        
         tweenWheelSpin.OnComplete(TriggerOnWheelRotateDone);
     }
 

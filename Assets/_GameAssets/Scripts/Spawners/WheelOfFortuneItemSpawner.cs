@@ -62,14 +62,6 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     {
         var itemsWillSpawn = new List<WheelItemData>();
         itemsWillSpawn.AddRange(contentDataCurrent.ItemsOnWheel);
-
-        /*var haveBomb = stateManager.StateCurrent == WheelZoneStates.bronze;
-        //print("HAve Bomb = " + haveBomb);
-
-        if (haveBomb)
-            itemsWillSpawn.Add(itemBombPrefab);*/
-
-
         var numberOfItems = itemsWillSpawn.Count;
         //print("number of items = " + numberOfItems);
         var angle = 360f / numberOfItems;
@@ -97,6 +89,6 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         gameDataManager.SetItemDatasCurrentlySpawned(itemsDataCurrentlySpawned);
         gameDataManager.SetItemsGameObjectsCurrentlySpawned(itemsGameObjectsCurrentlySpawned);
 
-        stateManager.TriggerOnWheelItemsSpawned();
+        stateManager.TriggerOnWheelItemsCreatedEvent();
     }
 }

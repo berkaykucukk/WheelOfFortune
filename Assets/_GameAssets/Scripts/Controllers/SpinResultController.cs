@@ -34,13 +34,13 @@ public class SpinResultController : MonoBehaviour
 
     private void OnEnable()
     {
-        gameEventsListener.onWheelItemsSpawned += ReadItemsDataCurrentlySpawned;
+        gameEventsListener.onWheelItemsCreated += ReadItemsDataCurrentlySpawned;
         gameEventsListener.onWheelRotateDone += CheckResult;
     }
 
     private void OnDisable()
     {
-        gameEventsListener.onWheelItemsSpawned -= ReadItemsDataCurrentlySpawned;
+        gameEventsListener.onWheelItemsCreated -= ReadItemsDataCurrentlySpawned;
         gameEventsListener.onWheelRotateDone -= CheckResult;
     }
 

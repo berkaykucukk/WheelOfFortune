@@ -53,8 +53,8 @@ public class GameStateManager : Singleton<GameStateManager>
         gameStateEvents.TriggerOnWheelRotateDoneEvent();
     }
 
-    public void TriggerOnWheelItemsSpawned()
+    public void TriggerOnWheelItemsCreatedEvent()
     {
-        gameStateEvents.TriggerOnWheelItemsSpawnedEvent();
+        gameStateEvents.TriggerOnWheelItemsCreatedEvent();
     }
 }
