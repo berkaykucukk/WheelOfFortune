@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece6e6d84fb0d004d8211702a016d00e, type: 3}
   m_Name: WheelOfFortuneSettings
   m_EditorClassIdentifier: 
-  silverAreaInterval: 5
-  goldAreaInterval: 30
+  silverAreaInterval: 3
+  goldAreaInterval: 6
