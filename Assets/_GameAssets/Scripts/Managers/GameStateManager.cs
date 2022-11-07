@@ -63,4 +63,9 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         gameStateEvents.TriggerOnCollectAreaIconCreateEvent(id, icon);
     }
+
+    public void TriggerOnCollectAreaValueUpdateEvent(int itemId, int value)
+    {
+        gameStateEvents.TriggerOnCollectAreaValueUpdateEvent(itemId, value);
+    }
 }

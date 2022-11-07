@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -11,6 +12,7 @@ public class WheelItemHandler : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
+    private GameStateManager gameStateManager;
     private GameDataManager gameDataManager;
     private RewardTypes _typeOfReward;
     private int _id = 0;
@@ -45,7 +47,13 @@ public class WheelItemHandler : MonoBehaviour
 
     private void Awake()
     {
+        gameStateManager = GameStateManager.instance;
         gameDataManager = GameDataManager.instance;
+    }
+
+    private void Update()
+    {
+        transform.eulerAngles = Vector3.zero;
     }
 
     public void SetValue(int value)
@@ -82,20 +90,14 @@ public class WheelItemHandler : MonoBehaviour
 
         var localListIcons = new List<GameObject>();
 
-
         for (int i = 0; i < numberOfSpawnIcon; i++)
         {
+            var rnd = Random.insideUnitCircle * radiusEffectExplode;
             var iconGO = Instantiate(icon.gameObject, transform);
             iconGO.transform.localScale = Vector3.one * .8F;
+            iconGO.transform.DOLocalMoveX(rnd.x, .1f).SetEase(Ease.Unset);
+            iconGO.transform.DOLocalMoveY(rnd.y, .1f).SetEase(Ease.Unset);
             localListIcons.Add(iconGO);
-        }
-
-        foreach (var iconObj in localListIcons)
-        {
-            var rnd = Random.insideUnitCircle * radiusEffectExplode;
-            //rnd.y += 5f;
-            iconObj.transform.DOLocalMoveX(rnd.x, .1f).SetEase(Ease.Unset);
-            iconObj.transform.DOLocalMoveY(rnd.y, .1f).SetEase(Ease.Unset);
         }
 
         yield return new WaitForSeconds(.15f);
@@ -107,5 +109,22 @@ public class WheelItemHandler : MonoBehaviour
             iconObj.transform.DOMoveX(currentArea.position.x, .5f).SetEase(Ease.InSine);
             iconObj.transform.DOMoveY(currentArea.position.y, .5f).SetEase(Ease.InSine);
         }
+
+        yield return new WaitForSeconds(.5f);
+
+        var deleteList = new List<GameObject>();
+        deleteList.AddRange(localListIcons);
+
+        for (int i = 0; i < localListIcons.Count; i++)
+        {
+            Destroy(deleteList[i].gameObject);
+        }
+
+        TriggerUpdateCollectAreaValue();
+    }
+
+    private void TriggerUpdateCollectAreaValue()
+    {
+        gameStateManager.TriggerOnCollectAreaValueUpdateEvent(_id, _value);
     }
 }

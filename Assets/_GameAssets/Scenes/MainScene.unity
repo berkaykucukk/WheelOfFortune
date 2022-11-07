@@ -1614,7 +1614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfSpinWheelItems: 8
   durationSpin: 2
-  numberRotate: 3
+  numberRotate: 4
   easeSpin: 13
   useDifferentContentsAtZones: 1
   contentDefault: {fileID: 11400000, guid: 464737d5381345d4eb976001c6ae8bcf, type: 2}

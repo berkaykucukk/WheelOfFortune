@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,5 +42,6 @@ public class CollectAreaItemVisualController : MonoBehaviour
     {
         value += numberOfTotal;
         numberText.text = value.ToString();
+        numberText.transform.DOPunchScale(Vector3.one * .5f, .15f);
     }
 }
