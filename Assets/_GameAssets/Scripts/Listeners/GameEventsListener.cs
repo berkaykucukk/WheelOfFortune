@@ -21,6 +21,7 @@ public class GameEventsListener : MonoBehaviour
     public Action onChangeWheelState;
     public Action onCheckNextSpin;
     public Action onIncreaseWheelItemValues;
+    public Action onGameOver;
 
     #endregion
 
@@ -44,6 +45,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnCheckNextSpin += OnCheckNextSpin;
         gameStateEvents.OnChangeWheelState += OnChangeWheelState;
         gameStateEvents.OnIncreaseWheelItemValues += OnIncreaseWheelItemValues;
+        gameStateEvents.OnGameOver += OnGameOver;
     }
 
     private void OnDisable()
@@ -58,6 +60,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnCheckNextSpin -= OnCheckNextSpin;
         gameStateEvents.OnChangeWheelState -= OnChangeWheelState;
         gameStateEvents.OnIncreaseWheelItemValues -= OnIncreaseWheelItemValues;
+        gameStateEvents.OnGameOver -= OnGameOver;
     }
 
     #endregion
@@ -113,6 +116,11 @@ public class GameEventsListener : MonoBehaviour
     private void OnIncreaseWheelItemValues()
     {
         onIncreaseWheelItemValues?.Invoke();
+    }
+
+    private void OnGameOver()
+    {
+        onGameOver?.Invoke();
     }
 
     #endregion

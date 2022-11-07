@@ -39,6 +39,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
     {
         gameEventsListener.onCollectAreaIconCreate += CreateCollectArea;
         gameEventsListener.onCollectAreaValueUpdate += UpdateCollectAreaTotalText;
+        
     }
 
     private void OnDisable()
@@ -64,7 +65,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
             collectAreaItemController.SetIcon(icon);
             collectAreaController.SetId(id);
         }
-        
+
         UpdateCurrentEarnedItemArea(id);
     }
 
@@ -89,5 +90,17 @@ public class ItemCollectAreaHandler : MonoBehaviour
     private bool CheckIsNewItem(int id)
     {
         return itemsIdCollectArea.Count <= 0 || itemsIdCollectArea.All(itemId => itemId != id);
+    }
+
+    private void ResetGame()
+    {
+        var localItemControllerList = new List<CollectAreaItemVisualController>();
+        localItemControllerList.AddRange(itemsControllersCollectArea);
+        for (int i = 0; i < localItemControllerList.Count; i++)
+        {
+            Destroy(itemsControllersCollectArea[i].gameObject);
+        }
+        itemsControllersCollectArea.Clear();
+        itemsIdCollectArea.Clear();
     }
 }

@@ -37,6 +37,7 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         stateCurrent = wheelZoneState;
     }
+
     public void TriggerSpinButtonClickEvent()
     {
         gameStateEvents.TriggerOnSpinButtonClickedEvent();
@@ -85,6 +86,16 @@ public class GameStateManager : Singleton<GameStateManager>
 
     public void TriggerOnIncreaseWheelItemValuesEvent()
     {
-        gameStateEvents.TriggerOnIncreaseWheelItemValues();
+        gameStateEvents.TriggerOnIncreaseWheelItemValuesEvent();
+    }
+
+    public void GameOver()
+    {
+        gameStateEvents.TriggerGameOverEvent();
+    }
+
+    private void ResetGame()
+    {
+        stateCurrent = stateBeginning;
     }
 }

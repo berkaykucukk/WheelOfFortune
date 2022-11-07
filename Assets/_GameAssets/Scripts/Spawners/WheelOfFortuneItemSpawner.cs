@@ -136,7 +136,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             itemsGameObjectsCurrentlySpawned.Add(itemGameObject);
             itemGameObject.transform.SetParent(panelItemsCurrent);
             itemGameObject.transform.localScale = Vector3.one;
-            //itemGameObject.transform.SetParent(panelItemsCurrent);
+           
             var wheelItemHandler = itemGameObject.GetComponent<WheelItemHandler>();
             wheelItemHandler.SetId(currentItemData.ID);
             wheelItemHandler.SetRewardType(currentItemData.TypeOfReward);

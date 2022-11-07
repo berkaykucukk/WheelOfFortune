@@ -73,4 +73,9 @@ public class GameDataManager : Singleton<GameDataManager>
     {
         _itemAreaCurrentEarned = itemArea;
     }
+
+    private void ResetGame()
+    {
+        DeleteGameObjectsCurrentlySpawned();
+    }
 }

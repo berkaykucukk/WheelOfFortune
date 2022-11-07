@@ -80,20 +80,22 @@ public class SpinResultController : MonoBehaviour
         }
 
         IncreaseTotalRotateCount();
-        CreateNewCollectAreaIfPossible();
+        TriggerCollectAreaCreateEvent();
 
         _itemHandlerCurrentlySelected.InstantiateCollectEffect(parentIconEffects);
-        _itemHandlerCurrentlySelected.OnAnimationDone += CheckWheelZoneChange;
+        SubscribeItemHandlerAnimationEventCurrentlySelected();
     }
 
-    private void CreateNewCollectAreaIfPossible()
+    private void TriggerCollectAreaCreateEvent()
     {
-        gameStateManager.TriggerOnCollectAreaIconCreateEvent(_itemHandlerCurrentlySelected.Id,
-            _itemHandlerCurrentlySelected.Icon);
+        var idCurrentItem = _itemHandlerCurrentlySelected.Id;
+        var iconCurrentItem = _itemHandlerCurrentlySelected.Icon;
+        gameStateManager.TriggerOnCollectAreaIconCreateEvent(idCurrentItem, iconCurrentItem);
     }
 
     private void Death()
     {
+        gameStateManager.GameOver();
     }
 
     private void IncreaseTotalRotateCount()
@@ -105,15 +107,16 @@ public class SpinResultController : MonoBehaviour
     private void CheckWheelZoneChange()
     {
         print("Check Wheel Zone Change ");
-        _itemHandlerCurrentlySelected.OnAnimationDone -= CheckWheelZoneChange;
+        
+        UnsubscribeItemHandlerAnimationEventCurrentlySelected();
 
         var currentState = gameStateManager.StateCurrent;
         var state = currentState;
 
-        if ((_numberOfTotalRotate+1) % wheelOfFortuneSettings.GoldAreaInterval == 0)
+        if ((_numberOfTotalRotate + 1) % wheelOfFortuneSettings.GoldAreaInterval == 0)
             state = WheelZoneStates.gold;
 
-        else if ((_numberOfTotalRotate+1) % wheelOfFortuneSettings.SilverAreaInterval == 0)
+        else if ((_numberOfTotalRotate + 1) % wheelOfFortuneSettings.SilverAreaInterval == 0)
             state = WheelZoneStates.silver;
 
         else if (gameStateManager.StateCurrent != WheelZoneStates.bronze)
@@ -126,5 +129,15 @@ public class SpinResultController : MonoBehaviour
         }
 
         gameStateManager.TriggerOnIncreaseWheelItemValuesEvent();
+    }
+
+    private void SubscribeItemHandlerAnimationEventCurrentlySelected()
+    {
+        _itemHandlerCurrentlySelected.OnAnimationDone += CheckWheelZoneChange;
+    }
+
+    private void UnsubscribeItemHandlerAnimationEventCurrentlySelected()
+    {
+        _itemHandlerCurrentlySelected.OnAnimationDone -= CheckWheelZoneChange;
     }
 }

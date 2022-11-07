@@ -21,6 +21,9 @@ public class GameStateEvents : ScriptableObject
     public Action OnCheckNextSpin;
     public Action OnChangeWheelState;
     public Action OnIncreaseWheelItemValues;
+    public Action OnGameOver;
+    public Action OnResetGame;
+    public Action OnPlayAgain;
 
     #endregion
 
@@ -48,7 +51,11 @@ public class GameStateEvents : ScriptableObject
     public void TriggerOnCheckNextSpinEvent() => OnCheckNextSpin?.Invoke();
     public void TriggerOnChangeWheelStateEvent() => OnChangeWheelState?.Invoke();
 
-    public void TriggerOnIncreaseWheelItemValues() => OnIncreaseWheelItemValues?.Invoke();
-    
+    public void TriggerOnIncreaseWheelItemValuesEvent() => OnIncreaseWheelItemValues?.Invoke();
+
+    public void TriggerGameOverEvent() => OnGameOver?.Invoke();
+    public void TriggerGameResetEvent() => OnResetGame?.Invoke();
+    public void TriggerPlayAgainEvent() => OnPlayAgain?.Invoke();
+
     #endregion
 }
