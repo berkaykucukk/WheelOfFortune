@@ -49,12 +49,14 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     {
         gameEventsListener.onCreateItems += InstantiateWheelItems;
         gameEventsListener.onChangeWheelState += SetChangeWheelStateSettings;
+        gameEventsListener.onResetGame += ResetWheelsRotations;
     }
 
     private void OnDisable()
     {
         gameEventsListener.onCreateItems -= InstantiateWheelItems;
         gameEventsListener.onChangeWheelState -= SetChangeWheelStateSettings;
+        gameEventsListener.onResetGame -= ResetWheelsRotations;
     }
 
     #endregion
@@ -64,7 +66,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         var currentState = stateManager.StateCurrent;
         var currentWheelLocal = wheelCurrent;
 
-        currentWheelLocal.transform.GetChild(0).transform.eulerAngles = Vector3.zero;
+        ResetWheelsRotations();
         currentWheelLocal.SetActive(false);
 
         /*currentWheelLocal.transform.DOScale(Vector3.zero, .5f).SetEase(Ease.Unset).OnComplete(() =>
@@ -136,13 +138,12 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             itemsGameObjectsCurrentlySpawned.Add(itemGameObject);
             itemGameObject.transform.SetParent(panelItemsCurrent);
             itemGameObject.transform.localScale = Vector3.one;
-           
+
             var wheelItemHandler = itemGameObject.GetComponent<WheelItemHandler>();
             wheelItemHandler.SetId(currentItemData.ID);
             wheelItemHandler.SetRewardType(currentItemData.TypeOfReward);
             wheelItemHandler.SetIncreaseAmount(currentItemData.AmountOfIncrease);
             wheelItemHandler.SetDropRate(currentItemData.DropRate);
-            
         }
 
         gameDataManager.SetItemDatasCurrentlySpawned(itemsDataCurrentlySpawned);
@@ -150,5 +151,20 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
 
         stateManager.TriggerOnWheelItemsCreatedEvent();
+    }
+
+    private void ResetWheelsRotations()
+    {
+        var wheelsListLocal = new List<GameObject>
+        {
+            wheelBronze,
+            wheelSilver,
+            wheelGold
+        };
+
+        foreach (var wheel in wheelsListLocal)
+        {
+            wheel.transform.GetChild(0).transform.eulerAngles = Vector3.zero;
+        }
     }
 }

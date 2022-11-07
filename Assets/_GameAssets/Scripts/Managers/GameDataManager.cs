@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using SystemPersonel;
@@ -11,6 +12,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     #region PRIVATE PROPERTIES
 
+    private GameEventsListener gameEventsListener;
     private int _numberOfRotateTotal;
     private Transform _itemAreaCurrentEarned;
     private List<WheelItemData> _itemDatasCurrentlySpawned;
@@ -34,6 +36,17 @@ public class GameDataManager : Singleton<GameDataManager>
         base.Awake();
         _itemsGameObjectsCurrentlySpawned = new List<GameObject>();
         _itemDatasCurrentlySpawned = new List<WheelItemData>();
+        gameEventsListener = GetComponent<GameEventsListener>();
+    }
+
+    private void OnEnable()
+    {
+        gameEventsListener.onResetGame += ResetGame;
+    }
+
+    private void OnDisable()
+    {
+        gameEventsListener.onResetGame -= ResetGame;
     }
 
     public void SetNumberOfRotate(int value)

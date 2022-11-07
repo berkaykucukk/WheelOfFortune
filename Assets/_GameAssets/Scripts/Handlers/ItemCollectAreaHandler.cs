@@ -39,13 +39,14 @@ public class ItemCollectAreaHandler : MonoBehaviour
     {
         gameEventsListener.onCollectAreaIconCreate += CreateCollectArea;
         gameEventsListener.onCollectAreaValueUpdate += UpdateCollectAreaTotalText;
-        
+        gameEventsListener.onResetGame += ResetGame;
     }
 
     private void OnDisable()
     {
         gameEventsListener.onCollectAreaIconCreate -= CreateCollectArea;
         gameEventsListener.onCollectAreaValueUpdate -= UpdateCollectAreaTotalText;
+        gameEventsListener.onResetGame -= ResetGame;
     }
 
     #endregion
@@ -100,6 +101,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
         {
             Destroy(itemsControllersCollectArea[i].gameObject);
         }
+
         itemsControllersCollectArea.Clear();
         itemsIdCollectArea.Clear();
     }

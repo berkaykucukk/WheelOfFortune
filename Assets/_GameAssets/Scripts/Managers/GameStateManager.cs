@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using NaughtyAttributes;
 using SystemPersonel;
 using UnityEngine;
 using UnityEngine.UI;
@@ -88,14 +89,26 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         gameStateEvents.TriggerOnIncreaseWheelItemValuesEvent();
     }
-
+    [Button("GameOVer")]
     public void GameOver()
     {
+        TriggerGameResetEvent();
         gameStateEvents.TriggerGameOverEvent();
     }
 
     private void ResetGame()
     {
         stateCurrent = stateBeginning;
+    }
+
+    public void TriggerGameResetEvent()
+    {
+        ResetGame();
+        gameStateEvents.TriggerGameResetEvent();
+    }
+
+    public void TriggerPlayAgainEvent()
+    {
+        gameStateEvents.TriggerPlayAgainEvent();
     }
 }

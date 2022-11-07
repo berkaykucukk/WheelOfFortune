@@ -25,12 +25,14 @@ public class SpinButtonController : MonoBehaviour
     {
         gameEventsListener.onGameOver += SetUnInteractable;
         gameEventsListener.onIncreaseWheelItemValues += SetInteractable;
+        gameEventsListener.onPlayAgain += SetInteractable;
     }
 
     private void OnDisable()
     {
         gameEventsListener.onGameOver -= SetUnInteractable;
         gameEventsListener.onIncreaseWheelItemValues -= SetInteractable;
+        gameEventsListener.onPlayAgain -= SetInteractable;
     }
 
     private void OnValidate()

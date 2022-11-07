@@ -14,18 +14,25 @@ public class UIController : MonoBehaviour
     [SerializeField] private Ease easeGameOverPanelOpen;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private Button playAgainBtn;
+
     #endregion
 
     #region PRIVATE PROPERTIES
 
+    private GameStateManager gameStateManager;
     private GameEventsListener gameEventsListener;
 
     #endregion
 
+    private void OnValidate()
+    {
+        playAgainBtn.onClick.AddListener(PlayAgain);
+    }
 
     private void Awake()
     {
         gameEventsListener = GetComponent<GameEventsListener>();
+        gameStateManager = GameStateManager.instance;
     }
 
     private void OnEnable()
@@ -38,9 +45,20 @@ public class UIController : MonoBehaviour
         gameEventsListener.onGameOver -= OpenGameOverPanel;
     }
 
+    private void PlayAgain()
+    {
+        gameStateManager.TriggerPlayAgainEvent();
+
+        gameOverPanel.SetActive(false);
+        playAgainBtn.gameObject.SetActive(false);
+        gameOverPanel.transform.localScale = Vector3.zero;
+        playAgainBtn.transform.localScale = Vector3.zero;
+    }
+
     private void OpenGameOverPanel()
     {
         gameOverPanel.SetActive(true);
+        playAgainBtn.gameObject.SetActive(true);
         gameOverPanel.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
         playAgainBtn.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
     }

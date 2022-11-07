@@ -77,12 +77,14 @@ public class WheelOfFortuneHandler : MonoBehaviour
     {
         eventsListener.onSpinButtonClicked += TriggerSpinReady;
         eventsListener.onChangeWheelState += ChangeWheelState;
+        eventsListener.onPlayAgain += RestartGame;
     }
 
     private void OnDisable()
     {
         eventsListener.onSpinButtonClicked -= TriggerSpinReady;
         eventsListener.onChangeWheelState -= ChangeWheelState;
+        eventsListener.onPlayAgain += RestartGame;
     }
 
     #endregion
@@ -127,5 +129,10 @@ public class WheelOfFortuneHandler : MonoBehaviour
         TriggerCreateItemsEvent();
     }
 
+    private void RestartGame()
+    {
+        SetCurrentWheelItemContentData();
+        TriggerCreateItemsEvent();
+    }
     #endregion
 }
