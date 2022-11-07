@@ -45,6 +45,7 @@ public class WheelAnimationController : MonoBehaviour
     #endregion
 
 
+
     private void RunSpinWheel(WheelItemsContentData contentWheelItems, float durationRotate, int numberRotate,
         Ease easeSpin)
     {
@@ -56,7 +57,7 @@ public class WheelAnimationController : MonoBehaviour
 
         gameDataManager.SetItemIndexEarned(randomItem);
         tweenWheelSpin = transform.DORotate(targetAngleVector, durationRotate, RotateMode.LocalAxisAdd);
-        
+
         tweenWheelSpin.OnComplete(TriggerOnWheelRotateDone);
     }
 

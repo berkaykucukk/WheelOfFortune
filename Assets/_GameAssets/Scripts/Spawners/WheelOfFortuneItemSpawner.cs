@@ -63,10 +63,14 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     {
         var currentState = stateManager.StateCurrent;
         var currentWheelLocal = wheelCurrent;
-        currentWheelLocal.transform.DOScale(Vector3.zero, .5f).SetEase(Ease.Unset).OnComplete(() =>
+
+        currentWheelLocal.transform.GetChild(0).transform.eulerAngles = Vector3.zero;
+        currentWheelLocal.SetActive(false);
+
+        /*currentWheelLocal.transform.DOScale(Vector3.zero, .5f).SetEase(Ease.Unset).OnComplete(() =>
         {
             currentWheelLocal.SetActive(false);
-        });
+        });*/
         switch (currentState)
         {
             case WheelZoneStates.bronze:
@@ -83,7 +87,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         }
 
         wheelCurrent.SetActive(true);
-        wheelCurrent.transform.DOScale(Vector3.one, .5f).SetEase(Ease.Unset);
+        //wheelCurrent.transform.DOScale(Vector3.one, .5f).SetUpdate(true).SetEase(Ease.Unset);
     }
 
     private void ChangeWheelBronze()
@@ -130,15 +134,15 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
             var itemGameObject = Instantiate(itemNextSpawn, position, Quaternion.Euler(Vector3.zero));
             itemsGameObjectsCurrentlySpawned.Add(itemGameObject);
-
-            itemGameObject.transform.localScale = Vector3.one;
             itemGameObject.transform.SetParent(panelItemsCurrent);
-            
+            itemGameObject.transform.localScale = Vector3.one;
+            //itemGameObject.transform.SetParent(panelItemsCurrent);
             var wheelItemHandler = itemGameObject.GetComponent<WheelItemHandler>();
             wheelItemHandler.SetId(currentItemData.ID);
             wheelItemHandler.SetRewardType(currentItemData.TypeOfReward);
             wheelItemHandler.SetIncreaseAmount(currentItemData.AmountOfIncrease);
             wheelItemHandler.SetDropRate(currentItemData.DropRate);
+            
         }
 
         gameDataManager.SetItemDatasCurrentlySpawned(itemsDataCurrentlySpawned);

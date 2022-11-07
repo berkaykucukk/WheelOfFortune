@@ -99,27 +99,28 @@ public class SpinResultController : MonoBehaviour
     private void IncreaseTotalRotateCount()
     {
         _numberOfTotalRotate++;
+        gameDataManager.SetNumberOfRotate(_numberOfTotalRotate);
     }
 
     private void CheckWheelZoneChange()
     {
         print("Check Wheel Zone Change ");
         _itemHandlerCurrentlySelected.OnAnimationDone -= CheckWheelZoneChange;
-        
+
         var currentState = gameStateManager.StateCurrent;
         var state = currentState;
 
-        if (_numberOfTotalRotate % wheelOfFortuneSettings.GoldAreaInterval == 0)
+        if ((_numberOfTotalRotate+1) % wheelOfFortuneSettings.GoldAreaInterval == 0)
             state = WheelZoneStates.gold;
 
-        else if (_numberOfTotalRotate % wheelOfFortuneSettings.SilverAreaInterval == 0)
+        else if ((_numberOfTotalRotate+1) % wheelOfFortuneSettings.SilverAreaInterval == 0)
             state = WheelZoneStates.silver;
 
         else if (gameStateManager.StateCurrent != WheelZoneStates.bronze)
             state = WheelZoneStates.bronze;
 
         if (currentState != state)
-        { 
+        {
             gameStateManager.SetWheelState(state);
             gameStateManager.TriggerOnChangeWheelStateEvent();
         }

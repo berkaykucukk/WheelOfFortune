@@ -11,6 +11,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     #region PRIVATE PROPERTIES
 
+    private int _numberOfRotateTotal;
     private Transform _itemAreaCurrentEarned;
     private List<WheelItemData> _itemDatasCurrentlySpawned;
     private List<GameObject> _itemsGameObjectsCurrentlySpawned;
@@ -20,6 +21,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     #region PUBLIC PROPERTIES
 
+    public int NumberOfRotateTotal => _numberOfRotateTotal;
     public Transform İtemAreaCurrentEarned => _itemAreaCurrentEarned;
     public List<WheelItemData> ItemDatasCurrentlySpawned => _itemDatasCurrentlySpawned;
     public List<GameObject> ItemsGameObjectsCurrentlySpawned => _itemsGameObjectsCurrentlySpawned;
@@ -32,6 +34,11 @@ public class GameDataManager : Singleton<GameDataManager>
         base.Awake();
         _itemsGameObjectsCurrentlySpawned = new List<GameObject>();
         _itemDatasCurrentlySpawned = new List<WheelItemData>();
+    }
+
+    public void SetNumberOfRotate(int value)
+    {
+        _numberOfRotateTotal = value;
     }
 
     public void SetItemIndexEarned(int itemIndexEarned)

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(GameEventsListener))]
 public class WheelItemHandler : MonoBehaviour
 {
     #region EVENTS
@@ -18,6 +18,7 @@ public class WheelItemHandler : MonoBehaviour
 
     #region PRIVATE PROPERTIES
 
+    private GameEventsListener gameEventsListener;
     private GameStateManager gameStateManager;
     private GameDataManager gameDataManager;
     private RewardTypes _typeOfReward;
@@ -55,10 +56,15 @@ public class WheelItemHandler : MonoBehaviour
 
     #endregion
 
+
+    #region UNITY METHODS
+
     private void Awake()
     {
+        gameEventsListener = GetComponent<GameEventsListener>();
         gameStateManager = GameStateManager.instance;
         gameDataManager = GameDataManager.instance;
+        IncreaseValue();
     }
 
     private void Update()
@@ -66,10 +72,21 @@ public class WheelItemHandler : MonoBehaviour
         transform.eulerAngles = Vector3.zero;
     }
 
-    public void SetValue(int value)
+    private void OnEnable()
     {
-        _value = value;
-        valueText.text = _value.ToString();
+        gameEventsListener.onIncreaseWheelItemValues += IncreaseValue;
+    }
+
+    private void OnDisable()
+    {
+        gameEventsListener.onIncreaseWheelItemValues -= IncreaseValue;
+    }
+
+    #endregion
+
+    private void UpdateText()
+    {
+        valueText.text = "x" + _value;
     }
 
 
@@ -148,5 +165,12 @@ public class WheelItemHandler : MonoBehaviour
     private void TriggerUpdateCollectAreaValue()
     {
         gameStateManager.TriggerOnCollectAreaValueUpdateEvent(_id, _value);
+    }
+
+    private void IncreaseValue()
+    {
+        var valueUpdated = _amountOfIncrease * gameDataManager.NumberOfRotateTotal + 1;
+        _value = Mathf.CeilToInt(valueUpdated);
+        UpdateText();
     }
 }
