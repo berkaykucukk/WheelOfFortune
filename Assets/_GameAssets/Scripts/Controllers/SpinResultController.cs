@@ -7,6 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(GameEventsListener))]
 public class SpinResultController : MonoBehaviour
 {
+    #region EVENTS
+
+    #endregion
+
     #region INSPECTOR PROPERTIES
 
     [SerializeField] private Transform parentIconEffects;
@@ -22,6 +26,7 @@ public class SpinResultController : MonoBehaviour
     private List<GameObject> _itemsGameObjectsCurrentlySpawned;
     private GameEventsListener gameEventsListener;
     private GameStateManager gameStateManager;
+    private WheelItemHandler _itemHandlerCurrentlySelected;
 
     #endregion
 
@@ -38,12 +43,14 @@ public class SpinResultController : MonoBehaviour
     private void OnEnable()
     {
         gameEventsListener.onWheelItemsCreated += ReadItemsDataCurrentlySpawned;
+        //gameEventsListener.onCheckNextSpin += CheckWheelZoneChange;
         gameEventsListener.onWheelRotateDone += CheckResult;
     }
 
     private void OnDisable()
     {
         gameEventsListener.onWheelItemsCreated -= ReadItemsDataCurrentlySpawned;
+        //gameEventsListener.onCheckNextSpin -= CheckWheelZoneChange;
         gameEventsListener.onWheelRotateDone -= CheckResult;
     }
 
@@ -63,30 +70,30 @@ public class SpinResultController : MonoBehaviour
         var itemIndex = gameDataManager.ItemIndexEarned;
         //var dataSelectedItem = _itemsDataCurrentlySpawned[itemIndex];
         var itemWheelGO = _itemsGameObjectsCurrentlySpawned[itemIndex];
-        var itemHandlerCurrentlySelected = itemWheelGO.GetComponent<WheelItemHandler>();
+        _itemHandlerCurrentlySelected = itemWheelGO.GetComponent<WheelItemHandler>();
 
-        itemHandlerCurrentlySelected.AnimatePunch();
+        _itemHandlerCurrentlySelected.AnimatePunch();
 
-        if (itemHandlerCurrentlySelected.TypeOfReward == RewardTypes.death)
+        if (_itemHandlerCurrentlySelected.TypeOfReward == RewardTypes.death)
         {
             Death();
             return;
         }
 
-        CreateNewCollectAreaIfPossible(itemHandlerCurrentlySelected);
-        itemHandlerCurrentlySelected.InstantiateEffect(parentIconEffects);
-
         IncreaseTotalRotateCount();
-        CheckWheelZoneChange();
+        CreateNewCollectAreaIfPossible();
+
+        _itemHandlerCurrentlySelected.InstantiateEffect(parentIconEffects);
+        _itemHandlerCurrentlySelected.OnAnimationDone += CheckWheelZoneChange;
 
         //print("Item = " + selectedItem.ID);
         //print();
     }
 
-    private void CreateNewCollectAreaIfPossible(WheelItemHandler itemHandlerCurrentlySelected)
+    private void CreateNewCollectAreaIfPossible()
     {
-        gameStateManager.TriggerOnCollectAreaIconCreateEvent(itemHandlerCurrentlySelected.Id,
-            itemHandlerCurrentlySelected.Icon);
+        gameStateManager.TriggerOnCollectAreaIconCreateEvent(_itemHandlerCurrentlySelected.Id,
+            _itemHandlerCurrentlySelected.Icon);
     }
 
     private void Death()
@@ -100,5 +107,26 @@ public class SpinResultController : MonoBehaviour
 
     private void CheckWheelZoneChange()
     {
+        _itemHandlerCurrentlySelected.OnAnimationDone -= CheckWheelZoneChange;
+        
+        var currentState = gameStateManager.StateCurrent;
+        var state = currentState;
+
+        if (_numberOfTotalRotate % wheelOfFortuneSettings.GoldAreaInterval == 0)
+            state = WheelZoneStates.gold;
+
+        else if (_numberOfTotalRotate % wheelOfFortuneSettings.SilverAreaInterval == 0)
+            state = WheelZoneStates.silver;
+
+        else if (gameStateManager.StateCurrent != WheelZoneStates.bronze)
+            state = WheelZoneStates.bronze;
+
+        if (currentState != state)
+        {
+            gameStateManager.SetWheelState(state);
+            gameStateManager.TriggerOnChangeWheelStateEvent();
+        }
+
+        gameStateManager.TriggerOnIncreaseWheelItemValuesEvent();
     }
 }

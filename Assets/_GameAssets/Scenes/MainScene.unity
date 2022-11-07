@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749b96865612c2643ac8b97b6c1a657f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dontDestryOnLoad: 1
+  _dontDestryOnLoad: 0
   _overrideInstance: 0
   stateBeginning: 0
   gameStateEvents: {fileID: 11400000, guid: de2d88455f9c5d94b80e505dddf2d34e, type: 2}

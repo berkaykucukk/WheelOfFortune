@@ -33,6 +33,10 @@ public class GameStateManager : Singleton<GameStateManager>
         stateCurrent = stateBeginning;
     }
 
+    public void SetWheelState(WheelZoneStates wheelZoneState)
+    {
+        stateCurrent = wheelZoneState;
+    }
     public void TriggerSpinButtonClickEvent()
     {
         gameStateEvents.TriggerOnSpinButtonClickedEvent();
@@ -67,5 +71,20 @@ public class GameStateManager : Singleton<GameStateManager>
     public void TriggerOnCollectAreaValueUpdateEvent(int itemId, int value)
     {
         gameStateEvents.TriggerOnCollectAreaValueUpdateEvent(itemId, value);
+    }
+
+    public void TriggerOnCheckNextSpinEvent()
+    {
+        gameStateEvents.TriggerOnCheckNextSpinEvent();
+    }
+
+    public void TriggerOnChangeWheelStateEvent()
+    {
+        gameStateEvents.TriggerOnChangeWheelStateEvent();
+    }
+
+    public void TriggerOnIncreaseWheelItemValuesEvent()
+    {
+        gameStateEvents.TriggerOnIncreaseWheelItemValues();
     }
 }

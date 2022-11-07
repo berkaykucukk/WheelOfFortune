@@ -18,6 +18,9 @@ public class GameEventsListener : MonoBehaviour
     public Action onWheelItemsCreated;
     public Action<int, Image> onCollectAreaIconCreate;
     public Action<int, int> onCollectAreaValueUpdate;
+    public Action onChangeWheelZone;
+    public Action onCheckNextSpin;
+    public Action onIncreaseWheelItemValues;
 
     #endregion
 
@@ -38,6 +41,9 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnWheelItemsCreated += OnWheelItemsCreated;
         gameStateEvents.OnCollectAreaIconCreate += OnCollectAreaCreate;
         gameStateEvents.OnCollectAreaValueUpdate += OnCollectAreaValueUpdate;
+        gameStateEvents.OnCheckNextSpin += OnCheckNextSpin;
+        gameStateEvents.OnChangeWheelZone += OnChangeWheelZone;
+        gameStateEvents.OnIncreaseWheelItemValues += OnIncreaseWheelItemValues;
     }
 
     private void OnDisable()
@@ -49,6 +55,9 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnWheelItemsCreated -= OnWheelItemsCreated;
         gameStateEvents.OnCollectAreaIconCreate -= OnCollectAreaCreate;
         gameStateEvents.OnCollectAreaValueUpdate -= OnCollectAreaValueUpdate;
+        gameStateEvents.OnCheckNextSpin -= OnCheckNextSpin;
+        gameStateEvents.OnChangeWheelZone -= OnChangeWheelZone;
+        gameStateEvents.OnIncreaseWheelItemValues -= OnIncreaseWheelItemValues;
     }
 
     #endregion
@@ -89,6 +98,21 @@ public class GameEventsListener : MonoBehaviour
     private void OnCollectAreaValueUpdate(int itemId, int value)
     {
         onCollectAreaValueUpdate?.Invoke(itemId, value);
+    }
+
+    private void OnCheckNextSpin()
+    {
+        onCheckNextSpin?.Invoke();
+    }
+
+    private void OnChangeWheelZone()
+    {
+        onChangeWheelZone?.Invoke();
+    }
+
+    private void OnIncreaseWheelItemValues()
+    {
+        onIncreaseWheelItemValues?.Invoke();
     }
 
     #endregion

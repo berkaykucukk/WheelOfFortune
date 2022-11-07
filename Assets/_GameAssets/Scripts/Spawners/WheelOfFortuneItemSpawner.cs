@@ -25,7 +25,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     #region PRIVATE PROPERTIES
 
-    private GameObject goWheelCurrent;
+    private GameObject wheelCurrent;
     private GameDataManager gameDataManager;
     private Transform panelItemsCurrent;
     private GameStateManager stateManager;
@@ -54,13 +54,24 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     #endregion
 
+    private void ChangeWheelBronze()
+    {
+    }
+
+    private void ChangeWheelSilver()
+    {
+    }
+
+    private void ChangeWheelGold()
+    {
+    }
 
     private void InstantiateWheelItems(WheelItemsContentData contentDataCurrent)
     {
         var itemsWillSpawn = new List<WheelItemData>();
         itemsWillSpawn.AddRange(contentDataCurrent.ItemsOnWheel);
+        
         var numberOfItems = itemsWillSpawn.Count;
-        //print("number of items = " + numberOfItems);
         var angle = 360f / numberOfItems;
         var radius = Vector3.Distance(referenceCalculateRadiusWheelImage.position, transform.position);
 
@@ -69,7 +80,8 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
         for (int i = 0; i < numberOfItems; i++)
         {
-            var itemNextSpawn = itemsWillSpawn[i].PrefabImageOnWheel;
+            var currentItemData = itemsWillSpawn[i];
+            var itemNextSpawn = currentItemData.PrefabImageOnWheel;
             itemsDataCurrentlySpawned.Add(itemsWillSpawn[i]);
 
             var rotation = Quaternion.AngleAxis(i * angle, Vector3.back);
@@ -77,20 +89,21 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             var position = transform.position + (direction * radius);
 
             var itemGameObject = Instantiate(itemNextSpawn, position, Quaternion.Euler(Vector3.zero));
-            
-            var wheelItemHandler = itemGameObject.GetComponent<WheelItemHandler>();
-            wheelItemHandler.SetId(itemsWillSpawn[i].ID);
-            wheelItemHandler.SetRewardType(itemsWillSpawn[i].TypeOfReward);
-            
             itemsGameObjectsCurrentlySpawned.Add(itemGameObject);
-
             itemGameObject.transform.SetParent(panelItemsAreaBronze);
             itemGameObject.transform.localScale = Vector3.one;
+
+            var wheelItemHandler = itemGameObject.GetComponent<WheelItemHandler>();
+            wheelItemHandler.SetId(currentItemData.ID);
+            wheelItemHandler.SetRewardType(currentItemData.TypeOfReward);
+            wheelItemHandler.SetIncreaseAmount(currentItemData.AmountOfIncrease);
+            wheelItemHandler.SetDropRate(currentItemData.DropRate);
         }
 
         gameDataManager.SetItemDatasCurrentlySpawned(itemsDataCurrentlySpawned);
         gameDataManager.SetItemsGameObjectsCurrentlySpawned(itemsGameObjectsCurrentlySpawned);
 
+        
         stateManager.TriggerOnWheelItemsCreatedEvent();
     }
 }

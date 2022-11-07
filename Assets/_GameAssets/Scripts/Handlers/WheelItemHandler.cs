@@ -10,6 +10,12 @@ using Random = UnityEngine.Random;
 
 public class WheelItemHandler : MonoBehaviour
 {
+    #region EVENTS
+
+    public Action OnAnimationDone;
+
+    #endregion
+
     #region PRIVATE PROPERTIES
 
     private GameStateManager gameStateManager;
@@ -17,6 +23,8 @@ public class WheelItemHandler : MonoBehaviour
     private RewardTypes _typeOfReward;
     private int _id = 0;
     private int _value = 1;
+    private float _amountOfIncrease;
+    private float _dropRate;
 
     #endregion
 
@@ -41,6 +49,8 @@ public class WheelItemHandler : MonoBehaviour
 
     public RewardTypes TypeOfReward => _typeOfReward;
     public int Id => _id;
+    public float AmountOfIncrease => _amountOfIncrease;
+    public float DropRate => _dropRate;
     public Image Icon => icon;
 
     #endregion
@@ -72,6 +82,16 @@ public class WheelItemHandler : MonoBehaviour
     public void SetId(int id)
     {
         _id = id;
+    }
+
+    public void SetDropRate(float dropRate)
+    {
+        _dropRate = dropRate;
+    }
+
+    public void SetIncreaseAmount(float increaseAmount)
+    {
+        _amountOfIncrease = increaseAmount;
     }
 
     public void SetRewardType(RewardTypes rewardType)
@@ -121,7 +141,9 @@ public class WheelItemHandler : MonoBehaviour
         }
 
         TriggerUpdateCollectAreaValue();
+        OnAnimationDone?.Invoke();
     }
+
 
     private void TriggerUpdateCollectAreaValue()
     {

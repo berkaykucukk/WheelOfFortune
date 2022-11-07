@@ -78,10 +78,9 @@ public class ItemCollectAreaHandler : MonoBehaviour
 
     private void UpdateCollectAreaTotalText(int id, int value)
     {
-        //print("update et");
         foreach (var collectAreaItem in itemsControllersCollectArea.Where(collectAreaItem => collectAreaItem.ID == id))
         {
-            print("update et");
+            //print("update et");
             collectAreaItem.UpdateValue(value);
             break;
         }

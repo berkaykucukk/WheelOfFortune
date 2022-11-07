@@ -27,6 +27,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     #endregion
 
+  
 
     public void SetItemIndexEarned(int itemIndexEarned)
     {
@@ -41,6 +42,16 @@ public class GameDataManager : Singleton<GameDataManager>
 
     public void SetItemsGameObjectsCurrentlySpawned(List<GameObject> itemsGameObjectsCurrentlySpawned)
     {
+        /*if (_itemsGameObjectsCurrentlySpawned.Count > 0)
+        {
+            var localList = new List<GameObject>();
+            localList.AddRange(_itemsGameObjectsCurrentlySpawned);
+            foreach (var item in _itemsGameObjectsCurrentlySpawned)
+            {
+                Destroy(item);
+            }
+        }*/
+
         _itemsGameObjectsCurrentlySpawned = new List<GameObject>();
         _itemsGameObjectsCurrentlySpawned.AddRange(itemsGameObjectsCurrentlySpawned);
     }

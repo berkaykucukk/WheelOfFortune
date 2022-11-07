@@ -23,6 +23,7 @@ public class WheelItemData : ScriptableObject
     public float DropRate => rateDrop;
     public GameObject PrefabImageOnWheel => prefabImageOnWheel;
     public RewardTypes TypeOfReward => typeOfReward;
+    public float AmountOfIncrease => amountOfIncrease;
 
     #endregion
 }
