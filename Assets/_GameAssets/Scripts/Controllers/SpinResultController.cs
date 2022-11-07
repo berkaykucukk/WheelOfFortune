@@ -107,6 +107,7 @@ public class SpinResultController : MonoBehaviour
 
     private void CheckWheelZoneChange()
     {
+        print("Check Wheel Zone Change ");
         _itemHandlerCurrentlySelected.OnAnimationDone -= CheckWheelZoneChange;
         
         var currentState = gameStateManager.StateCurrent;
@@ -123,6 +124,7 @@ public class SpinResultController : MonoBehaviour
 
         if (currentState != state)
         {
+            print("Değiş");
             gameStateManager.SetWheelState(state);
             gameStateManager.TriggerOnChangeWheelStateEvent();
         }

@@ -18,7 +18,7 @@ public class GameEventsListener : MonoBehaviour
     public Action onWheelItemsCreated;
     public Action<int, Image> onCollectAreaIconCreate;
     public Action<int, int> onCollectAreaValueUpdate;
-    public Action onChangeWheelZone;
+    public Action onChangeWheelState;
     public Action onCheckNextSpin;
     public Action onIncreaseWheelItemValues;
 
@@ -42,7 +42,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnCollectAreaIconCreate += OnCollectAreaCreate;
         gameStateEvents.OnCollectAreaValueUpdate += OnCollectAreaValueUpdate;
         gameStateEvents.OnCheckNextSpin += OnCheckNextSpin;
-        gameStateEvents.OnChangeWheelZone += OnChangeWheelZone;
+        gameStateEvents.OnChangeWheelState += OnChangeWheelState;
         gameStateEvents.OnIncreaseWheelItemValues += OnIncreaseWheelItemValues;
     }
 
@@ -56,7 +56,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnCollectAreaIconCreate -= OnCollectAreaCreate;
         gameStateEvents.OnCollectAreaValueUpdate -= OnCollectAreaValueUpdate;
         gameStateEvents.OnCheckNextSpin -= OnCheckNextSpin;
-        gameStateEvents.OnChangeWheelZone -= OnChangeWheelZone;
+        gameStateEvents.OnChangeWheelState -= OnChangeWheelState;
         gameStateEvents.OnIncreaseWheelItemValues -= OnIncreaseWheelItemValues;
     }
 
@@ -105,9 +105,9 @@ public class GameEventsListener : MonoBehaviour
         onCheckNextSpin?.Invoke();
     }
 
-    private void OnChangeWheelZone()
+    private void OnChangeWheelState()
     {
-        onChangeWheelZone?.Invoke();
+        onChangeWheelState?.Invoke();
     }
 
     private void OnIncreaseWheelItemValues()

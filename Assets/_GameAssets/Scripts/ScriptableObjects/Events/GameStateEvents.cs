@@ -19,7 +19,7 @@ public class GameStateEvents : ScriptableObject
     public Action<int, Image> OnCollectAreaIconCreate;
     public Action<int, int> OnCollectAreaValueUpdate;
     public Action OnCheckNextSpin;
-    public Action OnChangeWheelZone;
+    public Action OnChangeWheelState;
     public Action OnIncreaseWheelItemValues;
 
     #endregion
@@ -46,7 +46,7 @@ public class GameStateEvents : ScriptableObject
         OnCollectAreaValueUpdate?.Invoke(itemId, value);
 
     public void TriggerOnCheckNextSpinEvent() => OnCheckNextSpin?.Invoke();
-    public void TriggerOnChangeWheelStateEvent() => OnChangeWheelZone?.Invoke();
+    public void TriggerOnChangeWheelStateEvent() => OnChangeWheelState?.Invoke();
 
     public void TriggerOnIncreaseWheelItemValues() => OnIncreaseWheelItemValues?.Invoke();
     

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,6 +38,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     private void Awake()
     {
+        wheelCurrent = wheelBronze;
         gameDataManager = GameDataManager.instance;
         stateManager = GameStateManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
@@ -45,32 +47,64 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     private void OnEnable()
     {
         gameEventsListener.onCreateItems += InstantiateWheelItems;
+        gameEventsListener.onChangeWheelState += SetChangeWheelStateSettings;
     }
 
     private void OnDisable()
     {
         gameEventsListener.onCreateItems -= InstantiateWheelItems;
+        gameEventsListener.onChangeWheelState -= SetChangeWheelStateSettings;
     }
 
     #endregion
 
+    private void SetChangeWheelStateSettings()
+    {
+        var currentState = stateManager.StateCurrent;
+        var currentWheelLocal = wheelCurrent;
+        currentWheelLocal.transform.DOScale(Vector3.zero, .5f).SetEase(Ease.Unset).OnComplete(() =>
+        {
+            currentWheelLocal.SetActive(false);
+        });
+        switch (currentState)
+        {
+            case WheelZoneStates.bronze:
+                ChangeWheelBronze();
+                break;
+            case WheelZoneStates.silver:
+                ChangeWheelSilver();
+                break;
+            case WheelZoneStates.gold:
+                ChangeWheelGold();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        wheelCurrent.SetActive(true);
+        wheelCurrent.transform.DOScale(Vector3.one, .5f).SetEase(Ease.Unset);
+    }
+
     private void ChangeWheelBronze()
     {
+        wheelCurrent = wheelBronze;
     }
 
     private void ChangeWheelSilver()
     {
+        wheelCurrent = wheelSilver;
     }
 
     private void ChangeWheelGold()
     {
+        wheelCurrent = wheelGold;
     }
 
     private void InstantiateWheelItems(WheelItemsContentData contentDataCurrent)
     {
         var itemsWillSpawn = new List<WheelItemData>();
         itemsWillSpawn.AddRange(contentDataCurrent.ItemsOnWheel);
-        
+
         var numberOfItems = itemsWillSpawn.Count;
         var angle = 360f / numberOfItems;
         var radius = Vector3.Distance(referenceCalculateRadiusWheelImage.position, transform.position);
@@ -103,7 +137,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         gameDataManager.SetItemDatasCurrentlySpawned(itemsDataCurrentlySpawned);
         gameDataManager.SetItemsGameObjectsCurrentlySpawned(itemsGameObjectsCurrentlySpawned);
 
-        
+
         stateManager.TriggerOnWheelItemsCreatedEvent();
     }
 }
