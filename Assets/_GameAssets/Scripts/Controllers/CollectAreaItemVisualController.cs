@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class CollectAreaItemVisualController : MonoBehaviour
 {
-    
-    
     #region PRIVATE PROPERTIES
 
     private int _id;

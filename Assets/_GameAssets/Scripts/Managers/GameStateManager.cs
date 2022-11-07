@@ -44,10 +44,10 @@ public class GameStateManager : Singleton<GameStateManager>
         gameStateEvents.TriggerOnSpinButtonClickedEvent();
     }
 
-    public void TriggerSpinReadyEvent(WheelItemsContentData contentWheelItems, float duration, int numberRotate,
+    public void TriggerSpinReadyEvent(float duration, int numberRotate,
         Ease easeSpin)
     {
-        gameStateEvents.TriggerSpinReadyEvent(contentWheelItems, duration, numberRotate, easeSpin);
+        gameStateEvents.TriggerSpinReadyEvent(duration, numberRotate, easeSpin);
     }
 
     public void TriggerCreateItemsEvent(WheelItemsContentData contentDataCurrent)
@@ -89,6 +89,7 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         gameStateEvents.TriggerOnIncreaseWheelItemValuesEvent();
     }
+
     [Button("GameOVer")]
     public void GameOver()
     {
@@ -110,5 +111,10 @@ public class GameStateManager : Singleton<GameStateManager>
     public void TriggerPlayAgainEvent()
     {
         gameStateEvents.TriggerPlayAgainEvent();
+    }
+
+    public void TriggerCollectItemsEvent()
+    {
+        gameStateEvents.TriggerOnCollectItems();
     }
 }

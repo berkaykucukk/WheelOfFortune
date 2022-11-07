@@ -12,7 +12,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
 
     [SerializeField] private GameObject prefabCollectAreaItem;
     [SerializeField] private Transform panelCollectArea;
-
+    
     #endregion
 
     #region PRIVATE PROPERTIES
@@ -40,6 +40,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
         gameEventsListener.onCollectAreaIconCreate += CreateCollectArea;
         gameEventsListener.onCollectAreaValueUpdate += UpdateCollectAreaTotalText;
         gameEventsListener.onResetGame += ResetGame;
+        gameEventsListener.onCollectItems += OnCollectItems;
     }
 
     private void OnDisable()
@@ -47,6 +48,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
         gameEventsListener.onCollectAreaIconCreate -= CreateCollectArea;
         gameEventsListener.onCollectAreaValueUpdate -= UpdateCollectAreaTotalText;
         gameEventsListener.onResetGame -= ResetGame;
+        gameEventsListener.onCollectItems -= OnCollectItems;
     }
 
     #endregion
@@ -74,7 +76,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
     {
         foreach (var collectAreaItem in itemsControllersCollectArea.Where(collectAreaItem => collectAreaItem.ID == id))
         {
-            gameDataManager.SetCurrentEarnedItemArea(collectAreaItem.transform);
+            gameDataManager.SetCurrentEarnedItemAreaTransform(collectAreaItem.transform);
         }
     }
 
@@ -91,6 +93,11 @@ public class ItemCollectAreaHandler : MonoBehaviour
     private bool CheckIsNewItem(int id)
     {
         return itemsIdCollectArea.Count <= 0 || itemsIdCollectArea.All(itemId => itemId != id);
+    }
+
+    private void OnCollectItems()
+    {
+        gameDataManager.SetCollectedItems(itemsControllersCollectArea);
     }
 
     private void ResetGame()

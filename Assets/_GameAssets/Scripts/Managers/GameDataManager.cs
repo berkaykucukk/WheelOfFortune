@@ -12,6 +12,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     #region PRIVATE PROPERTIES
 
+    private List<CollectAreaItemVisualController> _collectedItems;
     private GameEventsListener gameEventsListener;
     private int _numberOfRotateTotal;
     private Transform _itemAreaCurrentEarned;
@@ -23,6 +24,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     #region PUBLIC PROPERTIES
 
+    public List<CollectAreaItemVisualController> ItemsCollected => _collectedItems;
     public int NumberOfRotateTotal => _numberOfRotateTotal;
     public Transform İtemAreaCurrentEarned => _itemAreaCurrentEarned;
     public List<WheelItemData> ItemDatasCurrentlySpawned => _itemDatasCurrentlySpawned;
@@ -59,6 +61,14 @@ public class GameDataManager : Singleton<GameDataManager>
         _itemIndexEarned = itemIndexEarned;
     }
 
+    public void SetCollectedItems(List<CollectAreaItemVisualController> collectedItems)
+    {
+        _collectedItems = new List<CollectAreaItemVisualController>();
+      
+        _collectedItems.AddRange(collectedItems);
+        print(_collectedItems.Count);
+    }
+
     public void SetItemDatasCurrentlySpawned(List<WheelItemData> itemDatasCurrentlySpawned)
     {
         _itemDatasCurrentlySpawned = new List<WheelItemData>();
@@ -82,7 +92,7 @@ public class GameDataManager : Singleton<GameDataManager>
         _itemsGameObjectsCurrentlySpawned.AddRange(itemsGameObjectsCurrentlySpawned);
     }
 
-    public void SetCurrentEarnedItemArea(Transform itemArea)
+    public void SetCurrentEarnedItemAreaTransform(Transform itemArea)
     {
         _itemAreaCurrentEarned = itemArea;
     }
@@ -90,5 +100,6 @@ public class GameDataManager : Singleton<GameDataManager>
     private void ResetGame()
     {
         DeleteGameObjectsCurrentlySpawned();
+        _numberOfRotateTotal = 0;
     }
 }

@@ -12,7 +12,7 @@ public class GameEventsListener : MonoBehaviour
     #region EVENTS
 
     public Action onSpinButtonClicked;
-    public Action<WheelItemsContentData, float, int, Ease> onSpinReady;
+    public Action<float, int, Ease> onSpinReady;
     public Action<WheelItemsContentData> onCreateItems;
     public Action onWheelRotateDone;
     public Action onWheelItemsCreated;
@@ -24,6 +24,7 @@ public class GameEventsListener : MonoBehaviour
     public Action onGameOver;
     public Action onResetGame;
     public Action onPlayAgain;
+    public Action onCollectItems;
 
     #endregion
 
@@ -50,6 +51,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnGameOver += OnGameOver;
         gameStateEvents.OnPlayAgain += OnPlayAgain;
         gameStateEvents.OnResetGame += OnResetGame;
+        gameStateEvents.OnCollectItems += OnCollectItems;
     }
 
     private void OnDisable()
@@ -67,6 +69,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnGameOver -= OnGameOver;
         gameStateEvents.OnPlayAgain -= OnPlayAgain;
         gameStateEvents.OnResetGame -= OnResetGame;
+        gameStateEvents.OnCollectItems -= OnCollectItems;
     }
 
     #endregion
@@ -78,10 +81,10 @@ public class GameEventsListener : MonoBehaviour
         onSpinButtonClicked?.Invoke();
     }
 
-    private void OnSpinReady(WheelItemsContentData contentWheelItems, float duration, int numberRotate,
+    private void OnSpinReady(float duration, int numberRotate,
         Ease easeSpin)
     {
-        onSpinReady?.Invoke(contentWheelItems, duration, numberRotate, easeSpin);
+        onSpinReady?.Invoke(duration, numberRotate, easeSpin);
     }
 
     private void OnCreateItems(WheelItemsContentData contentDataCurrent)
@@ -137,6 +140,11 @@ public class GameEventsListener : MonoBehaviour
     private void OnPlayAgain()
     {
         onPlayAgain?.Invoke();
+    }
+
+    private void OnCollectItems()
+    {
+        onCollectItems?.Invoke();
     }
 
     #endregion

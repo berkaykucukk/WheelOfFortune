@@ -6,20 +6,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(GameEventsListener))]
-public class UIController : MonoBehaviour
+public class UIControllerGameEnd : MonoBehaviour
 {
     #region INSPECTOR PROPERTIES
 
-    [SerializeField] private float durationGameOverPanelOpen;
+    [Header("Game Over Panel Values")] [SerializeField]
+    private float durationGameOverPanelOpen;
+
     [SerializeField] private Ease easeGameOverPanelOpen;
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private Button playAgainBtn;
+
+    [Space] [Header("Buttons")] [SerializeField]
+    private Button playAgainBtn;
+
+    [Space] [SerializeField] private GameObject collectItemsPanel;
 
     #endregion
 
     #region PRIVATE PROPERTIES
 
     private GameStateManager gameStateManager;
+
     private GameEventsListener gameEventsListener;
 
     #endregion
@@ -38,17 +45,18 @@ public class UIController : MonoBehaviour
     private void OnEnable()
     {
         gameEventsListener.onGameOver += OpenGameOverPanel;
+        gameEventsListener.onCollectItems += OpenCollectItemsPanel;
     }
 
     private void OnDisable()
     {
         gameEventsListener.onGameOver -= OpenGameOverPanel;
+        gameEventsListener.onCollectItems -= OpenCollectItemsPanel;
     }
 
     private void PlayAgain()
     {
         gameStateManager.TriggerPlayAgainEvent();
-
         gameOverPanel.SetActive(false);
         playAgainBtn.gameObject.SetActive(false);
         gameOverPanel.transform.localScale = Vector3.zero;
@@ -60,6 +68,14 @@ public class UIController : MonoBehaviour
         gameOverPanel.SetActive(true);
         playAgainBtn.gameObject.SetActive(true);
         gameOverPanel.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
+        playAgainBtn.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
+    }
+
+    private void OpenCollectItemsPanel()
+    {
+        collectItemsPanel.SetActive(true);
+        playAgainBtn.gameObject.SetActive(true);
+        collectItemsPanel.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
         playAgainBtn.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
     }
 }

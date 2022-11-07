@@ -12,7 +12,7 @@ public class GameStateEvents : ScriptableObject
     #region ACTIONS
 
     public Action OnSpinButtonClicked;
-    public Action<WheelItemsContentData, float, int, Ease> OnSpinReady;
+    public Action<float, int, Ease> OnSpinReady;
     public Action<WheelItemsContentData> OnCreateWheelItems;
     public Action OnWheelRotateDone;
     public Action OnWheelItemsCreated;
@@ -24,14 +24,15 @@ public class GameStateEvents : ScriptableObject
     public Action OnGameOver;
     public Action OnResetGame;
     public Action OnPlayAgain;
+    public Action OnCollectItems;
 
     #endregion
 
 
     #region EVENTS TRIGGER METHODS
 
-    public void TriggerSpinReadyEvent(WheelItemsContentData contentWheelItems, float duration, int numberRotate,
-        Ease easeSpin) => OnSpinReady?.Invoke(contentWheelItems, duration, numberRotate, easeSpin);
+    public void TriggerSpinReadyEvent(float duration, int numberRotate,
+        Ease easeSpin) => OnSpinReady?.Invoke(duration, numberRotate, easeSpin);
 
     public void TriggerOnSpinButtonClickedEvent() => OnSpinButtonClicked?.Invoke();
 
@@ -56,6 +57,7 @@ public class GameStateEvents : ScriptableObject
     public void TriggerGameOverEvent() => OnGameOver?.Invoke();
     public void TriggerGameResetEvent() => OnResetGame?.Invoke();
     public void TriggerPlayAgainEvent() => OnPlayAgain?.Invoke();
+    public void TriggerOnCollectItems() => OnCollectItems?.Invoke();
 
     #endregion
 }

@@ -120,7 +120,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private void TriggerSpinReady()
     {
-        stateManager.TriggerSpinReadyEvent(contentDataCurrent, durationSpin, numberRotate, easeSpin);
+        stateManager.TriggerSpinReadyEvent(durationSpin, numberRotate, easeSpin);
     }
 
     private void ChangeWheelState()

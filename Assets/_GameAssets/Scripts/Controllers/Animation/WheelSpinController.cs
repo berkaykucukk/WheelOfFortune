@@ -7,7 +7,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(GameEventsListener))]
-public class WheelAnimationController : MonoBehaviour
+public class WheelSpinController : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
@@ -45,13 +45,14 @@ public class WheelAnimationController : MonoBehaviour
     #endregion
 
 
-
-    private void RunSpinWheel(WheelItemsContentData contentWheelItems, float durationRotate, int numberRotate,
+    private void RunSpinWheel(float durationRotate, int numberRotate,
         Ease easeSpin)
     {
+        var itemsSpawned = new List<GameObject>();
+        itemsSpawned.AddRange(gameDataManager.ItemsGameObjectsCurrentlySpawned);
         var startAngle = transform.eulerAngles.z;
-        anglePerSection = (SpinWheelAngle / contentWheelItems.ItemsOnWheel.Count);
-        var randomItem = Random.Range(0, contentWheelItems.ItemsOnWheel.Count);
+        anglePerSection = (SpinWheelAngle / itemsSpawned.Count);
+        var randomItem = Random.Range(0, itemsSpawned.Count);
         var targetAngle = (numberRotate * SpinWheelAngle) + anglePerSection * randomItem - startAngle;
         var targetAngleVector = Vector3.forward * targetAngle;
 
