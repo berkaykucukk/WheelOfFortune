@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 
 public class GameEventsListener : MonoBehaviour
@@ -15,6 +16,7 @@ public class GameEventsListener : MonoBehaviour
     public Action<WheelItemsContentData> onCreateItems;
     public Action onWheelRotateDone;
     public Action onWheelItemsCreated;
+    public Action<int, Image> onCollectAreaIconUpdate;
 
     #endregion
 
@@ -33,6 +35,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnCreateWheelItems += OnCreateItems;
         gameStateEvents.OnWheelRotateDone += OnWheelRotateDone;
         gameStateEvents.OnWheelItemsCreated += OnWheelItemsCreated;
+        gameStateEvents.OnCollectAreaIconUpdate += OnCollectAreaUpdate;
     }
 
     private void OnDisable()
@@ -42,6 +45,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnCreateWheelItems -= OnCreateItems;
         gameStateEvents.OnWheelRotateDone -= OnWheelRotateDone;
         gameStateEvents.OnWheelItemsCreated -= OnWheelItemsCreated;
+        gameStateEvents.OnCollectAreaIconUpdate -= OnCollectAreaUpdate;
     }
 
     #endregion
@@ -72,6 +76,11 @@ public class GameEventsListener : MonoBehaviour
     private void OnWheelItemsCreated()
     {
         onWheelItemsCreated?.Invoke();
+    }
+
+    private void OnCollectAreaUpdate(int id, Image icon)
+    {
+        onCollectAreaIconUpdate?.Invoke(id, icon);
     }
 
     #endregion

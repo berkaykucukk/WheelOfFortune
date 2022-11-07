@@ -9,6 +9,12 @@ using Random = UnityEngine.Random;
 
 public class WheelItemHandler : MonoBehaviour
 {
+    #region PRIVATE PROPERTIES
+
+    private int _value = 1;
+
+    #endregion
+
     #region INSPECTOR PROPERTIES
 
     [Header("Animation Values")] [SerializeField]
@@ -31,15 +37,15 @@ public class WheelItemHandler : MonoBehaviour
     public Image Icon => icon;
 
     #endregion
-    
-    public void SetValue(float value)
+
+    public void SetValue(int value)
     {
-        valueText.text = value.ToString();
+        _value = value;
+        valueText.text = _value.ToString();
     }
 
     private void Update()
     {
-        
     }
 
     public void AnimatePunch()

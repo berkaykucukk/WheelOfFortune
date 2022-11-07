@@ -20,6 +20,7 @@ public class SpinResultController : MonoBehaviour
     private List<WheelItemData> _itemsDataCurrentlySpawned;
     private List<GameObject> _itemsGameObjectsCurrentlySpawned;
     private GameEventsListener gameEventsListener;
+    private GameStateManager gameStateManager;
 
     #endregion
 
@@ -30,6 +31,7 @@ public class SpinResultController : MonoBehaviour
     {
         gameDataManager = GameDataManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
+        gameStateManager = GameStateManager.instance;
     }
 
     private void OnEnable()
@@ -70,12 +72,18 @@ public class SpinResultController : MonoBehaviour
             return;
         }
 
-        itemWheelHandler.InstantiateEffect();
+        SetCollectArea(dataSelectedItem, itemWheelHandler);
         IncreaseTotalRotateCount();
         CheckWheelZoneChange();
 
         //print("Item = " + selectedItem.ID);
         //print();
+    }
+
+    private void SetCollectArea(WheelItemData dataCurrent, WheelItemHandler itemWheelHandlerCurrent)
+    {
+        itemWheelHandlerCurrent.InstantiateEffect();
+        gameStateManager.TriggerOnCollectAreaIconUpdateEvent(dataCurrent.ID, itemWheelHandlerCurrent.Icon);
     }
 
     private void Death()

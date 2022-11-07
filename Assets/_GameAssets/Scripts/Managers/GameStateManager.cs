@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using SystemPersonel;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameStateManager : Singleton<GameStateManager>
 {
@@ -56,5 +57,10 @@ public class GameStateManager : Singleton<GameStateManager>
     public void TriggerOnWheelItemsCreatedEvent()
     {
         gameStateEvents.TriggerOnWheelItemsCreatedEvent();
+    }
+
+    public void TriggerOnCollectAreaIconUpdateEvent(int id, Image icon)
+    {
+        gameStateEvents.TriggerOnCollectAreaIconUpdateEvent(id, icon);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "WheelOfFortuneEvents", menuName = "Events/WheelOfFortuneEvents", order = 1)]
 public class GameStateEvents : ScriptableObject
@@ -15,6 +16,7 @@ public class GameStateEvents : ScriptableObject
     public Action<WheelItemsContentData> OnCreateWheelItems;
     public Action OnWheelRotateDone;
     public Action OnWheelItemsCreated;
+    public Action<int, Image> OnCollectAreaIconUpdate;
 
     #endregion
 
@@ -33,6 +35,8 @@ public class GameStateEvents : ScriptableObject
 
     public void TriggerOnWheelItemsCreatedEvent() =>
         OnWheelItemsCreated?.Invoke();
+
+    public void TriggerOnCollectAreaIconUpdateEvent(int id, Image icon) => OnCollectAreaIconUpdate?.Invoke(id, icon);
 
     #endregion
 }

@@ -14,13 +14,11 @@ public class CollectAreaItemVisualController : MonoBehaviour
     #endregion
 
 
-    public void SetIcon(float width, float height, Sprite sprite)
+    public void SetIcon(Image icon)
     {
-        var imgRect = imageIcon.rectTransform.rect;
-        imgRect.height = height;
-        imgRect.width = width;
+        imageIcon.rectTransform.sizeDelta = new Vector2(icon.rectTransform.rect.width, icon.rectTransform.rect.height);
 
-        imageIcon.sprite = sprite;
+        imageIcon.sprite = icon.sprite;
     }
 
     public void SetValue(int numberOfTotal)
