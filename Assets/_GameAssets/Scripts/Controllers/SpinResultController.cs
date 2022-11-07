@@ -68,7 +68,6 @@ public class SpinResultController : MonoBehaviour
     private void CheckResult()
     {
         var itemIndex = gameDataManager.ItemIndexEarned;
-        //var dataSelectedItem = _itemsDataCurrentlySpawned[itemIndex];
         var itemWheelGO = _itemsGameObjectsCurrentlySpawned[itemIndex];
         _itemHandlerCurrentlySelected = itemWheelGO.GetComponent<WheelItemHandler>();
 
@@ -83,11 +82,8 @@ public class SpinResultController : MonoBehaviour
         IncreaseTotalRotateCount();
         CreateNewCollectAreaIfPossible();
 
-        _itemHandlerCurrentlySelected.InstantiateEffect(parentIconEffects);
+        _itemHandlerCurrentlySelected.InstantiateCollectEffect(parentIconEffects);
         _itemHandlerCurrentlySelected.OnAnimationDone += CheckWheelZoneChange;
-
-        //print("Item = " + selectedItem.ID);
-        //print();
     }
 
     private void CreateNewCollectAreaIfPossible()
@@ -123,8 +119,7 @@ public class SpinResultController : MonoBehaviour
             state = WheelZoneStates.bronze;
 
         if (currentState != state)
-        {
-            print("Değiş");
+        { 
             gameStateManager.SetWheelState(state);
             gameStateManager.TriggerOnChangeWheelStateEvent();
         }

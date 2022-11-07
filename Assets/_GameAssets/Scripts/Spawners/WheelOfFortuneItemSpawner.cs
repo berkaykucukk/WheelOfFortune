@@ -39,6 +39,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     private void Awake()
     {
         wheelCurrent = wheelBronze;
+        panelItemsCurrent = panelItemsAreaBronze;
         gameDataManager = GameDataManager.instance;
         stateManager = GameStateManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
@@ -88,20 +89,25 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     private void ChangeWheelBronze()
     {
         wheelCurrent = wheelBronze;
+        panelItemsCurrent = panelItemsAreaBronze;
     }
 
     private void ChangeWheelSilver()
     {
         wheelCurrent = wheelSilver;
+        panelItemsCurrent = panelItemsAreaSilver;
     }
 
     private void ChangeWheelGold()
     {
         wheelCurrent = wheelGold;
+        panelItemsCurrent = panelItemsAreaGold;
     }
 
     private void InstantiateWheelItems(WheelItemsContentData contentDataCurrent)
     {
+        gameDataManager.DeleteGameObjectsCurrentlySpawned();
+
         var itemsWillSpawn = new List<WheelItemData>();
         itemsWillSpawn.AddRange(contentDataCurrent.ItemsOnWheel);
 
@@ -124,9 +130,10 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
             var itemGameObject = Instantiate(itemNextSpawn, position, Quaternion.Euler(Vector3.zero));
             itemsGameObjectsCurrentlySpawned.Add(itemGameObject);
-            itemGameObject.transform.SetParent(panelItemsAreaBronze);
-            itemGameObject.transform.localScale = Vector3.one;
 
+            itemGameObject.transform.localScale = Vector3.one;
+            itemGameObject.transform.SetParent(panelItemsCurrent);
+            
             var wheelItemHandler = itemGameObject.GetComponent<WheelItemHandler>();
             wheelItemHandler.SetId(currentItemData.ID);
             wheelItemHandler.SetRewardType(currentItemData.TypeOfReward);

@@ -99,7 +99,7 @@ public class WheelItemHandler : MonoBehaviour
         _typeOfReward = rewardType;
     }
 
-    public void InstantiateEffect(Transform effectParent)
+    public void InstantiateCollectEffect(Transform effectParent)
     {
         StartCoroutine(InstantiateEffectCoroutine(effectParent));
     }

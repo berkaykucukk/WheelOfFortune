@@ -27,7 +27,12 @@ public class GameDataManager : Singleton<GameDataManager>
 
     #endregion
 
-  
+    protected override void Awake()
+    {
+        base.Awake();
+        _itemsGameObjectsCurrentlySpawned = new List<GameObject>();
+        _itemDatasCurrentlySpawned = new List<WheelItemData>();
+    }
 
     public void SetItemIndexEarned(int itemIndexEarned)
     {
@@ -40,18 +45,19 @@ public class GameDataManager : Singleton<GameDataManager>
         _itemDatasCurrentlySpawned.AddRange(itemDatasCurrentlySpawned);
     }
 
+    public void DeleteGameObjectsCurrentlySpawned()
+    {
+        if (_itemsGameObjectsCurrentlySpawned.Count <= 0) return;
+        var localList = new List<GameObject>();
+        localList.AddRange(_itemsGameObjectsCurrentlySpawned);
+        foreach (var item in _itemsGameObjectsCurrentlySpawned)
+        {
+            Destroy(item);
+        }
+    }
+
     public void SetItemsGameObjectsCurrentlySpawned(List<GameObject> itemsGameObjectsCurrentlySpawned)
     {
-        /*if (_itemsGameObjectsCurrentlySpawned.Count > 0)
-        {
-            var localList = new List<GameObject>();
-            localList.AddRange(_itemsGameObjectsCurrentlySpawned);
-            foreach (var item in _itemsGameObjectsCurrentlySpawned)
-            {
-                Destroy(item);
-            }
-        }*/
-
         _itemsGameObjectsCurrentlySpawned = new List<GameObject>();
         _itemsGameObjectsCurrentlySpawned.AddRange(itemsGameObjectsCurrentlySpawned);
     }

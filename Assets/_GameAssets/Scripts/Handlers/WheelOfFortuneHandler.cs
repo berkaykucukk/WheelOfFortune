@@ -76,13 +76,13 @@ public class WheelOfFortuneHandler : MonoBehaviour
     private void OnEnable()
     {
         eventsListener.onSpinButtonClicked += TriggerSpinReady;
-      
+        eventsListener.onChangeWheelState += ChangeWheelState;
     }
 
     private void OnDisable()
     {
         eventsListener.onSpinButtonClicked -= TriggerSpinReady;
-       
+        eventsListener.onChangeWheelState -= ChangeWheelState;
     }
 
     #endregion
@@ -112,6 +112,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private void TriggerCreateItemsEvent()
     {
+        print("Create Items");
         stateManager.TriggerCreateItemsEvent(contentDataCurrent);
     }
 
@@ -120,9 +121,8 @@ public class WheelOfFortuneHandler : MonoBehaviour
         stateManager.TriggerSpinReadyEvent(contentDataCurrent, durationSpin, numberRotate, easeSpin);
     }
 
-    private void CheckZoneChange(WheelZoneStates wheelZoneState)
+    private void ChangeWheelState()
     {
-        
         SetCurrentWheelItemContentData();
         TriggerCreateItemsEvent();
     }
