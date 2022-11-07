@@ -17,7 +17,9 @@ public class ItemCollectAreaHandler : MonoBehaviour
 
     #region PRIVATE PROPERTIES
 
+    private int idCurrentEarnedItem;
     private List<int> itemsIdCollectArea;
+    private List<CollectAreaItemVisualController> itemsControllersCollectArea;
     private GameDataManager gameDataManager;
     private GameEventsListener gameEventsListener;
 
@@ -28,33 +30,57 @@ public class ItemCollectAreaHandler : MonoBehaviour
     private void Awake()
     {
         itemsIdCollectArea = new List<int>();
+        itemsControllersCollectArea = new List<CollectAreaItemVisualController>();
         gameDataManager = GameDataManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
     }
 
     private void OnEnable()
     {
-        gameEventsListener.onCollectAreaIconUpdate += UpdateCollectAreaIcon;
+        gameEventsListener.onCollectAreaIconCreate += CreateCollectArea;
     }
 
     private void OnDisable()
     {
-        gameEventsListener.onCollectAreaIconUpdate -= UpdateCollectAreaIcon;
+        gameEventsListener.onCollectAreaIconCreate -= CreateCollectArea;
     }
 
     #endregion
 
-    private void UpdateCollectAreaIcon(int id, Image icon)
+    private void CreateCollectArea(int id, Image icon)
     {
-        if (!CheckIsNewItem(id))
-            return;
+        if (CheckIsNewItem(id))
+        {
+            itemsIdCollectArea.Add(id);
 
-        itemsIdCollectArea.Add(id);
-        var collectAreaItem = Instantiate(prefabCollectAreaItem, panelCollectArea);
-        collectAreaItem.transform.localScale = Vector3.one;
+            var collectAreaItem = Instantiate(prefabCollectAreaItem, panelCollectArea);
+            var collectAreaController = collectAreaItem.GetComponent<CollectAreaItemVisualController>();
+            itemsControllersCollectArea.Add(collectAreaController);
+            collectAreaItem.transform.localScale = Vector3.one;
 
-        var collectAreaItemController = collectAreaItem.GetComponent<CollectAreaItemVisualController>();
-        collectAreaItemController.SetIcon(icon);
+            var collectAreaItemController = collectAreaItem.GetComponent<CollectAreaItemVisualController>();
+            collectAreaItemController.SetIcon(icon);
+            collectAreaController.SetId(id);
+        }
+        
+        UpdateCurrentEarnedItemArea(id);
+    }
+
+    private void UpdateCurrentEarnedItemArea(int id)
+    {
+        foreach (var collectAreaItem in itemsControllersCollectArea.Where(collectAreaItem => collectAreaItem.ID == id))
+        {
+            gameDataManager.SetCurrentEarnedItemArea(collectAreaItem.transform);
+        }
+    }
+
+    private void UpdateCollectAreaTotalText(int id, int value)
+    {
+        foreach (var collectAreaItem in itemsControllersCollectArea.Where(collectAreaItem => collectAreaItem.ID == id))
+        {
+            collectAreaItem.UpdateValue(value);
+            break;
+        }
     }
 
     private bool CheckIsNewItem(int id)

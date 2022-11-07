@@ -9,6 +9,7 @@ public class SpinResultController : MonoBehaviour
 {
     #region INSPECTOR PROPERTIES
 
+    [SerializeField] private Transform parentIconEffects;
     [SerializeField] private WheelOfFortuneSettings wheelOfFortuneSettings;
 
     #endregion
@@ -60,19 +61,21 @@ public class SpinResultController : MonoBehaviour
     private void CheckResult()
     {
         var itemIndex = gameDataManager.ItemIndexEarned;
-        var dataSelectedItem = _itemsDataCurrentlySpawned[itemIndex];
+        //var dataSelectedItem = _itemsDataCurrentlySpawned[itemIndex];
         var itemWheelGO = _itemsGameObjectsCurrentlySpawned[itemIndex];
-        var itemWheelHandler = itemWheelGO.GetComponent<WheelItemHandler>();
+        var itemHandlerCurrentlySelected = itemWheelGO.GetComponent<WheelItemHandler>();
 
-        itemWheelHandler.AnimatePunch();
+        itemHandlerCurrentlySelected.AnimatePunch();
 
-        if (dataSelectedItem.TypeOfReward == RewardTypes.death)
+        if (itemHandlerCurrentlySelected.TypeOfReward == RewardTypes.death)
         {
             Death();
             return;
         }
 
-        SetCollectArea(dataSelectedItem, itemWheelHandler);
+        CreateNewCollectAreaIfPossible(itemHandlerCurrentlySelected);
+        itemHandlerCurrentlySelected.InstantiateEffect(parentIconEffects);
+
         IncreaseTotalRotateCount();
         CheckWheelZoneChange();
 
@@ -80,10 +83,10 @@ public class SpinResultController : MonoBehaviour
         //print();
     }
 
-    private void SetCollectArea(WheelItemData dataCurrent, WheelItemHandler itemWheelHandlerCurrent)
+    private void CreateNewCollectAreaIfPossible(WheelItemHandler itemHandlerCurrentlySelected)
     {
-        itemWheelHandlerCurrent.InstantiateEffect();
-        gameStateManager.TriggerOnCollectAreaIconUpdateEvent(dataCurrent.ID, itemWheelHandlerCurrent.Icon);
+        gameStateManager.TriggerOnCollectAreaIconCreateEvent(itemHandlerCurrentlySelected.Id,
+            itemHandlerCurrentlySelected.Icon);
     }
 
     private void Death()

@@ -9,15 +9,12 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 {
     #region INSPECTOR PROPERTIES
 
-    
-    [Header("Wheels")]
-    [SerializeField] private GameObject wheelBronze;
+    [Header("Wheels")] [SerializeField] private GameObject wheelBronze;
     [SerializeField] private GameObject wheelSilver;
     [SerializeField] private GameObject wheelGold;
 
-    [Space] 
-    [Header("Item Areas")]
-    [SerializeField] private Transform panelItemsAreaBronze;
+    [Space] [Header("Item Areas")] [SerializeField]
+    private Transform panelItemsAreaBronze;
 
     [SerializeField] private Transform panelItemsAreaSilver;
 
@@ -80,6 +77,11 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             var position = transform.position + (direction * radius);
 
             var itemGameObject = Instantiate(itemNextSpawn, position, Quaternion.Euler(Vector3.zero));
+            
+            var wheelItemHandler = itemGameObject.GetComponent<WheelItemHandler>();
+            wheelItemHandler.SetId(itemsWillSpawn[i].ID);
+            wheelItemHandler.SetRewardType(itemsWillSpawn[i].TypeOfReward);
+            
             itemsGameObjectsCurrentlySpawned.Add(itemGameObject);
 
             itemGameObject.transform.SetParent(panelItemsAreaBronze);

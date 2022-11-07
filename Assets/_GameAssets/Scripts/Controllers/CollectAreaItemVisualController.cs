@@ -6,6 +6,15 @@ using UnityEngine.UI;
 
 public class CollectAreaItemVisualController : MonoBehaviour
 {
+    
+    
+    #region PRIVATE PROPERTIES
+
+    private int _id;
+    private float value;
+
+    #endregion
+
     #region INSPECTOR PROPERTIES
 
     [SerializeField] private Image imageIcon;
@@ -13,16 +22,24 @@ public class CollectAreaItemVisualController : MonoBehaviour
 
     #endregion
 
+    #region PUBLIC PROPERTIES
 
+    public int ID => _id;
+
+    #endregion
+    public void SetId(int id)
+    {
+        _id = id;
+    }
     public void SetIcon(Image icon)
     {
         imageIcon.rectTransform.sizeDelta = new Vector2(icon.rectTransform.rect.width, icon.rectTransform.rect.height);
-
         imageIcon.sprite = icon.sprite;
     }
 
-    public void SetValue(int numberOfTotal)
+    public void UpdateValue(int numberOfTotal)
     {
-        numberText.text = numberOfTotal.ToString();
+        value += numberOfTotal;
+        numberText.text = value.ToString();
     }
 }

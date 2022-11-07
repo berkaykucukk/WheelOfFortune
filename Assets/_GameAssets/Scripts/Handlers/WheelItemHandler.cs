@@ -11,6 +11,9 @@ public class WheelItemHandler : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
+    private GameDataManager gameDataManager;
+    private RewardTypes _typeOfReward;
+    private int _id = 0;
     private int _value = 1;
 
     #endregion
@@ -34,9 +37,16 @@ public class WheelItemHandler : MonoBehaviour
 
     #region PUBLIC PROPERTIES
 
+    public RewardTypes TypeOfReward => _typeOfReward;
+    public int Id => _id;
     public Image Icon => icon;
 
     #endregion
+
+    private void Awake()
+    {
+        gameDataManager = GameDataManager.instance;
+    }
 
     public void SetValue(int value)
     {
@@ -44,9 +54,6 @@ public class WheelItemHandler : MonoBehaviour
         valueText.text = _value.ToString();
     }
 
-    private void Update()
-    {
-    }
 
     public void AnimatePunch()
     {
@@ -54,14 +61,25 @@ public class WheelItemHandler : MonoBehaviour
             .SetEase(easeAnimation);
     }
 
-    public void InstantiateEffect()
+    public void SetId(int id)
     {
-        StartCoroutine(InstantiateEffectCoroutine());
+        _id = id;
     }
 
-    private IEnumerator InstantiateEffectCoroutine()
+    public void SetRewardType(RewardTypes rewardType)
+    {
+        _typeOfReward = rewardType;
+    }
+
+    public void InstantiateEffect(Transform effectParent)
+    {
+        StartCoroutine(InstantiateEffectCoroutine(effectParent));
+    }
+
+    private IEnumerator InstantiateEffectCoroutine(Transform effectParent)
     {
         yield return null;
+
         var localListIcons = new List<GameObject>();
 
 
@@ -72,12 +90,22 @@ public class WheelItemHandler : MonoBehaviour
             localListIcons.Add(iconGO);
         }
 
-
         foreach (var iconObj in localListIcons)
         {
             var rnd = Random.insideUnitCircle * radiusEffectExplode;
+            //rnd.y += 5f;
             iconObj.transform.DOLocalMoveX(rnd.x, .1f).SetEase(Ease.Unset);
             iconObj.transform.DOLocalMoveY(rnd.y, .1f).SetEase(Ease.Unset);
+        }
+
+        yield return new WaitForSeconds(.15f);
+
+        var currentArea = gameDataManager.İtemAreaCurrentEarned;
+        foreach (var iconObj in localListIcons)
+        {
+            iconObj.transform.SetParent(effectParent);
+            iconObj.transform.DOMoveX(currentArea.position.x, .5f).SetEase(Ease.InSine);
+            iconObj.transform.DOMoveY(currentArea.position.y, .5f).SetEase(Ease.InSine);
         }
     }
 }

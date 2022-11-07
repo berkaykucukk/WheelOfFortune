@@ -16,7 +16,7 @@ public class GameStateEvents : ScriptableObject
     public Action<WheelItemsContentData> OnCreateWheelItems;
     public Action OnWheelRotateDone;
     public Action OnWheelItemsCreated;
-    public Action<int, Image> OnCollectAreaIconUpdate;
+    public Action<int, Image> OnCollectAreaIconCreate;
 
     #endregion
 
@@ -36,7 +36,7 @@ public class GameStateEvents : ScriptableObject
     public void TriggerOnWheelItemsCreatedEvent() =>
         OnWheelItemsCreated?.Invoke();
 
-    public void TriggerOnCollectAreaIconUpdateEvent(int id, Image icon) => OnCollectAreaIconUpdate?.Invoke(id, icon);
+    public void TriggerOnCollectAreaIconCreateEvent(int id, Image icon) => OnCollectAreaIconCreate?.Invoke(id, icon);
 
     #endregion
 }

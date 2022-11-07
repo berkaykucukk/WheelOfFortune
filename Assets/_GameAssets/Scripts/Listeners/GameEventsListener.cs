@@ -16,7 +16,7 @@ public class GameEventsListener : MonoBehaviour
     public Action<WheelItemsContentData> onCreateItems;
     public Action onWheelRotateDone;
     public Action onWheelItemsCreated;
-    public Action<int, Image> onCollectAreaIconUpdate;
+    public Action<int, Image> onCollectAreaIconCreate;
 
     #endregion
 
@@ -35,7 +35,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnCreateWheelItems += OnCreateItems;
         gameStateEvents.OnWheelRotateDone += OnWheelRotateDone;
         gameStateEvents.OnWheelItemsCreated += OnWheelItemsCreated;
-        gameStateEvents.OnCollectAreaIconUpdate += OnCollectAreaUpdate;
+        gameStateEvents.OnCollectAreaIconCreate += OnCollectAreaCreate;
     }
 
     private void OnDisable()
@@ -45,7 +45,7 @@ public class GameEventsListener : MonoBehaviour
         gameStateEvents.OnCreateWheelItems -= OnCreateItems;
         gameStateEvents.OnWheelRotateDone -= OnWheelRotateDone;
         gameStateEvents.OnWheelItemsCreated -= OnWheelItemsCreated;
-        gameStateEvents.OnCollectAreaIconUpdate -= OnCollectAreaUpdate;
+        gameStateEvents.OnCollectAreaIconCreate -= OnCollectAreaCreate;
     }
 
     #endregion
@@ -78,9 +78,9 @@ public class GameEventsListener : MonoBehaviour
         onWheelItemsCreated?.Invoke();
     }
 
-    private void OnCollectAreaUpdate(int id, Image icon)
+    private void OnCollectAreaCreate(int id, Image icon)
     {
-        onCollectAreaIconUpdate?.Invoke(id, icon);
+        onCollectAreaIconCreate?.Invoke(id, icon);
     }
 
     #endregion

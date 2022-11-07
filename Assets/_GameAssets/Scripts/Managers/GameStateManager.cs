@@ -59,8 +59,8 @@ public class GameStateManager : Singleton<GameStateManager>
         gameStateEvents.TriggerOnWheelItemsCreatedEvent();
     }
 
-    public void TriggerOnCollectAreaIconUpdateEvent(int id, Image icon)
+    public void TriggerOnCollectAreaIconCreateEvent(int id, Image icon)
     {
-        gameStateEvents.TriggerOnCollectAreaIconUpdateEvent(id, icon);
+        gameStateEvents.TriggerOnCollectAreaIconCreateEvent(id, icon);
     }
 }
