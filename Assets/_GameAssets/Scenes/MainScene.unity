@@ -2479,7 +2479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fe662fe9dc7f44b957bc815bc8e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 0}
+  grid: {fileID: 993931789}
 --- !u!1 &1567645003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,6 +2537,7 @@ MonoBehaviour:
   easeGameOverPanelOpen: 0
   gameOverPanel: {fileID: 243881518}
   playAgainBtn: {fileID: 463303602}
+  collectItemsPanel: {fileID: 1246929830}
 --- !u!114 &1567645006
 MonoBehaviour:
   m_ObjectHideFlags: 0
