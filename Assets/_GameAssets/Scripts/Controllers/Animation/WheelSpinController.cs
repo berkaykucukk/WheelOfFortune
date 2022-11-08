@@ -14,7 +14,7 @@ public class WheelSpinController : MonoBehaviour
 
     private Tween tweenWheelSpin;
     private float SpinWheelAngle = 360f;
-    private GameEventsListener eventsListener;
+    private GameEventsListener gameEventsListener;
     private float spinTimer = 0;
     private float anglePerSection;
     private GameStateManager gameStateManager;
@@ -30,25 +30,24 @@ public class WheelSpinController : MonoBehaviour
     private void Awake()
     {
         gameDataManager = GameDataManager.instance;
-        eventsListener = GetComponent<GameEventsListener>();
+        gameEventsListener = GetComponent<GameEventsListener>();
         gameStateManager = GameStateManager.instance;
     }
 
     private void OnEnable()
     {
-        eventsListener.onSpinReady += RunSpinWheel;
+        gameEventsListener.onSpinReady += RunSpinWheel;
     }
 
     private void OnDisable()
     {
-        eventsListener.onSpinReady -= RunSpinWheel;
+        gameEventsListener.onSpinReady -= RunSpinWheel;
     }
 
     #endregion
 
 
-    private void RunSpinWheel(float durationRotate, int numberRotate,
-        Ease easeSpin)
+    private void RunSpinWheel(float durationRotate, int numberRotate, Ease easeSpin)
     {
         var itemsGameObjectsCurrentlySpawned = new List<GameObject>();
         itemsGameObjectsCurrentlySpawned.AddRange(gameDataManager.ItemsGameObjectsCurrentlySpawned);
@@ -57,11 +56,11 @@ public class WheelSpinController : MonoBehaviour
 
         var startAngle = transform.eulerAngles.z;
         anglePerSection = (SpinWheelAngle / itemsGameObjectsCurrentlySpawned.Count);
-        var randomItem = GetRandomWheelItem(itemsHandlersCurrentlySpawned);
-        var targetAngle = (numberRotate * SpinWheelAngle) + anglePerSection * randomItem - startAngle;
+        var randomItemIndex = GetRandomWheelItem(itemsHandlersCurrentlySpawned);
+        var targetAngle = (numberRotate * SpinWheelAngle) + anglePerSection * randomItemIndex - startAngle;
         var targetAngleVector = Vector3.forward * targetAngle;
 
-        gameDataManager.SetItemIndexEarned(randomItem);
+        gameDataManager.SetItemIndexEarned(randomItemIndex);
         tweenWheelSpin = transform.DORotate(targetAngleVector, durationRotate, RotateMode.LocalAxisAdd);
 
         tweenWheelSpin.OnComplete(TriggerOnWheelRotateDone);

@@ -10,14 +10,14 @@ public class SpinButtonController : MonoBehaviour
     #region PRIVATE PROPERTIES
 
     private Button SpinButton => GetComponent<Button>();
-    private GameStateManager stateManager;
+    private GameStateManager gameStateManager;
     private GameEventsListener gameEventsListener;
 
     #endregion
 
     private void Awake()
     {
-        stateManager = GameStateManager.instance;
+        gameStateManager = GameStateManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
     }
 
@@ -43,7 +43,7 @@ public class SpinButtonController : MonoBehaviour
     private void OnClickedSpinButton()
     {
         SetUnInteractable();
-        stateManager.TriggerSpinButtonClickEvent();
+        gameStateManager.TriggerSpinButtonClickEvent();
     }
 
     private void SetUnInteractable()

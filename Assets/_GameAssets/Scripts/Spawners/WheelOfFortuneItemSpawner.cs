@@ -29,7 +29,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     private GameObject wheelCurrent;
     private GameDataManager gameDataManager;
     private Transform panelItemsCurrent;
-    private GameStateManager stateManager;
+    private GameStateManager gameStateManager;
     private GameEventsListener gameEventsListener;
     private float accumulatedWeight = 0f;
 
@@ -42,7 +42,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         wheelCurrent = wheelBronze;
         panelItemsCurrent = panelItemsAreaBronze;
         gameDataManager = GameDataManager.instance;
-        stateManager = GameStateManager.instance;
+        gameStateManager = GameStateManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
     }
 
@@ -64,16 +64,10 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     private void SetChangeWheelStateSettings()
     {
-        var currentState = stateManager.StateCurrent;
+        var currentState = gameStateManager.StateCurrent;
         var currentWheelLocal = wheelCurrent;
-
         ResetWheelsRotations();
         currentWheelLocal.SetActive(false);
-
-        /*currentWheelLocal.transform.DOScale(Vector3.zero, .5f).SetEase(Ease.Unset).OnComplete(() =>
-        {
-            currentWheelLocal.SetActive(false);
-        });*/
         switch (currentState)
         {
             case WheelZoneStates.bronze:
@@ -88,9 +82,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
         wheelCurrent.SetActive(true);
-        //wheelCurrent.transform.DOScale(Vector3.one, .5f).SetUpdate(true).SetEase(Ease.Unset);
     }
 
     private void ChangeWheelBronze()
@@ -148,7 +140,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         gameDataManager.SetItemsGameObjectsCurrentlySpawned(itemsGameObjectsCurrentlySpawned);
 
 
-        stateManager.TriggerOnWheelItemsCreatedEvent();
+        gameStateManager.TriggerOnWheelItemsCreatedEvent();
     }
 
 

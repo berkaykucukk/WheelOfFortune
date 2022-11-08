@@ -20,26 +20,24 @@ public class WheelOfFortuneAnimationHandler : MonoBehaviour
     #endregion
 
     #region PRIVATE PROPERTIES
-
-    private GameStateManager stateManager;
-    private GameEventsListener eventsListener;
+    
+    private GameEventsListener gameEventsListener;
 
     #endregion
 
     private void Awake()
     {
-        eventsListener = GetComponent<GameEventsListener>();
-        stateManager = GameStateManager.instance;
+        gameEventsListener = GetComponent<GameEventsListener>();
     }
 
     private void OnEnable()
     {
-        eventsListener.onSpinButtonClicked += TriggerSpinReady;
+        gameEventsListener.onSpinButtonClicked += TriggerSpinReady;
     }
 
     private void OnDisable()
     {
-        eventsListener.onSpinButtonClicked -= TriggerSpinReady;
+        gameEventsListener.onSpinButtonClicked -= TriggerSpinReady;
     }
 
 

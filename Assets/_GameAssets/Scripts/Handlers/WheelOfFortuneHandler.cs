@@ -50,8 +50,8 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     #region PRIVATE PROPERTIES
 
-    private GameStateManager stateManager;
-    private GameEventsListener eventsListener;
+    private GameStateManager gameStateManager;
+    private GameEventsListener gameEventsListener;
     private WheelItemsContentData contentDataCurrent;
 
     #endregion
@@ -60,8 +60,8 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private void Awake()
     {
-        eventsListener = GetComponent<GameEventsListener>();
-        stateManager = GameStateManager.instance;
+        gameEventsListener = GetComponent<GameEventsListener>();
+        gameStateManager = GameStateManager.instance;
     }
 
     private void Start()
@@ -72,16 +72,16 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        eventsListener.onSpinButtonClicked += TriggerSpinReady;
-        eventsListener.onChangeWheelState += ChangeWheelState;
-        eventsListener.onPlayAgain += ChangeWheelState;
+        gameEventsListener.onSpinButtonClicked += TriggerSpinReady;
+        gameEventsListener.onChangeWheelState += ChangeWheelState;
+        gameEventsListener.onPlayAgain += ChangeWheelState;
     }
 
     private void OnDisable()
     {
-        eventsListener.onSpinButtonClicked -= TriggerSpinReady;
-        eventsListener.onChangeWheelState -= ChangeWheelState;
-        eventsListener.onPlayAgain += ChangeWheelState;
+        gameEventsListener.onSpinButtonClicked -= TriggerSpinReady;
+        gameEventsListener.onChangeWheelState -= ChangeWheelState;
+        gameEventsListener.onPlayAgain += ChangeWheelState;
     }
 
     #endregion
@@ -97,7 +97,7 @@ public class WheelOfFortuneHandler : MonoBehaviour
             contentsGold
         };
 
-        var stateCurrent = stateManager.StateCurrent;
+        var stateCurrent = gameStateManager.StateCurrent;
 
         foreach (var content in contentsListLocal.Where(content => content.StatementType == stateCurrent))
             contentDataCurrent = content;
@@ -106,12 +106,12 @@ public class WheelOfFortuneHandler : MonoBehaviour
     private void TriggerCreateItemsEvent()
     {
         print("Create Items");
-        stateManager.TriggerCreateItemsEvent(contentDataCurrent);
+        gameStateManager.TriggerCreateItemsEvent(contentDataCurrent);
     }
 
     private void TriggerSpinReady()
     {
-        stateManager.TriggerSpinReadyEvent(durationSpin, numberRotate, easeSpin);
+        gameStateManager.TriggerSpinReadyEvent(durationSpin, numberRotate, easeSpin);
     }
 
     private void ChangeWheelState()
