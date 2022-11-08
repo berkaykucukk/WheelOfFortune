@@ -47,6 +47,7 @@ public class UIControllerGameEnd : MonoBehaviour
     {
         gameEventsListener.onGameOver += OpenGameOverPanel;
         gameEventsListener.onCollectItems += OpenCollectItemsPanel;
+        
     }
 
     private void OnDisable()
@@ -59,9 +60,11 @@ public class UIControllerGameEnd : MonoBehaviour
     {
         gameStateManager.TriggerPlayAgainEvent();
         gameOverPanel.SetActive(false);
+        collectItemsPanel.SetActive(false);
         playAgainBtn.gameObject.SetActive(false);
         gameOverPanel.transform.localScale = Vector3.zero;
         playAgainBtn.transform.localScale = Vector3.zero;
+
     }
 
     private void OpenGameOverPanel()

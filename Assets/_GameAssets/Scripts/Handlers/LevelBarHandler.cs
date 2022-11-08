@@ -27,6 +27,7 @@ public class LevelBarHandler : MonoBehaviour
     private GameEventsListener gameEventsListener;
     private GameObject activeLevelItemGameObject;
     private Tween contentSlideTween;
+    private float widthContentAreBeginning;
 
     #endregion
 
@@ -36,6 +37,7 @@ public class LevelBarHandler : MonoBehaviour
         gameStateManager = GameStateManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
         levelBarItemControllers = new List<LevelBarItemController>();
+        widthContentAreBeginning = contentArea.sizeDelta.x;
     }
 
     private void Start()
@@ -47,11 +49,17 @@ public class LevelBarHandler : MonoBehaviour
     private void OnEnable()
     {
         gameEventsListener.onCheckNextSpin += UpdateCards;
+        gameEventsListener.onResetGame += ResetGame;
+        gameEventsListener.onCollectItems += ResetGame;
+        gameEventsListener.onPlayAgain += PlayAgain;
     }
 
     private void OnDisable()
     {
         gameEventsListener.onCheckNextSpin -= UpdateCards;
+        gameEventsListener.onResetGame -= ResetGame;
+        gameEventsListener.onCollectItems -= ResetGame;
+        gameEventsListener.onPlayAgain -= PlayAgain;
     }
 
     private void SpawnCards()
@@ -68,6 +76,7 @@ public class LevelBarHandler : MonoBehaviour
     private void UpdateCards()
     {
         var numberOfRotate = gameDataManager.NumberOfRotateTotal;
+        print("number of rotate = " + numberOfRotate);
         //var contentNext = numberOfRotate * amountContentSlide;
 
         if (numberOfRotate != 0)
@@ -111,5 +120,28 @@ public class LevelBarHandler : MonoBehaviour
             size.x = current;
             contentArea.sizeDelta = size;
         });
+    }
+
+    private void ResetGame()
+    {
+        if (activeLevelItemGameObject != null)
+            Destroy(activeLevelItemGameObject);
+
+        levelBarItemCurrent = null;
+
+        foreach (var levelBarItem in levelBarItemControllers)
+            Destroy(levelBarItem.gameObject);
+
+        levelBarItemControllers = new List<LevelBarItemController>();
+
+        var size = contentArea.sizeDelta;
+        size.x = widthContentAreBeginning;
+        contentArea.sizeDelta = size;
+    }
+
+    private void PlayAgain()
+    {
+        SpawnCards();
+        UpdateCards();
     }
 }

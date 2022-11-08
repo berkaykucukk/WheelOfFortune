@@ -64,7 +64,7 @@ public class GameDataManager : Singleton<GameDataManager>
     public void SetCollectedItems(List<CollectAreaItemVisualController> collectedItems)
     {
         _collectedItems = new List<CollectAreaItemVisualController>();
-      
+
         _collectedItems.AddRange(collectedItems);
         print(_collectedItems.Count);
     }

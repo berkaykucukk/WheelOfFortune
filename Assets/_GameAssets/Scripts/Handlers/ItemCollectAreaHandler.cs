@@ -12,7 +12,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
 
     [SerializeField] private GameObject prefabCollectAreaItem;
     [SerializeField] private Transform panelCollectArea;
-    
+
     #endregion
 
     #region PRIVATE PROPERTIES
@@ -39,7 +39,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
     {
         gameEventsListener.onCollectAreaIconCreate += CreateCollectArea;
         gameEventsListener.onCollectAreaValueUpdate += UpdateCollectAreaTotalText;
-        gameEventsListener.onResetGame += ResetGame;
+        gameEventsListener.onPlayAgain += ResetGame;
         gameEventsListener.onCollectItems += OnCollectItems;
     }
 
@@ -47,7 +47,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
     {
         gameEventsListener.onCollectAreaIconCreate -= CreateCollectArea;
         gameEventsListener.onCollectAreaValueUpdate -= UpdateCollectAreaTotalText;
-        gameEventsListener.onResetGame -= ResetGame;
+        gameEventsListener.onPlayAgain -= ResetGame;
         gameEventsListener.onCollectItems -= OnCollectItems;
     }
 
@@ -97,6 +97,7 @@ public class ItemCollectAreaHandler : MonoBehaviour
 
     private void OnCollectItems()
     {
+        print("Collect et");
         gameDataManager.SetCollectedItems(itemsControllersCollectArea);
     }
 

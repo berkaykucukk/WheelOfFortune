@@ -68,6 +68,7 @@ public class WheelSpinController : MonoBehaviour
 
     private int GetRandomWheelItem(List<WheelItemHandler> wheelItemHandlers)
     {
+        
         var totalWeight = wheelItemHandlers.Sum(wheelItem => wheelItem.DropRate);
         //print("Toplam = " + accumulatedWeight);
         var rnd = Random.Range(0, totalWeight);
@@ -77,7 +78,7 @@ public class WheelSpinController : MonoBehaviour
             if (wheelItemHandlers[i].Weight >= rnd)
                 return i;
 
-            totalWeight -= wheelItemHandlers[i].Weight;
+            rnd -= wheelItemHandlers[i].Weight;
         }
         
         return 0;

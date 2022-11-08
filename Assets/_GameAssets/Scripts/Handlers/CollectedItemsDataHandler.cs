@@ -15,6 +15,7 @@ public class CollectedItemsDataHandler : MonoBehaviour
 
     private GameEventsListener gameEventsListener;
     private GameDataManager gameDataManager;
+    private List<GameObject> collectAreaItemVisualControllers;
 
     #endregion
 
@@ -27,6 +28,13 @@ public class CollectedItemsDataHandler : MonoBehaviour
     private void OnEnable()
     {
         gameEventsListener.onCollectItems += GetAndInstantiateEarnedPrizes;
+        gameEventsListener.onPlayAgain += ResetDatas;
+    }
+
+    private void OnDisable()
+    {
+        gameEventsListener.onCollectItems -= GetAndInstantiateEarnedPrizes;
+        gameEventsListener.onPlayAgain -= ResetDatas;
     }
 
     private void GetAndInstantiateEarnedPrizes()
@@ -37,13 +45,29 @@ public class CollectedItemsDataHandler : MonoBehaviour
     private IEnumerator GetAndInstantiateEarnedPrizesCoroutine()
     {
         yield return null;
-        var localListPrizes = new List<CollectAreaItemVisualController>();
-        localListPrizes.AddRange(gameDataManager.ItemsCollected);
+        var localListCollectedItems=new List<CollectAreaItemVisualController>();
+        collectAreaItemVisualControllers = new List<GameObject>();
+        
+        localListCollectedItems.AddRange(gameDataManager.ItemsCollected);
 
-        foreach (var prize in localListPrizes)
+        foreach (var prize in localListCollectedItems)
         {
             var prizeGO = Instantiate(prize.gameObject, grid);
             prizeGO.transform.localScale = Vector3.one;
+            collectAreaItemVisualControllers.Add(prizeGO);
+        }
+    }
+
+    private void ResetDatas()
+    {
+        var collectedItemCount = collectAreaItemVisualControllers.Count;
+        if (collectedItemCount > 0)
+        {
+            for (int i = 0; i < collectedItemCount; i++)
+            {
+                Destroy(collectAreaItemVisualControllers[i].gameObject);
+            }
+            collectAreaItemVisualControllers.Clear();
         }
     }
 }
