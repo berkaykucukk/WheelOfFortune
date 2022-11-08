@@ -91,7 +91,7 @@ public class GameStateManager : Singleton<GameStateManager>
         gameStateEvents.TriggerOnIncreaseWheelItemValuesEvent();
     }
 
-    [Button("GameOVer")]
+    [Button("Game Over Test")]
     public void GameOver()
     {
         TriggerGameResetEvent();

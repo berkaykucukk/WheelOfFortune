@@ -69,6 +69,7 @@ public class WheelItemHandler : MonoBehaviour
         IncreaseValue();
     }
 
+
     private void Update()
     {
         transform.eulerAngles = Vector3.zero;
@@ -132,9 +133,9 @@ public class WheelItemHandler : MonoBehaviour
     {
         yield return null;
         var localListIcons = SpawnIconsPieces();
-        
+
         yield return new WaitForSeconds(.15f);
-        
+
         MoveIconsAtCollectAreaTarget(localListIcons, effectParent);
         yield return new WaitForSeconds(.5f);
 
@@ -182,7 +183,7 @@ public class WheelItemHandler : MonoBehaviour
         gameStateManager.TriggerOnCollectAreaValueUpdateEvent(_id, _value);
     }
 
-    private void IncreaseValue()
+    public void IncreaseValue()
     {
         var valueUpdated = _amountOfIncrease * gameDataManager.NumberOfRotateTotal + 1;
         _value = Mathf.CeilToInt(valueUpdated);

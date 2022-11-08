@@ -16,5 +16,5 @@ MonoBehaviour:
   rateDrop: 28.6
   id: 10
   prefabImageOnWheel: {fileID: 4091870557212731198, guid: 3fd66893fa77b914787e662fa70c32bb, type: 3}
-  spriteItem: {fileID: 21300000, guid: 37b20e902be294342a9ec33148b5a729, type: 3}
-  amountOfIncrease: 1
+  spriteItemAtCollectArea: {fileID: 0}
+  amountOfIncrease: 5

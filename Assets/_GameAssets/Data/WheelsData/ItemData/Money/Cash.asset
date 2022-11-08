@@ -17,4 +17,4 @@ MonoBehaviour:
   id: 8
   prefabImageOnWheel: {fileID: 5041432397559281211, guid: 0b7509aed965f9d4dad769d5aa2f6b23, type: 3}
   spriteItemAtCollectArea: {fileID: 0}
-  amountOfIncrease: 1
+  amountOfIncrease: 100

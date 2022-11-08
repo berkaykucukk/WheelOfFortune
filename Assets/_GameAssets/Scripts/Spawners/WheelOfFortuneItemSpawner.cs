@@ -82,6 +82,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
         wheelCurrent.SetActive(true);
     }
 
@@ -158,6 +159,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         wheelItemHandler.SetRewardType(currentItemData.TypeOfReward);
         wheelItemHandler.SetIncreaseAmount(currentItemData.AmountOfIncrease);
         wheelItemHandler.SetDropRate(currentItemData.DropRate);
+        //wheelItemHandler.IncreaseValue();
 
         SetAccumulatedWeightWheelItem(wheelItemHandler);
     }

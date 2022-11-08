@@ -26,6 +26,7 @@ public class LevelBarHandler : MonoBehaviour
     private LevelBarItemController levelBarItemCurrent;
     private GameEventsListener gameEventsListener;
     private GameObject activeLevelItemGameObject;
+    private Tween contentSlideTween;
 
     #endregion
 
@@ -35,6 +36,10 @@ public class LevelBarHandler : MonoBehaviour
         gameStateManager = GameStateManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
         levelBarItemControllers = new List<LevelBarItemController>();
+    }
+
+    private void Start()
+    {
         SpawnCards();
         UpdateCards();
     }
@@ -73,10 +78,10 @@ public class LevelBarHandler : MonoBehaviour
             levelBarItemCurrent.Deactivate();
             Destroy(activeLevelItemGameObject);
         }
-        
+
         levelBarItemCurrent = levelBarItemControllers[numberOfRotate];
         levelBarItemCurrent.Activate();
-        
+
         for (int i = 0; i < levelBarItemControllers.Count; i++)
         {
             var isSilver = (i + 1) % wheelOfFortuneSettings.SilverAreaInterval == 0;
@@ -87,7 +92,7 @@ public class LevelBarHandler : MonoBehaviour
             else
                 levelBarItemControllers[i].SetBlueCard();
         }
-        
+
         activeLevelItemGameObject = Instantiate(levelBarItemCurrent.gameObject, activeLevelItemParent);
         activeLevelItemGameObject.transform.localScale = Vector3.one * 1.3f;
         activeLevelItemGameObject.transform.localPosition = Vector3.zero;
@@ -95,11 +100,12 @@ public class LevelBarHandler : MonoBehaviour
 
     private void SlideContentArea()
     {
-        var current = contentArea.rect.width;
+        contentSlideTween?.Kill(true);
 
+        var current = contentArea.rect.width;
         var target = current + amountContentSlide;
-        print("Width = " + current);
-        DOTween.To(() => current, x => current = x, target, .4f).OnUpdate(() =>
+
+        contentSlideTween = DOTween.To(() => current, x => current = x, target, .4f).OnUpdate(() =>
         {
             var size = contentArea.sizeDelta;
             size.x = current;
