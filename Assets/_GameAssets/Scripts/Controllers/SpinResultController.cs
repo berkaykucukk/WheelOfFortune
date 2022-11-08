@@ -38,7 +38,6 @@ public class SpinResultController : MonoBehaviour
         gameDataManager = GameDataManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
         gameStateManager = GameStateManager.instance;
-        
     }
 
     private void OnEnable()
@@ -47,7 +46,6 @@ public class SpinResultController : MonoBehaviour
         //gameEventsListener.onCheckNextSpin += CheckWheelZoneChange;
         gameEventsListener.onWheelRotateDone += CheckResult;
         gameEventsListener.onResetGame += ResetGame;
-
     }
 
     private void OnDisable()
@@ -111,7 +109,8 @@ public class SpinResultController : MonoBehaviour
     private void CheckWheelZoneChange()
     {
         print("Check Wheel Zone Change ");
-        
+
+        gameStateManager.TriggerOnCheckNextSpinEvent();
         UnsubscribeItemHandlerAnimationEventCurrentlySelected();
 
         var currentState = gameStateManager.StateCurrent;
