@@ -10,10 +10,10 @@ public class UIControllerGameEnd : MonoBehaviour
 {
     #region INSPECTOR PROPERTIES
 
-    [Header("Game Over Panel Values")] [SerializeField]
-    private float durationGameOverPanelOpen;
+    [Header("Panel Animation Values")] [SerializeField]
+    private float durationPanelOpen;
 
-    [SerializeField] private Ease easeGameOverPanelOpen;
+    [SerializeField] private Ease easePanelOpen;
     [SerializeField] private GameObject gameOverPanel;
 
     [Space] [Header("Buttons")] [SerializeField]
@@ -67,15 +67,15 @@ public class UIControllerGameEnd : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         playAgainBtn.gameObject.SetActive(true);
-        gameOverPanel.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
-        playAgainBtn.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
+        gameOverPanel.transform.DOScale(Vector3.one, durationPanelOpen).SetEase(easePanelOpen);
+        playAgainBtn.transform.DOScale(Vector3.one, durationPanelOpen).SetEase(easePanelOpen);
     }
 
     private void OpenCollectItemsPanel()
     {
         collectItemsPanel.SetActive(true);
         playAgainBtn.gameObject.SetActive(true);
-        collectItemsPanel.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
-        playAgainBtn.transform.DOScale(Vector3.one, durationGameOverPanelOpen).SetEase(easeGameOverPanelOpen);
+        collectItemsPanel.transform.DOScale(Vector3.one, durationPanelOpen).SetEase(easePanelOpen);
+        playAgainBtn.transform.DOScale(Vector3.one, durationPanelOpen).SetEase(easePanelOpen);
     }
 }

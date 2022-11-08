@@ -47,14 +47,14 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        gameEventsListener.onCreateItems += InstantiateWheelItems;
+        gameEventsListener.onCreateItems += InstantiateWheelItemsCircle;
         gameEventsListener.onChangeWheelState += SetChangeWheelStateSettings;
         gameEventsListener.onResetGame += ResetWheelsRotations;
     }
 
     private void OnDisable()
     {
-        gameEventsListener.onCreateItems -= InstantiateWheelItems;
+        gameEventsListener.onCreateItems -= InstantiateWheelItemsCircle;
         gameEventsListener.onChangeWheelState -= SetChangeWheelStateSettings;
         gameEventsListener.onResetGame -= ResetWheelsRotations;
     }
@@ -110,7 +110,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         panelItemsCurrent = panelItemsAreaGold;
     }
 
-    private void InstantiateWheelItems(WheelItemsContentData contentDataCurrent)
+    private void InstantiateWheelItemsCircle(WheelItemsContentData contentDataCurrent)
     {
         gameDataManager.DeleteGameObjectsCurrentlySpawned();
 
