@@ -24,9 +24,10 @@ public class WheelItemHandler : MonoBehaviour
     private RewardTypes _typeOfReward;
     private float _weight;
     private int _id = 0;
-    private int _value = 1;
+    private int _value = 0;
     private float _amountOfIncrease;
     private float _dropRate;
+    private Tween punchTween;
 
     #endregion
 
@@ -66,9 +67,13 @@ public class WheelItemHandler : MonoBehaviour
         gameEventsListener = GetComponent<GameEventsListener>();
         gameStateManager = GameStateManager.instance;
         gameDataManager = GameDataManager.instance;
-        IncreaseValue();
+       
     }
 
+    private void Start()
+    {
+        IncreaseValue();
+    }
 
     private void Update()
     {
@@ -95,8 +100,9 @@ public class WheelItemHandler : MonoBehaviour
 
     public void AnimatePunch()
     {
-        transform.DOPunchScale(Vector3.one * punchPower, durationAnimation)
-            .SetEase(easeAnimation);
+        punchTween?.Kill(true);
+        punchTween = transform.DOPunchScale(Vector3.one * punchPower, durationAnimation);
+        punchTween.SetEase(easeAnimation);
     }
 
     public void SetWeight(float weight)

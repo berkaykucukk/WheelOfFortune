@@ -31,7 +31,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     private Transform panelItemsCurrent;
     private GameStateManager gameStateManager;
     private GameEventsListener gameEventsListener;
-    private float accumulatedWeight = 0f;
+    private float totalWeight = 0f;
 
     #endregion
 
@@ -50,14 +50,14 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     {
         gameEventsListener.onCreateItems += InstantiateWheelItemsCircleShape;
         gameEventsListener.onChangeWheelState += SetChangeWheelStateSettings;
-        gameEventsListener.onResetGame += ResetWheelsRotations;
+        gameEventsListener.onResetGame += ResetWheelsRotationsToZero;
     }
 
     private void OnDisable()
     {
         gameEventsListener.onCreateItems -= InstantiateWheelItemsCircleShape;
         gameEventsListener.onChangeWheelState -= SetChangeWheelStateSettings;
-        gameEventsListener.onResetGame -= ResetWheelsRotations;
+        gameEventsListener.onResetGame -= ResetWheelsRotationsToZero;
     }
 
     #endregion
@@ -66,7 +66,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     {
         var currentState = gameStateManager.StateCurrent;
         var currentWheelLocal = wheelCurrent;
-        ResetWheelsRotations();
+        ResetWheelsRotationsToZero();
         currentWheelLocal.SetActive(false);
         switch (currentState)
         {
@@ -107,7 +107,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     private void InstantiateWheelItemsCircleShape(WheelItemsContentData contentDataCurrent)
     {
         gameDataManager.DeleteGameObjectsCurrentlySpawned();
-        accumulatedWeight = 0f;
+        totalWeight = 0f;
 
         var itemPrefabsWillSpawn = new List<WheelItemData>();
         itemPrefabsWillSpawn.AddRange(contentDataCurrent.ItemsOnWheel);
@@ -161,16 +161,16 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         wheelItemHandler.SetDropRate(currentItemData.DropRate);
         //wheelItemHandler.IncreaseValue();
 
-        SetAccumulatedWeightWheelItem(wheelItemHandler);
+        SetTotalWeightWheelItem(wheelItemHandler);
     }
 
-    private void SetAccumulatedWeightWheelItem(WheelItemHandler wheelItemHandler)
+    private void SetTotalWeightWheelItem(WheelItemHandler wheelItemHandler)
     {
-        accumulatedWeight += (wheelItemHandler.DropRate);
-        wheelItemHandler.SetWeight(accumulatedWeight);
+        totalWeight += (wheelItemHandler.DropRate);
+        wheelItemHandler.SetWeight(totalWeight);
     }
 
-    private void ResetWheelsRotations()
+    private void ResetWheelsRotationsToZero()
     {
         var wheelsListLocal = new List<GameObject>
         {

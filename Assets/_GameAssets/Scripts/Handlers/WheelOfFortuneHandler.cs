@@ -12,8 +12,8 @@ public class WheelOfFortuneHandler : MonoBehaviour
 {
     #region SPIN VALUES
 
-    [BoxGroup("Spin Values")] [SerializeField]
-    private int numberOfSpinWheelItems = 8;
+    /*[BoxGroup("Spin Values")] [SerializeField]
+    private int numberOfSpinWheelItems = 8;*/
 
     [BoxGroup("Spin Values")] [SerializeField]
     private float durationSpin = 2f;
@@ -29,22 +29,19 @@ public class WheelOfFortuneHandler : MonoBehaviour
     #region INSPECTOR PROPERTIES
 
     [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private WheelItemsContentData contentDefault;
+    private WheelItemsContentData contentDataBronze;
 
     [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private WheelItemsContentData contentsBronze;
+    private WheelItemsContentData contentDataSilver;
 
     [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private WheelItemsContentData contentsSilver;
-
-    [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private WheelItemsContentData contentsGold;
+    private WheelItemsContentData contentDataGold;
 
     #endregion
 
     #region PUBLIC PROPERTIES
 
-    public int NumberOfSpinWheelItems => numberOfSpinWheelItems;
+    // public int NumberOfSpinWheelItems => numberOfSpinWheelItems;
 
     #endregion
 
@@ -92,9 +89,9 @@ public class WheelOfFortuneHandler : MonoBehaviour
     {
         var contentsListLocal = new List<WheelItemsContentData>
         {
-            contentsBronze,
-            contentsSilver,
-            contentsGold
+            contentDataBronze,
+            contentDataSilver,
+            contentDataGold
         };
 
         var stateCurrent = gameStateManager.StateCurrent;
