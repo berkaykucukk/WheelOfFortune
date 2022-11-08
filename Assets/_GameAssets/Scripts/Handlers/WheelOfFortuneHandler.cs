@@ -29,18 +29,15 @@ public class WheelOfFortuneHandler : MonoBehaviour
     #region INSPECTOR PROPERTIES
 
     [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
-    private bool useDifferentContentsAtZones;
-
-    [HideIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
     private WheelItemsContentData contentDefault;
 
-    [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
+    [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
     private WheelItemsContentData contentsBronze;
 
-    [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
+    [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
     private WheelItemsContentData contentsSilver;
 
-    [ShowIf("useDifferentContentsAtZones")] [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
+    [BoxGroup("Wheel Content Data By Zone")] [SerializeField]
     private WheelItemsContentData contentsGold;
 
     #endregion
@@ -77,14 +74,14 @@ public class WheelOfFortuneHandler : MonoBehaviour
     {
         eventsListener.onSpinButtonClicked += TriggerSpinReady;
         eventsListener.onChangeWheelState += ChangeWheelState;
-        eventsListener.onPlayAgain += RestartGame;
+        eventsListener.onPlayAgain += ChangeWheelState;
     }
 
     private void OnDisable()
     {
         eventsListener.onSpinButtonClicked -= TriggerSpinReady;
         eventsListener.onChangeWheelState -= ChangeWheelState;
-        eventsListener.onPlayAgain += RestartGame;
+        eventsListener.onPlayAgain += ChangeWheelState;
     }
 
     #endregion
@@ -93,12 +90,6 @@ public class WheelOfFortuneHandler : MonoBehaviour
 
     private void SetCurrentWheelItemContentData()
     {
-        if (!useDifferentContentsAtZones)
-        {
-            contentDataCurrent = contentDefault;
-            return;
-        }
-
         var contentsListLocal = new List<WheelItemsContentData>
         {
             contentsBronze,
@@ -129,10 +120,5 @@ public class WheelOfFortuneHandler : MonoBehaviour
         TriggerCreateItemsEvent();
     }
 
-    private void RestartGame()
-    {
-        SetCurrentWheelItemContentData();
-        TriggerCreateItemsEvent();
-    }
     #endregion
 }

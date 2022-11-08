@@ -31,6 +31,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
     private Transform panelItemsCurrent;
     private GameStateManager stateManager;
     private GameEventsListener gameEventsListener;
+    private float accumulatedWeight = 0f;
 
     #endregion
 
@@ -47,14 +48,14 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        gameEventsListener.onCreateItems += InstantiateWheelItemsCircle;
+        gameEventsListener.onCreateItems += InstantiateWheelItemsCircleShape;
         gameEventsListener.onChangeWheelState += SetChangeWheelStateSettings;
         gameEventsListener.onResetGame += ResetWheelsRotations;
     }
 
     private void OnDisable()
     {
-        gameEventsListener.onCreateItems -= InstantiateWheelItemsCircle;
+        gameEventsListener.onCreateItems -= InstantiateWheelItemsCircleShape;
         gameEventsListener.onChangeWheelState -= SetChangeWheelStateSettings;
         gameEventsListener.onResetGame -= ResetWheelsRotations;
     }
@@ -110,15 +111,17 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
         panelItemsCurrent = panelItemsAreaGold;
     }
 
-    private void InstantiateWheelItemsCircle(WheelItemsContentData contentDataCurrent)
+    private void InstantiateWheelItemsCircleShape(WheelItemsContentData contentDataCurrent)
     {
         gameDataManager.DeleteGameObjectsCurrentlySpawned();
+        accumulatedWeight = 0f;
 
-        var itemsWillSpawn = new List<WheelItemData>();
-        itemsWillSpawn.AddRange(contentDataCurrent.ItemsOnWheel);
+        var itemPrefabsWillSpawn = new List<WheelItemData>();
+        itemPrefabsWillSpawn.AddRange(contentDataCurrent.ItemsOnWheel);
 
-        var numberOfItems = itemsWillSpawn.Count;
+        var numberOfItems = itemPrefabsWillSpawn.Count;
         var angle = 360f / numberOfItems;
+
         var radius = Vector3.Distance(referenceCalculateRadiusWheelImage.position, transform.position);
 
         var itemsDataCurrentlySpawned = new List<WheelItemData>();
@@ -126,24 +129,19 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
         for (int i = 0; i < numberOfItems; i++)
         {
-            var currentItemData = itemsWillSpawn[i];
+            var currentItemData = itemPrefabsWillSpawn[i];
             var itemNextSpawn = currentItemData.PrefabImageOnWheel;
-            itemsDataCurrentlySpawned.Add(itemsWillSpawn[i]);
+            itemsDataCurrentlySpawned.Add(itemPrefabsWillSpawn[i]);
 
             var rotation = Quaternion.AngleAxis(i * angle, Vector3.back);
             var direction = rotation * Vector3.up;
             var position = transform.position + (direction * radius);
 
-            var itemGameObject = Instantiate(itemNextSpawn, position, Quaternion.Euler(Vector3.zero));
+            var itemGameObject = CreateAndSetTransformWheelItem(itemNextSpawn, position);
             itemsGameObjectsCurrentlySpawned.Add(itemGameObject);
-            itemGameObject.transform.SetParent(panelItemsCurrent);
-            itemGameObject.transform.localScale = Vector3.one;
 
             var wheelItemHandler = itemGameObject.GetComponent<WheelItemHandler>();
-            wheelItemHandler.SetId(currentItemData.ID);
-            wheelItemHandler.SetRewardType(currentItemData.TypeOfReward);
-            wheelItemHandler.SetIncreaseAmount(currentItemData.AmountOfIncrease);
-            wheelItemHandler.SetDropRate(currentItemData.DropRate);
+            SetPropertiesWheelItem(currentItemData, wheelItemHandler);
         }
 
         gameDataManager.SetItemDatasCurrentlySpawned(itemsDataCurrentlySpawned);
@@ -151,6 +149,31 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
 
 
         stateManager.TriggerOnWheelItemsCreatedEvent();
+    }
+
+
+    private GameObject CreateAndSetTransformWheelItem(GameObject itemPrefab, Vector3 position)
+    {
+        var itemGameObject = Instantiate(itemPrefab, position, Quaternion.Euler(Vector3.zero));
+        itemGameObject.transform.SetParent(panelItemsCurrent);
+        itemGameObject.transform.localScale = Vector3.one;
+        return itemGameObject;
+    }
+
+    private void SetPropertiesWheelItem(WheelItemData currentItemData, WheelItemHandler wheelItemHandler)
+    {
+        wheelItemHandler.SetId(currentItemData.ID);
+        wheelItemHandler.SetRewardType(currentItemData.TypeOfReward);
+        wheelItemHandler.SetIncreaseAmount(currentItemData.AmountOfIncrease);
+        wheelItemHandler.SetDropRate(currentItemData.DropRate);
+
+        SetAccumulatedWeightWheelItem(wheelItemHandler);
+    }
+
+    private void SetAccumulatedWeightWheelItem(WheelItemHandler wheelItemHandler)
+    {
+        accumulatedWeight += (wheelItemHandler.DropRate);
+        wheelItemHandler.SetWeight(accumulatedWeight);
     }
 
     private void ResetWheelsRotations()

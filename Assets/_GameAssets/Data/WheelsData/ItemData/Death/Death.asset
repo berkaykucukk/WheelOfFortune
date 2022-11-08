@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Death
   m_EditorClassIdentifier: 
   typeOfReward: 4
-  rateDrop: 28.6
+  rateDrop: 10
   id: 5
   prefabImageOnWheel: {fileID: 2502072418591071566, guid: d6d43d955602ba4418a990a1aac05954, type: 3}
-  spriteItem: {fileID: 21300000, guid: 729850cd2f34d204a8a9ebbf02459116, type: 3}
+  spriteItemAtCollectArea: {fileID: 0}
   amountOfIncrease: 1

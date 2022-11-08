@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class WheelSpinController : MonoBehaviour
     private GameStateManager gameStateManager;
     private float halfPieceAngle;
     private GameDataManager gameDataManager;
+    private System.Random rand = new System.Random();
 
     #endregion
 
@@ -48,11 +50,14 @@ public class WheelSpinController : MonoBehaviour
     private void RunSpinWheel(float durationRotate, int numberRotate,
         Ease easeSpin)
     {
-        var itemsSpawned = new List<GameObject>();
-        itemsSpawned.AddRange(gameDataManager.ItemsGameObjectsCurrentlySpawned);
+        var itemsGameObjectsCurrentlySpawned = new List<GameObject>();
+        itemsGameObjectsCurrentlySpawned.AddRange(gameDataManager.ItemsGameObjectsCurrentlySpawned);
+        var itemsHandlersCurrentlySpawned = itemsGameObjectsCurrentlySpawned
+            .Select(wheelItem => wheelItem.GetComponent<WheelItemHandler>()).ToList();
+
         var startAngle = transform.eulerAngles.z;
-        anglePerSection = (SpinWheelAngle / itemsSpawned.Count);
-        var randomItem = Random.Range(0, itemsSpawned.Count);
+        anglePerSection = (SpinWheelAngle / itemsGameObjectsCurrentlySpawned.Count);
+        var randomItem = GetRandomWheelItem(itemsHandlersCurrentlySpawned);
         var targetAngle = (numberRotate * SpinWheelAngle) + anglePerSection * randomItem - startAngle;
         var targetAngleVector = Vector3.forward * targetAngle;
 
@@ -60,6 +65,27 @@ public class WheelSpinController : MonoBehaviour
         tweenWheelSpin = transform.DORotate(targetAngleVector, durationRotate, RotateMode.LocalAxisAdd);
 
         tweenWheelSpin.OnComplete(TriggerOnWheelRotateDone);
+    }
+
+    private int GetRandomWheelItem(List<WheelItemHandler> wheelItemHandlers)
+    {
+        var accumulatedWeight = wheelItemHandlers.Sum(wheelItem => wheelItem.DropRate);
+
+        //print("Toplam = " + accumulatedWeight);
+
+        var rnd = Random.Range(0, accumulatedWeight);
+
+        for (int i = 0; i < wheelItemHandlers.Count; i++)
+        {
+            //print("item Weight= " + wheelItemHandlers[i].Weight);
+            if (wheelItemHandlers[i].Weight >= rnd)
+                return i;
+
+            accumulatedWeight -= wheelItemHandlers[i].Weight;
+        }
+
+
+        return 0;
     }
 
     private void TriggerOnWheelRotateDone()

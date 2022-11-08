@@ -22,6 +22,7 @@ public class WheelItemHandler : MonoBehaviour
     private GameStateManager gameStateManager;
     private GameDataManager gameDataManager;
     private RewardTypes _typeOfReward;
+    private float _weight;
     private int _id = 0;
     private int _value = 1;
     private float _amountOfIncrease;
@@ -48,6 +49,7 @@ public class WheelItemHandler : MonoBehaviour
 
     #region PUBLIC PROPERTIES
 
+    public float Weight => _weight;
     public RewardTypes TypeOfReward => _typeOfReward;
     public int Id => _id;
     public float AmountOfIncrease => _amountOfIncrease;
@@ -96,6 +98,11 @@ public class WheelItemHandler : MonoBehaviour
             .SetEase(easeAnimation);
     }
 
+    public void SetWeight(float weight)
+    {
+        _weight = weight;
+    }
+
     public void SetId(int id)
     {
         _id = id;
@@ -130,6 +137,7 @@ public class WheelItemHandler : MonoBehaviour
         for (int i = 0; i < numberOfSpawnIcon; i++)
         {
             var rnd = Random.insideUnitCircle * radiusEffectExplode;
+            rnd.y += 5f;
             var iconGO = Instantiate(icon.gameObject, transform);
             iconGO.transform.localScale = Vector3.one * .8F;
             iconGO.transform.DOLocalMoveX(rnd.x, .1f).SetEase(Ease.Unset);

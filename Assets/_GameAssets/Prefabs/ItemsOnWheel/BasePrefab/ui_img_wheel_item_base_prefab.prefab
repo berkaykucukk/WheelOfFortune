@@ -266,8 +266,8 @@ MonoBehaviour:
   punchPower: 0.5
   durationAnimation: 0.15
   easeAnimation: 0
-  numberOfSpawnIcon: 4
-  radiusEffectExplode: 100
+  numberOfSpawnIcon: 5
+  radiusEffectExplode: 120
   valueText: {fileID: 3622920051609440308}
   icon: {fileID: 4752491635855111254}
 --- !u!114 &277557756180944198
