@@ -67,9 +67,8 @@ public class WheelItemHandler : MonoBehaviour
         gameEventsListener = GetComponent<GameEventsListener>();
         gameStateManager = GameStateManager.instance;
         gameDataManager = GameDataManager.instance;
-       
     }
-    
+
 
     private void Update()
     {
@@ -185,11 +184,11 @@ public class WheelItemHandler : MonoBehaviour
         gameStateManager.TriggerOnCollectAreaValueUpdateEvent(_id, _value);
     }
 
-    public void IncreaseValue()
+    private void IncreaseValue()
     {
         var valueUpdated = _amountOfIncrease * (gameDataManager.NumberOfRotateTotal + 1);
         _value = Mathf.CeilToInt(valueUpdated);
         UpdateText();
-        print("Selam");
+        //print("Selam");
     }
 }

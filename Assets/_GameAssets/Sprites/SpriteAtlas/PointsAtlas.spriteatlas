@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PointsAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 4589d4a8eeb528248be6421033da0b3b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 37b20e902be294342a9ec33148b5a729, type: 3}
+  - {fileID: 21300000, guid: c6da1e71f62cceb42b1965a68e32b57a, type: 3}
+  - {fileID: 21300000, guid: 4cc3d887aed45cd409c646c96ec54b39, type: 3}
+  - {fileID: 21300000, guid: 035ccbf9805287046acdc4b73b52d03b, type: 3}
+  - {fileID: 21300000, guid: fc00511a8c2890145993a79d6f283d11, type: 3}
+  - {fileID: 21300000, guid: 020e267a07487c044a411954d000d021, type: 3}
+  - {fileID: 21300000, guid: 90c4ce6cc9685b34f98e5d666e472135, type: 3}
+  - {fileID: 21300000, guid: e03a49eccbdf8054c9f8113a11274a50, type: 3}
+  - {fileID: 21300000, guid: 138ffd2df716e784e84e821db8d09890, type: 3}
+  - {fileID: 21300000, guid: 9aca62ed94a795c41b8c30ff44affdac, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - UI_Icons_Knife_Points
+  - UI_Icons_Armor_Points
+  - UI_Icons_Submachine_Points
+  - UI_Icons_Pistol_Points_
+  - UI_Icons_Shotgun_Points
+  - UI_Icons_Pistol_Points
+  - UI_Icons_SMG_Points
+  - UI_Icons_Rifle_Points
+  - UI_Icons_Sniper_Points
+  - UI_Icons_Vest_Points
+  m_RenderDataMap: {}
+  m_Tag: PointsAtlas
+  m_IsVariant: 0

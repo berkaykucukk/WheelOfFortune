@@ -23,10 +23,12 @@ public class CollectedItemsDataHandler : MonoBehaviour
     {
         gameDataManager = GameDataManager.instance;
         gameEventsListener = GetComponent<GameEventsListener>();
+       
     }
 
     private void OnEnable()
     {
+        collectAreaItemVisualControllers = new List<GameObject>();
         gameEventsListener.onCollectItems += GetAndInstantiateEarnedPrizes;
         gameEventsListener.onPlayAgain += ResetDatas;
     }
@@ -45,9 +47,9 @@ public class CollectedItemsDataHandler : MonoBehaviour
     private IEnumerator GetAndInstantiateEarnedPrizesCoroutine()
     {
         yield return null;
-        var localListCollectedItems=new List<CollectAreaItemVisualController>();
+        var localListCollectedItems = new List<CollectAreaItemVisualController>();
         collectAreaItemVisualControllers = new List<GameObject>();
-        
+
         localListCollectedItems.AddRange(gameDataManager.ItemsCollected);
 
         foreach (var prize in localListCollectedItems)
@@ -60,6 +62,11 @@ public class CollectedItemsDataHandler : MonoBehaviour
 
     private void ResetDatas()
     {
+        if (collectAreaItemVisualControllers.Count <= 0)
+        {
+            return;
+        }
+
         var collectedItemCount = collectAreaItemVisualControllers.Count;
         if (collectedItemCount > 0)
         {
@@ -67,6 +74,7 @@ public class CollectedItemsDataHandler : MonoBehaviour
             {
                 Destroy(collectAreaItemVisualControllers[i].gameObject);
             }
+
             collectAreaItemVisualControllers.Clear();
         }
     }

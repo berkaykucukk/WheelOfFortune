@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: cardZonesAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: f4acbb34e56b0de4db0b96cae6989ddc, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: a01369a051200d840bea516b25cfc48b, type: 3}
+  - {fileID: 21300000, guid: ab595c01f6339e544af913c483046caa, type: 3}
+  - {fileID: 21300000, guid: 8936bf71263550948a43c5e3266606a1, type: 3}
+  - {fileID: 21300000, guid: 5dc688534b37d3c45b3288169e4e5245, type: 3}
+  - {fileID: 21300000, guid: 38f530a35634cf54e825a16a3e99f7c9, type: 3}
+  - {fileID: 21300000, guid: c99467b6ceff6b449beeaf120268ab55, type: 3}
+  - {fileID: 21300000, guid: 4b8aec88eb15597499bffd44784c7a38, type: 3}
+  - {fileID: 21300000, guid: 1ad4e5ba893e1554fa9d354d2b4caf08, type: 3}
+  - {fileID: 21300000, guid: 030a473c6d02494409624fd9c9029fcb, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ui_card_frame_gardient
+  - ui_card_panel_zone_white
+  - ui_card_panel_zone_current
+  - ui_card_frame_4px_zone
+  - ui_card_panel_zone_super
+  - ui_card_panel_zone_bg
+  - ui_card_frame_12px_neutral
+  - ui_card_panel_zone_coming
+  - ui_card_panel_zone_current_white
+  m_RenderDataMap: {}
+  m_Tag: cardZonesAtlas
+  m_IsVariant: 0

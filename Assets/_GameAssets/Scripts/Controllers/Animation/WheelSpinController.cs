@@ -20,7 +20,6 @@ public class WheelSpinController : MonoBehaviour
     private GameStateManager gameStateManager;
     private float halfPieceAngle;
     private GameDataManager gameDataManager;
-    
 
     #endregion
 
@@ -68,9 +67,9 @@ public class WheelSpinController : MonoBehaviour
 
     private int GetRandomWheelItem(List<WheelItemHandler> wheelItemHandlers)
     {
-        
         var totalWeight = wheelItemHandlers.Sum(wheelItem => wheelItem.DropRate);
-        //print("Toplam = " + accumulatedWeight);
+        wheelItemHandlers = Sort(wheelItemHandlers);
+
         var rnd = Random.Range(0, totalWeight);
 
         for (int i = 0; i < wheelItemHandlers.Count; i++)
@@ -78,10 +77,15 @@ public class WheelSpinController : MonoBehaviour
             if (wheelItemHandlers[i].Weight >= rnd)
                 return i;
 
-            rnd -= wheelItemHandlers[i].Weight;
+            //rnd -= wheelItemHandlers[i].Weight;
         }
-        
+
         return 0;
+    }
+
+    private List<WheelItemHandler> Sort(List<WheelItemHandler> wheelItemHandlers)
+    {
+        return wheelItemHandlers.OrderBy(item => item.Weight).ToList();
     }
 
     private void TriggerOnWheelRotateDone()

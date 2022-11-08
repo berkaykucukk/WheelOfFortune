@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89eb7e9a7f9e324da1262d976990246, type: 3}
+  m_Name: Death
+  m_EditorClassIdentifier: 
+  typeOfReward: 4
+  rateDrop: 16
+  id: 5
+  prefabImageOnWheel: {fileID: 2502072418591071566, guid: d6d43d955602ba4418a990a1aac05954, type: 3}
+  spriteItemAtCollectArea: {fileID: 0}
+  amountOfIncrease: 1
