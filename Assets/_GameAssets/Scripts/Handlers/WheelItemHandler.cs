@@ -131,9 +131,27 @@ public class WheelItemHandler : MonoBehaviour
     private IEnumerator InstantiateEffectCoroutine(Transform effectParent)
     {
         yield return null;
+        var localListIcons = SpawnIconsPieces();
+        
+        yield return new WaitForSeconds(.15f);
+        
+        MoveIconsAtCollectAreaTarget(localListIcons, effectParent);
+        yield return new WaitForSeconds(.5f);
 
-        var localListIcons = new List<GameObject>();
+        var iconsWillDelete = new List<GameObject>();
+        iconsWillDelete.AddRange(localListIcons);
+        for (int i = 0; i < localListIcons.Count; i++)
+        {
+            Destroy(iconsWillDelete[i].gameObject);
+        }
 
+        TriggerUpdateCollectAreaValue();
+        OnAnimationDone?.Invoke();
+    }
+
+    private List<GameObject> SpawnIconsPieces()
+    {
+        var iconList = new List<GameObject>();
         for (int i = 0; i < numberOfSpawnIcon; i++)
         {
             var rnd = Random.insideUnitCircle * radiusEffectExplode;
@@ -142,33 +160,22 @@ public class WheelItemHandler : MonoBehaviour
             iconGO.transform.localScale = Vector3.one * .8F;
             iconGO.transform.DOLocalMoveX(rnd.x, .1f).SetEase(Ease.Unset);
             iconGO.transform.DOLocalMoveY(rnd.y, .1f).SetEase(Ease.Unset);
-            localListIcons.Add(iconGO);
+            iconList.Add(iconGO);
         }
 
-        yield return new WaitForSeconds(.15f);
+        return iconList;
+    }
 
+    private void MoveIconsAtCollectAreaTarget(List<GameObject> icons, Transform effectParent)
+    {
         var currentArea = gameDataManager.İtemAreaCurrentEarned;
-        foreach (var iconObj in localListIcons)
+        foreach (var iconObj in icons)
         {
             iconObj.transform.SetParent(effectParent);
             iconObj.transform.DOMoveX(currentArea.position.x, .5f).SetEase(Ease.InSine);
             iconObj.transform.DOMoveY(currentArea.position.y, .5f).SetEase(Ease.InSine);
         }
-
-        yield return new WaitForSeconds(.5f);
-
-        var deleteList = new List<GameObject>();
-        deleteList.AddRange(localListIcons);
-
-        for (int i = 0; i < localListIcons.Count; i++)
-        {
-            Destroy(deleteList[i].gameObject);
-        }
-
-        TriggerUpdateCollectAreaValue();
-        OnAnimationDone?.Invoke();
     }
-
 
     private void TriggerUpdateCollectAreaValue()
     {
