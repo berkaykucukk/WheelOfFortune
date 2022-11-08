@@ -20,7 +20,7 @@ public class WheelSpinController : MonoBehaviour
     private GameStateManager gameStateManager;
     private float halfPieceAngle;
     private GameDataManager gameDataManager;
-    private System.Random rand = new System.Random();
+    
 
     #endregion
 

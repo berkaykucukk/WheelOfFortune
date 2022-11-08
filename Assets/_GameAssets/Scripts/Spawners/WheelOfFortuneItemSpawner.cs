@@ -137,6 +137,7 @@ public class WheelOfFortuneItemSpawner : MonoBehaviour
             SetPropertiesWheelItem(currentItemData, wheelItemHandler);
         }
 
+        gameStateManager.TriggerOnIncreaseWheelItemValuesEvent();
         gameDataManager.SetItemDatasCurrentlySpawned(itemsDataCurrentlySpawned);
         gameDataManager.SetItemsGameObjectsCurrentlySpawned(itemsGameObjectsCurrentlySpawned);
 

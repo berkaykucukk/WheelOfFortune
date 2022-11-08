@@ -24,7 +24,7 @@ public class WheelItemHandler : MonoBehaviour
     private RewardTypes _typeOfReward;
     private float _weight;
     private int _id = 0;
-    private int _value = 0;
+    private int _value;
     private float _amountOfIncrease;
     private float _dropRate;
     private Tween punchTween;
@@ -69,11 +69,7 @@ public class WheelItemHandler : MonoBehaviour
         gameDataManager = GameDataManager.instance;
        
     }
-
-    private void Start()
-    {
-        IncreaseValue();
-    }
+    
 
     private void Update()
     {
@@ -191,8 +187,9 @@ public class WheelItemHandler : MonoBehaviour
 
     public void IncreaseValue()
     {
-        var valueUpdated = _amountOfIncrease * gameDataManager.NumberOfRotateTotal + 1;
+        var valueUpdated = _amountOfIncrease * (gameDataManager.NumberOfRotateTotal + 1);
         _value = Mathf.CeilToInt(valueUpdated);
         UpdateText();
+        print("Selam");
     }
 }
