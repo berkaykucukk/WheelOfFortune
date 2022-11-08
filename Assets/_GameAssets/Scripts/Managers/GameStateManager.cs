@@ -32,6 +32,7 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         base.Awake();
         stateCurrent = stateBeginning;
+        Application.targetFrameRate = 60;
     }
 
     public void SetWheelState(WheelZoneStates wheelZoneState)

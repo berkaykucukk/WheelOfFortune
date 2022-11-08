@@ -9,11 +9,13 @@ public class SpinButtonController : MonoBehaviour
 {
     #region PRIVATE PROPERTIES
 
-    private Button SpinButton => GetComponent<Button>();
+    private Button SpinButton;
     private GameStateManager gameStateManager;
     private GameEventsListener gameEventsListener;
 
     #endregion
+
+    #region UNITY METHODS
 
     private void Awake()
     {
@@ -21,11 +23,18 @@ public class SpinButtonController : MonoBehaviour
         gameEventsListener = GetComponent<GameEventsListener>();
     }
 
+
     private void OnEnable()
     {
         gameEventsListener.onGameOver += SetUnInteractable;
         gameEventsListener.onIncreaseWheelItemValues += SetInteractable;
         gameEventsListener.onPlayAgain += SetInteractable;
+    }
+
+    private void Start()
+    {
+        SpinButton = GetComponent<Button>();
+        SpinButton.onClick.AddListener(OnClickedSpinButton);
     }
 
     private void OnDisable()
@@ -35,9 +44,12 @@ public class SpinButtonController : MonoBehaviour
         gameEventsListener.onPlayAgain -= SetInteractable;
     }
 
+    #endregion
+
+
     private void OnValidate()
     {
-        SpinButton.onClick.AddListener(OnClickedSpinButton);
+        //print("çalış");
     }
 
     private void OnClickedSpinButton()

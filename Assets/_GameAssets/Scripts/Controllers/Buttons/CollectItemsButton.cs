@@ -19,7 +19,7 @@ public class CollectItemsButton : MonoBehaviour
         gameStateManager = GameStateManager.instance;
     }
 
-    private void OnValidate()
+    private void Start()
     {
         buttonCollect = GetComponent<Button>();
         buttonCollect.onClick.AddListener(CollectItems);

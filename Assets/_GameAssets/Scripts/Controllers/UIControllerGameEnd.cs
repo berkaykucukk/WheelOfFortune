@@ -31,15 +31,16 @@ public class UIControllerGameEnd : MonoBehaviour
 
     #endregion
 
-    private void OnValidate()
-    {
-        playAgainBtn.onClick.AddListener(PlayAgain);
-    }
 
     private void Awake()
     {
         gameEventsListener = GetComponent<GameEventsListener>();
         gameStateManager = GameStateManager.instance;
+    }
+
+    private void Start()
+    {
+        playAgainBtn.onClick.AddListener(PlayAgain);
     }
 
     private void OnEnable()
